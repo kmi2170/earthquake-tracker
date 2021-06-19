@@ -1,25 +1,10 @@
-// import '../styles/globals.css';
-// import { QueryClient, QueryClientProvider } from 'react-query';
-// import { ReactQueryDevtools } from 'react-query/devtools';
-
-// const queryClient = new QueryClient();
-
-// function MyApp({ Component, pageProps }) {
-//   return (
-//     <QueryClientProvider client={queryClient}>
-//       <Component {...pageProps} />
-//       <ReactQueryDevtools />
-//     </QueryClientProvider>
-//   );
-// }
-
-// export default MyApp;
-
 import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
+import { Hydrate } from 'react-query/hydration';
+import queryClient from '../utils/reactQuery';
 
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -29,7 +14,7 @@ import theme from '../utils/theme';
 
 import '../styles/globals.css';
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   React.useEffect(() => {
@@ -43,17 +28,21 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <Head>
-          <title>Earthquake Tracker</title>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Head>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-        <ReactQueryDevtools />
+        <Hydrate state={pageProps.dehydratedState}>
+          <Head>
+            <title>Earthquake Tracker</title>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width"
+            />
+          </Head>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+          {/* 
+          <ReactQueryDevtools />
+      */}
+        </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>
   );

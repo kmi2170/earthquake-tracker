@@ -1,7 +1,13 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
+
 import { useQuery } from 'react-query';
+import queryClient from '../utils/reactQuery';
+import { dehydrate } from 'react-query/hydration';
+
 import axios from 'axios';
+
 import dynamic from 'next/dynamic';
+import { GetServerSideProps, GetStaticProps } from 'next';
 
 import {
   Container,
@@ -214,3 +220,22 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+//export const getServerSideProps: GetServerSideProps = async () => {
+//  //export const getStaticProps: GetStaticProps = async () => {
+//  const period = 3;
+//  const minMag = 4;
+//  const { starttime, endtime } = getStartEndTime(period);
+
+//  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
+
+//  //export const getServerSideProps: GetServerSideProps = async () => {
+//  await queryClient.prefetchQuery(['eqData', url], () => fetcher(url));
+//  console.log('SSR');
+
+//  return {
+//    props: {
+//      dehydratedState: dehydrate(queryClient),
+//    },
+//  };
+//};

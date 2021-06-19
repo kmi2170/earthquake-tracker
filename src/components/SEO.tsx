@@ -35,9 +35,9 @@ const config = {
   //   summary: 'Web developer/programmer',
   // },
   description:
-    'Simple earthquake track application, created by Next.js. React-QUery, React-Leaflet, Material-UI. The latest earthquake information, the last day, 3 days, 7 days 14 days and 30days, can be viewd on Leaflet Map and lists in Material-UI Table. Earthquake data is retrieved from USGS with React-Query',
+    'Simple earthquake track application, created with Next.js. React-QUery, React-Leaflet, Material-UI. The latest earthquake event information (the last day, 3 days, 7 days 14 days and 30days) can be viewd on Leaflet Map andin lists in Material-UI Table. Earthquake data is retrieved from USGS with React-Query. Earthquake events appear on the map as circles, colored according to magnitude. Hovering cursor over a circle trigger a pop-up window that contains the detailed information of the earthquake event. The table shows magnitude, place, date-time of each event, and sortable by magnitude and time. It also has pagination function. By clicking each event in the table, the view of the map shifts to and zooms in, with animation effect, the palce (epicenter) where the eqrthquake event happed',
   keywords:
-    'Earthquake, Tracker, Web Application, Next.js, React.js, React-Query, React-Leaflet, Material-UI',
+    'Earthquake Tracker, Web Application, Next.js, React.js, React-Query, React-Leaflet, Material-UI',
   social: {
     twitter: '',
   },
