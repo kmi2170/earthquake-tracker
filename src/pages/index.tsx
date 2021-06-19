@@ -35,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
     // backgroundImage: 'linear-gradient(white,grey)',
     backgroundImage:
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(250,250,210,1))',
-      'linear-gradient(to bottom, rgba(0,0,0,0), rgba(218,165,32,.2))',
+      //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(218,165,32,.2))',
+      'linear-gradient(to bottom, rgb(102,255,255,0.15), rgba(218,165,32,0.25))',
+    margin: 0,
+    padding: 0,
   },
   container: {
     // padding: 0,
@@ -222,7 +225,7 @@ const Home: React.FC = () => {
 export default Home;
 
 //export const getServerSideProps: GetServerSideProps = async () => {
-//  //export const getStaticProps: GetStaticProps = async () => {
+//export const getStaticProps: GetStaticProps = async () => {
 //  const period = 3;
 //  const minMag = 4;
 //  const { starttime, endtime } = getStartEndTime(period);
