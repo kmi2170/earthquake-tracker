@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
   },
   legend: {
-    padding: '0 0.5rem',
-    marginBottom: '0.2rem',
+    padding: '0 0.3rem',
+    marginBottom: '0.1rem',
     borderRadius: '5px',
     borderStyle: 'solid',
     borderColor: 'grey',
     backgroundColor: 'grey',
     color: 'white',
     fontStyle: 'bold',
-    fontSize: '.9rem',
+    fontSize: '.85rem',
   },
   magS: {
     color: magColor(4.0),

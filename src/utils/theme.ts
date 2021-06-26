@@ -35,7 +35,7 @@ let theme = createMuiTheme({
       'Roboto',
       'sans-serif',
       // 'Rubik',
-      // 'Oswald',
+      'Oswald',
       // 'Raleway',
     ].join(','),
 

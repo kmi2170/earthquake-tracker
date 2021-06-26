@@ -36,9 +36,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage:
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(250,250,210,1))',
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(218,165,32,.2))',
-      'linear-gradient(to bottom, rgb(102,255,255,0.15), rgba(218,165,32,0.25))',
-    margin: 0,
-    padding: 0,
+      // 'linear-gradient(to bottom, rgb(102,255,255,0.15), rgba(218,165,32,0.25))',
+      'linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))',
   },
   container: {
     // padding: 0,
@@ -60,18 +59,19 @@ const useStyles = makeStyles((theme) => ({
 const fetcher = async (url: string) => {
   try {
     const { data } = await axios(url);
-    // console.log(data);
+    //console.log(data);
     return data;
   } catch (error) {
     console.log(error);
-    alert('Data loading faield. Try again later.');
   }
 };
 
 const config = {
   keepPreviousData: true,
   cacheTime: 10000,
-  onSuccess: () => console.log('Success data fetching'),
+  onSuccess: () => {
+    console.log('Success data fetching');
+  },
 };
 
 const Home: React.FC = () => {
@@ -112,7 +112,7 @@ const Home: React.FC = () => {
 
   // console.log(url);
 
-  const { data, isLoading, error } = useQuery<IData, Error>(
+  const { data, isLoading, isError, error } = useQuery<IData, Error>(
     ['eqData', url],
     () => fetcher(url),
     config
@@ -156,7 +156,8 @@ const Home: React.FC = () => {
       </div>
     );
 
-  if (error) return <div>{error.message}</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+  //if (error) return <div>{error.message}</div>;
 
   return (
     <div className={classes.root}>
@@ -165,7 +166,12 @@ const Home: React.FC = () => {
         <Container className={classes.container} maxWidth={false}>
           <Grid className={classes.gridContainer} container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h4" component="h1" align="center">
+              <Typography
+                variant="h4"
+                component="h1"
+                align="center"
+                style={{ fontFamily: 'Oswald' }}
+              >
                 Earthquake Tracker
               </Typography>
             </Grid>
@@ -199,7 +205,7 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item className={classes.table} xs={12} sm={6} md={6} lg={5}>
-              {eqData ? (
+              {eqData && !isError ? (
                 <EnhancedTable
                   eqData={eqData}
                   timeZone={timeZone}
@@ -208,7 +214,7 @@ const Home: React.FC = () => {
                 />
               ) : (
                 <Typography variant="h6" color="error" align="center">
-                  Data Loading falied. Please Try Again Later.
+                  Loading Data falied. Please Try Again Later.
                 </Typography>
               )}
             </Grid>
