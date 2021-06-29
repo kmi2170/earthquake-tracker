@@ -33,9 +33,9 @@ let theme = createMuiTheme({
     fontFamily: [
       'Roboto Condensed',
       'Roboto',
-      'sans-serif',
       // 'Rubik',
       'Oswald',
+      'sans-serif',
       // 'Raleway',
     ].join(','),
 
