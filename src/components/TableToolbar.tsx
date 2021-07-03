@@ -23,7 +23,7 @@ const EnhancedTableToolbar = ({ rowCount }: { rowCount: number }) => {
         <Grid item xs={12}>
           <Typography
             className={classes.title}
-            variant="subtitle2"
+            variant="h6"
             id="tableTitle"
             component="div"
           >

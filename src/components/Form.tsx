@@ -76,7 +76,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
     <div className={classes.container}>
       <FormControl className={classes.formControl}>
         <InputLabel id="period-label" shrink>
-          <Typography variant="subtitle2" align="center">
+          <Typography variant="h6" align="center">
             Last
           </Typography>
         </InputLabel>
@@ -89,7 +89,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
         >
           {listPeriod.map((el) => (
             <MenuItem key={el.period} value={el.value}>
-              <Typography variant="body2" align="center">
+              <Typography variant="subtitle1" align="center">
                 {el.period}
               </Typography>
             </MenuItem>
@@ -98,7 +98,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel id="minmag-label" shrink>
-          <Typography variant="subtitle2" align="center">
+          <Typography variant="h6" align="center">
             Min. Mag.
           </Typography>
         </InputLabel>
@@ -111,7 +111,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
         >
           {listMag.map((el) => (
             <MenuItem key={el.mag} value={el.value}>
-              <Typography variant="body2" align="center">
+              <Typography variant="subtitle1" align="center">
                 {el.mag}
               </Typography>
             </MenuItem>
@@ -120,7 +120,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel id="timezone-label" shrink>
-          <Typography variant="subtitle2" align="center">
+          <Typography variant="h6" align="center">
             Time
           </Typography>
         </InputLabel>
@@ -133,7 +133,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
         >
           {listTZone.map((el) => (
             <MenuItem key={el.tz} value={el.value}>
-              <Typography variant="body2" align="center">
+              <Typography variant="subtitle1" align="center">
                 {el.tz}
               </Typography>
             </MenuItem>

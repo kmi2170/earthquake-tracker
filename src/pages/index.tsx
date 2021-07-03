@@ -15,6 +15,7 @@ import {
   Typography,
   CircularProgress,
   Grow,
+  Box,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -32,6 +33,7 @@ import { getStartEndTime } from '../utils/getTime';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    minHeight: '100vh',
     // backgroundImage: 'linear-gradient(white,grey)',
     backgroundImage:
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(250,250,210,1))',
@@ -165,28 +167,31 @@ const Home: React.FC = () => {
       <Grow in>
         <Container className={classes.container} maxWidth={false}>
           <Grid className={classes.gridContainer} container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="h4"
-                component="h1"
-                align="center"
-                style={{ fontFamily: 'Oswald' }}
-              >
-                Earthquake Tracker
-              </Typography>
+            <Grid item xs={12} sm={6}>
+              <Box mt={2}>
+                <Typography
+                  variant="h3"
+                  component="h1"
+                  align="center"
+                  style={{ fontFamily: 'Oswald' }}
+                >
+                  Earthquake Tracker
+                </Typography>
+              </Box>
             </Grid>
-
-            <Grid item xs={12}>
-              <SelectForm
-                period={period}
-                setPeriod={setPeriod}
-                initialPeriod={initialPeriod}
-                minMag={minMag}
-                setMinMag={setMinMag}
-                initialMinMag={initialMinMag}
-                timeZone={timeZone}
-                setTimeZone={setTimeZone}
-              />
+            <Grid item xs={12} sm={6}>
+              <Box mt={2}>
+                <SelectForm
+                  period={period}
+                  setPeriod={setPeriod}
+                  initialPeriod={initialPeriod}
+                  minMag={minMag}
+                  setMinMag={setMinMag}
+                  initialMinMag={initialMinMag}
+                  timeZone={timeZone}
+                  setTimeZone={setTimeZone}
+                />
+              </Box>
             </Grid>
 
             <Grid item className={classes.map} xs={12} sm={6} md={6} lg={7}>

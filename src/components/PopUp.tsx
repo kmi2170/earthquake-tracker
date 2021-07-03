@@ -56,11 +56,11 @@ const PopupComponent: React.FC<PopupComponentProps> = ({
             maximumFractionDigits: 1,
           })}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography variant="h6" color="textSecondary">
           {formatTime(data.time, timeZone)}
         </Typography>
-        <Typography variant="subtitle2">{data.place}</Typography>
-        <Typography variant="subtitle2">
+        <Typography variant="h6">{data.place}</Typography>
+        <Typography variant="h6">
           Depth:{' '}
           {data.coordinates[2].toLocaleString('en-US', {
             maximumFractionDigits: 1,
@@ -68,7 +68,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({
           })}{' '}
           km
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography variant="h6" color="textSecondary">
           Lat:{' '}
           {data.coordinates[1].toLocaleString('en-US', {
             maximumFractionDigits: 3,
@@ -81,7 +81,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({
           })}
         </Typography>
         {data.tsunami ? (
-          <Typography variant="subtitle2" color="error">
+          <Typography variant="h6" color="error">
             Potential Tsunami Threat
           </Typography>
         ) : null}

@@ -39,24 +39,24 @@ let theme = createMuiTheme({
       // 'Raleway',
     ].join(','),
 
-    h4: {
-      fontSize: '2.125rem',
-      [breakpoints.down('sm')]: {
-        fontSize: '1.5rem',
-      },
-    },
-    subtitle2: {
-      fontSize: '0.875rem',
-      [breakpoints.down('sm')]: {
-        fontSize: '0.65rem',
-      },
-    },
-    body2: {
-      fontSize: '0.875rem',
-      [breakpoints.down('sm')]: {
-        fontSize: '0.65rem',
-      },
-    },
+    // h4: {
+    //   fontSize: '2.125rem',
+    //   [breakpoints.down('sm')]: {
+    //     fontSize: '1.5rem',
+    //   },
+    // },
+    // subtitle2: {
+    //   fontSize: '0.875rem',
+    //   [breakpoints.down('sm')]: {
+    //     fontSize: '0.65rem',
+    //   },
+    // },
+    // body2: {
+    //   fontSize: '0.875rem',
+    //   [breakpoints.down('sm')]: {
+    //     fontSize: '0.65rem',
+    //   },
+    // },
   },
   overrides: {
     MuiIconButton: {

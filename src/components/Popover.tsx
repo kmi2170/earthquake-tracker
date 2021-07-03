@@ -127,10 +127,10 @@ export default function MouseOverPopover() {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography variant="subtitle2" style={{ paddingLeft: '0.5rem' }}>
+        <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
           Hover over a circle
         </Typography>
-        <Typography variant="subtitle2" style={{ paddingLeft: '0.5rem' }}>
+        <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
           to view the detail
         </Typography>
         {legendList.map((el) => (
@@ -140,7 +140,7 @@ export default function MouseOverPopover() {
             </section>
 
             <section className={classes.scale}>
-              <Typography variant="subtitle2" className={classes.scale}>
+              <Typography variant="h6" className={classes.scale}>
                 {el.scale}
               </Typography>
             </section>

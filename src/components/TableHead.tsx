@@ -51,14 +51,14 @@ const EnhancedTableHead: React.FC<EnhancedTableHeadProps> = (props) => {
             size="small"
           >
             {headCell.id === 'place' ? (
-              <Typography variant="subtitle2">{headCell.label}</Typography>
+              <Typography variant="subtitle1">{headCell.label}</Typography>
             ) : (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
                 onClick={createSortHandler(headCell.id as OrderBy)}
               >
-                {headCell.label}
+                <Typography variant="subtitle1">{headCell.label}</Typography>
                 {orderBy === headCell.id ? (
                   <span className={classes.visuallyHidden}>
                     {order === 'desc'

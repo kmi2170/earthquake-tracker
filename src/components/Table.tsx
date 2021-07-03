@@ -192,13 +192,13 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
                         </Link>
                       */}
                         <TableCell align="center" size="small" padding="none">
-                          <Typography variant="body2">{mag}</Typography>
+                          <Typography variant="h6">{mag}</Typography>
                         </TableCell>
                         <TableCell align="right" size="small" padding="none">
-                          <Typography variant="body2">{row.place}</Typography>
+                          <Typography variant="h6">{row.place}</Typography>
                         </TableCell>
                         <TableCell align="right" size="small" padding="default">
-                          <Typography variant="body2">{time}</Typography>
+                          <Typography variant="h6">{time}</Typography>
                         </TableCell>
                         {/* <TableCell align="right">{row.coordinates[2]}</TableCell> */}
                       </TableRow>
