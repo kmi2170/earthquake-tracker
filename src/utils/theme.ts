@@ -1,4 +1,4 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import { red } from '@material-ui/core/colors';
 
@@ -11,7 +11,7 @@ const breakpoints = createBreakpoints({});
 //   },
 
 // Create a theme instance.
-let theme = createMuiTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: '#556cd6',
@@ -33,9 +33,9 @@ let theme = createMuiTheme({
     fontFamily: [
       'Roboto Condensed',
       'Roboto',
-      // 'Rubik',
       'Oswald',
       'sans-serif',
+      // 'Rubik',
       // 'Raleway',
     ].join(','),
 

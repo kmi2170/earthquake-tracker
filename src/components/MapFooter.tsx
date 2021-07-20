@@ -1,4 +1,4 @@
-import { Grid, Button, Tooltip, Typography, Hidden } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 
 import MouseOverPopover from './Popover';
 
@@ -18,7 +18,7 @@ const MapFooter: React.FC<MapFooterProps> = ({
 }) => {
   return (
     <div>
-      <Grid container justify="space-around" alignItems="center">
+      <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
           <MouseOverPopover />
         </Grid>

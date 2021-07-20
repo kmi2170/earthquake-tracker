@@ -1,9 +1,10 @@
-import React from 'react';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Typography from '@material-ui/core/Typography';
+import {
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Typography,
+} from '@material-ui/core';
 
 import { Orders, OrderBy } from './Table';
 
@@ -43,9 +44,9 @@ const EnhancedTableHead: React.FC<EnhancedTableHeadProps> = (props) => {
           <TableCell
             key={headCell.id}
             // align={headCell.numeric ? 'right' : 'left'}
-            // padding={headCell.disablePadding ? 'none' : 'default'}
+            // padding={headCell.disablePadding ? 'none' : 'normal'}
             align="center"
-            padding="default"
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
             colSpan={1}
             size="small"

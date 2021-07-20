@@ -1,13 +1,13 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 
 import { useQuery } from 'react-query';
-import queryClient from '../utils/reactQuery';
-import { dehydrate } from 'react-query/hydration';
+// import queryClient from '../utils/reactQuery';
+// import { dehydrate } from 'react-query/hydration';
 
 import axios from 'axios';
 
 import dynamic from 'next/dynamic';
-import { GetServerSideProps, GetStaticProps } from 'next';
+// import { GetServerSideProps, GetStaticProps } from 'next';
 
 import {
   Container,

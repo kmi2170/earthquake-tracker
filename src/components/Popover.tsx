@@ -1,8 +1,7 @@
-import React from 'react';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import { useState } from 'react';
+import { Popover, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
 import { magColor } from '../utils/magColor';
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +71,7 @@ const legendList = [
 
 export default function MouseOverPopover() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);

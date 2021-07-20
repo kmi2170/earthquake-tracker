@@ -1,15 +1,17 @@
-import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-// import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
+import { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Typography,
+  Paper,
+  Tooltip,
+  // Checkbox,
+} from '@material-ui/core';
 
 import { formatTime } from '../utils/formatTime';
 import { DataProps } from '../api/interface';
@@ -106,10 +108,10 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
   const classes = useStyles();
   const rows = eqData;
 
-  const [order, setOrder] = React.useState<Orders>('desc');
-  const [orderBy, setOrderBy] = React.useState<OrderBy>('time');
-  const [page, setPage] = React.useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
+  const [order, setOrder] = useState<Orders>('desc');
+  const [orderBy, setOrderBy] = useState<OrderBy>('time');
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -197,7 +199,7 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
                         <TableCell align="right" size="small" padding="none">
                           <Typography variant="h6">{row.place}</Typography>
                         </TableCell>
-                        <TableCell align="right" size="small" padding="default">
+                        <TableCell align="right" size="small" padding="normal">
                           <Typography variant="h6">{time}</Typography>
                         </TableCell>
                         {/* <TableCell align="right">{row.coordinates[2]}</TableCell> */}
@@ -220,8 +222,8 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           ActionsComponent={TablePaginationActions}
         />
       </Paper>

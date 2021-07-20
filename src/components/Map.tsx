@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 // import styles from './Map.module.css';
-//
+
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
