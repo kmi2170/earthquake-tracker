@@ -29,6 +29,7 @@ import Footer from '../components/Footer';
 
 import { IData, DataProps } from '../api/interface';
 import { getStartEndTime } from '../utils/getTime';
+import { getStartEndUTCTime } from '../utils/getUTCTime';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,8 +110,11 @@ const Home: React.FC = () => {
   );
 
   const { starttime, endtime } = getStartEndTime(period);
+  // const { starttime, endtime } = getStartEndUTCTime(period);
+  // console.log(starttime, endtime);
 
-  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
+  //const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
+  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
 
   // console.log(url);
 
