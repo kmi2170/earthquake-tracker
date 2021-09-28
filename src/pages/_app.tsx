@@ -2,9 +2,8 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
-import queryClient from '../utils/reactQuery';
 
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -14,9 +13,10 @@ import theme from '../utils/theme';
 
 import '../styles/globals.css';
 
-// const queryClient = new QueryClient();
-
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  // const queryClient = React.useState(() => new QueryClient());
+  const queryClient = new QueryClient();
+
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -41,7 +41,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
           {/* 
           <ReactQueryDevtools />
-      */}
+          */}
         </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>

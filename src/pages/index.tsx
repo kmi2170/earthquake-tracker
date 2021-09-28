@@ -1,13 +1,14 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
+import router, { useRouter } from 'next/router';
 
 import { useQuery } from 'react-query';
-// import queryClient from '../utils/reactQuery';
+// import { QueryClient } from 'react-query';
 // import { dehydrate } from 'react-query/hydration';
+//import { GetServerSideProps } from 'next';
 
 import axios from 'axios';
 
 import dynamic from 'next/dynamic';
-// import { GetServerSideProps, GetStaticProps } from 'next';
 
 import {
   Container,
@@ -62,12 +63,15 @@ const useStyles = makeStyles((theme) => ({
 const fetcher = async (url: string) => {
   try {
     const { data } = await axios(url);
-    //console.log(data);
+
     return data;
   } catch (error) {
     console.log(error);
   }
 };
+
+const requestUrl = (starttime: string, minMag: number) =>
+  `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
 
 const config = {
   keepPreviousData: true,
@@ -77,14 +81,16 @@ const config = {
   },
 };
 
+const initialPeriod = 3;
+const initialMinMag = 4;
+
 const Home: React.FC = () => {
   const classes = useStyles();
+  const { query } = useRouter();
 
   const [eqData, setEqData] = useState<DataProps[]>([]);
 
-  const initialPeriod = 3;
   const [period, setPeriod] = useState<number>(initialPeriod);
-  const initialMinMag = 4;
   const [minMag, setMinMag] = useState<number>(initialMinMag);
   const [timeZone, setTimeZone] = useState<string>('local');
 
@@ -114,7 +120,18 @@ const Home: React.FC = () => {
   // console.log(starttime, endtime);
 
   //const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
-  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
+  // const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
+  const url = requestUrl(starttime, minMag);
+
+  useEffect(() => {
+    router.push({
+      pathname: '/',
+      query: {
+        starttime,
+        minMag,
+      },
+    });
+  }, [starttime, minMag]);
 
   // console.log(url);
 
@@ -127,16 +144,8 @@ const Home: React.FC = () => {
   useEffect(() => {
     // console.log(data);
     const extractedData = data?.features.map((feature) => {
-      const {
-        mag,
-        place,
-        time,
-        updated,
-        tz,
-        alert,
-        tsunami,
-        detail,
-      } = feature.properties;
+      const { mag, place, time, updated, tz, alert, tsunami, detail } =
+        feature.properties;
       return {
         id: feature.id,
         mag,
@@ -239,21 +248,21 @@ const Home: React.FC = () => {
 
 export default Home;
 
-//export const getServerSideProps: GetServerSideProps = async () => {
-//export const getStaticProps: GetStaticProps = async () => {
-//  const period = 3;
-//  const minMag = 4;
-//  const { starttime, endtime } = getStartEndTime(period);
+// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+//   const starttime = query.starttime
+//     ? query.starttime
+//     : getStartEndUTCTime(initialPeriod).starttime;
+//   const minMag = query.minMag ? query.minMag : initialMinMag;
 
-//  const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
+//   const url = requestUrl(starttime as string, +minMag);
+//   const queryClient = new QueryClient();
+//   await queryClient.prefetchQuery(['eqData', url], () => fetcher(url));
+//   console.log(dehydrate(queryClient));
+//   console.log('SSR');
 
-//  //export const getServerSideProps: GetServerSideProps = async () => {
-//  await queryClient.prefetchQuery(['eqData', url], () => fetcher(url));
-//  console.log('SSR');
-
-//  return {
-//    props: {
-//      dehydratedState: dehydrate(queryClient),
-//    },
-//  };
-//};
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// };
