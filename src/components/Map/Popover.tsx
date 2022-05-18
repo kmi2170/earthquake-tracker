@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Popover, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
-import { magColor } from '../utils/magColor';
+import { magColor, legends } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -10,8 +10,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1.5),
-    // maxWidth: '40vh',
-    //minWidth: '40vw',
     backgroundColor: 'rgba(255, 255, 255, 0.65)',
     borderRadius: '10px',
   },
@@ -61,13 +59,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '0.15rem',
   },
 }));
-
-const legendList = [
-  { scale: '7 ≤ M', class: 'magX' },
-  { scale: '6 ≤ M < 7', class: 'magL' },
-  { scale: '5 ≤ M < 6', class: 'magM' },
-  { scale: 'M < 5', class: 'magS' },
-];
 
 export default function MouseOverPopover() {
   const classes = useStyles();
@@ -130,29 +121,24 @@ export default function MouseOverPopover() {
           Hover over a circle
         </Typography>
         <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
-          to view the detail
+          {' '}
+          e to view the detail
         </Typography>
-        {legendList.map((el) => (
-          <div key={el.class} className={classes.wrapper}>
-            <section className={classes.icon}>
-              <FiberManualRecordIcon className={classes[el['class']]} />
-            </section>
+        {legends.map(
+          ({ scale, className }: { scale: string; className: string }) => (
+            <div key={className} className={classes.wrapper}>
+              <section className={classes.icon}>
+                <FiberManualRecordIcon className={classes[className]} />
+              </section>
 
-            <section className={classes.scale}>
-              <Typography variant="h6" className={classes.scale}>
-                {el.scale}
-              </Typography>
-            </section>
-            {/* 
-              <Grid item xs={8}>
-              </Grid>
-              <Grid item xs={12}>
-              </Grid>
-        <Grid container className={classes.container}>
-        </Grid>
-              */}
-          </div>
-        ))}
+              <section className={classes.scale}>
+                <Typography variant="h6" className={classes.scale}>
+                  {scale}
+                </Typography>
+              </section>
+            </div>
+          ),
+        )}
       </Popover>
     </div>
   );

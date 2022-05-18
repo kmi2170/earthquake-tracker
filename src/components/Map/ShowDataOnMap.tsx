@@ -1,15 +1,15 @@
 // import { Circle, CircleMarker, Popup, Marker } from 'react-leaflet';
 import { CircleMarker } from 'react-leaflet';
-import { DataProps } from '../api/interface';
+import { DisplayEqData } from '../../api/types';
 
 import PopupComponent from './PopUp';
 
 // import { Typography } from '@material-ui/core';
 // import { formatTime } from '../utils/formatTime';
-import { magColor } from '../utils/magColor';
+import { magColor } from '../../constants';
 
 interface ShowDataOnMapProps {
-  eqData: DataProps[];
+  eqData: DisplayEqData[];
   timeZone: string;
   selectedId: string;
 }
@@ -26,7 +26,7 @@ const ShowDataOnMap: React.FC<ShowDataOnMapProps> = ({
 
   return (
     <div>
-      {eqData?.map((data: DataProps, i) => {
+      {eqData?.map((data: DisplayEqData, i) => {
         return (
           <div key={data.id}>
             <CircleMarker

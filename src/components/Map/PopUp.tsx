@@ -2,8 +2,8 @@ import { Popup, Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import { Typography } from '@material-ui/core';
 
-import { formatTime } from '../utils/formatTime';
-import { DataProps } from '../api/interface';
+import { formatTime } from '../../utils/formatTime';
+import { DisplayEqData } from '../../api/types';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
@@ -17,7 +17,7 @@ const markerIcon = new L.Icon({
 });
 
 interface PopupComponentProps {
-  data: DataProps;
+  data: DisplayEqData;
   timeZone: string;
   selectedId: string;
   lng: number;

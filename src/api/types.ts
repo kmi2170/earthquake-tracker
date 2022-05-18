@@ -1,11 +1,11 @@
-export interface IData {
+export interface RowEqData {
   type: string;
-  metadata: IMetaData;
+  metadata: MetaData;
   bbox: string[];
-  features: IFeature[];
+  features: Feature[];
 }
 
-export interface IMetaData {
+export interface MetaData {
   generated: number;
   url: string;
   title: string;
@@ -14,7 +14,7 @@ export interface IMetaData {
   status: number;
 }
 
-export interface IFeature {
+export interface Feature {
   type: string;
   properties: {
     mag: number;
@@ -50,7 +50,7 @@ export interface IFeature {
   id: string;
 }
 
-export interface DataProps {
+export interface DisplayEqData {
   id: string;
   mag: number;
   place: string;

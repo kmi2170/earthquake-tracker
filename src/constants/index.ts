@@ -20,3 +20,24 @@ export const mags = [
   { mag: '6.0', value: 6 },
   { mag: '7.0', value: 7 },
 ];
+
+export const magColor = (m: number): string => {
+  const colors = {
+    s: '#666666',
+    m: '#ffff00',
+    l: '#f7347a',
+    x: '#ff0000',
+  };
+
+  if (m < 5) return colors['s'];
+  if (m < 6) return colors['m'];
+  if (m < 7) return colors['l'];
+  return colors['x'];
+};
+
+export const legends = [
+  { scale: '7 ≤ M', className: 'magX' },
+  { scale: '6 ≤ M < 7', className: 'magL' },
+  { scale: '5 ≤ M < 6', className: 'magM' },
+  { scale: 'M < 5', className: 'magS' },
+];

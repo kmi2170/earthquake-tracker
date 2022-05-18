@@ -1,14 +1,14 @@
-import { useEffect, useState, useMemo, useRef } from "react";
-import router, { useRouter } from "next/router";
+import { useEffect, useState, useMemo } from 'react';
+import router, { useRouter } from 'next/router';
 
-import { useQuery } from "react-query";
+import { useQuery } from 'react-query';
 // import { QueryClient } from 'react-query';
 // import { dehydrate } from 'react-query/hydration';
 //import { GetServerSideProps } from 'next';
 
-import axios from "axios";
+import axios from 'axios';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
 import {
   Container,
@@ -17,31 +17,31 @@ import {
   CircularProgress,
   Grow,
   Box,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 // import TableComponent from '../components/Table';
-import SEO from "../components/SEO";
-import EnhancedTable from "../components/Table";
-import SelectForm from "../components/Form";
-import Footer from "../components/Footer";
+import EnhancedTable from '../components/Table';
+import SelectForm from '../components/Form';
+import Footer from '../components/Footer';
 // import Variants from '../components/Skelton';
 // import Map from '../components/Map';
 
-import { IData, DataProps } from "../api/interface";
-import { getStartEndTime } from "../utils/getTime";
-import { getStartEndUTCTime } from "../utils/getUTCTime";
+import { useMap } from '../hooks';
+import { RowEqData, DisplayEqData } from '../api/types';
+import { getStartEndTime } from '../utils/getTime';
+// import { getStartEndUTCTime } from '../utils/getUTCTime';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    minHeight: "100vh",
+    minHeight: '100vh',
     // backgroundImage: 'linear-gradient(white,grey)',
     backgroundImage:
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(250,250,210,1))',
       //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(218,165,32,.2))',
       // 'linear-gradient(to bottom, rgb(102,255,255,0.15), rgba(218,165,32,0.25))',
-      "linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))",
+      'linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))',
   },
   container: {
     // padding: 0,
@@ -76,7 +76,7 @@ const requestUrl = (starttime: string, minMag: number) =>
 const config = {
   refetchInterval: 300000,
   onSuccess: () => {
-    console.log("Success data fetching");
+    console.log('Success data fetching');
   },
 };
 
@@ -87,32 +87,20 @@ const Home: React.FC = () => {
   const classes = useStyles();
   const { query } = useRouter();
 
-  const [eqData, setEqData] = useState<DataProps[]>([]);
+  const [eqData, setEqData] = useState<DisplayEqData[]>([]);
 
   const [period, setPeriod] = useState<number>(initialPeriod);
   const [minMag, setMinMag] = useState<number>(initialMinMag);
-  const [timeZone, setTimeZone] = useState<string>("local");
+  const [timeZone, setTimeZone] = useState<string>('local');
 
   const initialCener = { lat: 0, lng: 180 };
   const initialZoom = 1;
   const [center, setCenter] = useState(initialCener);
   const [zoom, setZoom] = useState(initialZoom);
 
-  const [selectedId, setSelectedId] = useState<string>("");
+  const [selectedId, setSelectedId] = useState<string>('');
 
-  const Map: any = useMemo(
-    () =>
-      dynamic(() => import("../components/Map"), {
-        loading: () => (
-          <div>
-            <CircularProgress />
-            Map is Loading...
-          </div>
-        ),
-        ssr: false,
-      }),
-    [eqData]
-  );
+  const Map = useMap(eqData);
 
   const { starttime, endtime } = getStartEndTime(period);
   // const { starttime, endtime } = getStartEndUTCTime(period);
@@ -124,7 +112,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     router.push({
-      pathname: "/",
+      pathname: '/',
       query: {
         starttime,
         minMag,
@@ -134,10 +122,10 @@ const Home: React.FC = () => {
 
   // console.log(url);
 
-  const { data, isLoading, isError, error } = useQuery<IData, Error>(
-    ["eqData", url],
+  const { data, isLoading, isError, error } = useQuery<RowEqData, Error>(
+    ['eqData', url],
     () => fetcher(url),
-    config
+    config,
   );
 
   useEffect(() => {
@@ -175,7 +163,6 @@ const Home: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <SEO />
       <Grow in>
         <Container className={classes.container} maxWidth={false}>
           <Grid className={classes.gridContainer} container spacing={2}>
@@ -185,7 +172,7 @@ const Home: React.FC = () => {
                   variant="h3"
                   component="h1"
                   align="center"
-                  style={{ fontFamily: "Oswald" }}
+                  style={{ fontFamily: 'Oswald' }}
                 >
                   Earthquake Tracker
                 </Typography>

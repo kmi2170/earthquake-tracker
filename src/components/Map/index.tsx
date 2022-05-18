@@ -1,14 +1,13 @@
 import { useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-// import styles from './Map.module.css';
 
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ShowDataOnMap from './ShowDataOnMap';
 import MapFooter from './MapFooter';
-import { DataProps } from '../api/interface';
+import { DisplayEqData } from '../../api/types';
 
 const useStyle = makeStyles((theme) => ({
   map: {
@@ -44,7 +43,7 @@ interface Props {
   initialZoom: number;
   setCenter: (center: { lat: number; lng: number }) => void;
   setZoom: (zoom: number) => void;
-  eqData: DataProps[];
+  eqData: DisplayEqData[];
   timeZone: string;
   selectedId: string;
   setSelectedId: (selectedId: string) => void;
