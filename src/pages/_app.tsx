@@ -5,12 +5,13 @@ import Head from 'next/head';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../utils/theme';
 
+import { SEO } from '../components/SEO';
 import '../styles/globals.css';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -30,11 +31,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <Head>
-            <title>Earthquake Tracker</title>
             <meta
               name="viewport"
               content="minimum-scale=1, initial-scale=1, width=device-width"
             />
+            <SEO />
           </Head>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
