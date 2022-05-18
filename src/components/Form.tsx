@@ -5,15 +5,16 @@ import {
   MenuItem,
   FormControl,
   Select,
+  Theme,
+  MenuProps,
 } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+import { mags, timePeriods, timeZones } from '../constants';
+
+const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
-    margin: theme.spacing(0),
+    margin: theme.spacing(1),
     minWidth: 100,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(0),
   },
   container: {
     display: 'flex',
@@ -22,28 +23,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const listPeriod = [
-  { period: '1 day', value: 1 },
-  { period: '3 days', value: 3 },
-  { period: '7 days', value: 7 },
-  { period: '14 days', value: 14 },
-  { period: '30 days', value: 30 },
-];
-
-const listMag = [
-  { mag: '3.0', value: 3 },
-  { mag: '3.5', value: 3.5 },
-  { mag: '4.0', value: 4 },
-  { mag: '4.5', value: 4.5 },
-  { mag: '5.0', value: 5 },
-  { mag: '6.0', value: 6 },
-  { mag: '7.0', value: 7 },
-];
-
-const listTZone = [
-  { tz: 'Local', value: 'local' },
-  { tz: 'UTC', value: 'utc' },
-];
+const menuProps: Partial<MenuProps> = {
+  getContentAnchorEl: null,
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'left',
+  },
+};
 
 interface SelectFormProps {
   period: number;
@@ -68,10 +54,6 @@ const SelectForm: React.FC<SelectFormProps> = ({
 }) => {
   const classes = useStyles();
 
-  const handleChange = (event, func) => {
-    func(event.target.value);
-  };
-
   return (
     <div className={classes.container}>
       <FormControl className={classes.formControl}>
@@ -84,16 +66,19 @@ const SelectForm: React.FC<SelectFormProps> = ({
           labelId="period-label"
           id="priod-select"
           value={period}
-          onChange={(e) => handleChange(e, setPeriod)}
+          onChange={(e) => setPeriod(e.target.value as number)}
           defaultValue={initialPeriod}
+          MenuProps={menuProps}
         >
-          {listPeriod.map((el) => (
-            <MenuItem key={el.period} value={el.value}>
-              <Typography variant="subtitle1" align="center">
-                {el.period}
-              </Typography>
-            </MenuItem>
-          ))}
+          {timePeriods.map(
+            ({ period, value }: { period: string; value: number }) => (
+              <MenuItem key={period} value={value}>
+                <Typography variant="subtitle1" align="center">
+                  {period}
+                </Typography>
+              </MenuItem>
+            ),
+          )}
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -106,13 +91,14 @@ const SelectForm: React.FC<SelectFormProps> = ({
           labelId="minmag-label"
           id="minmag-select"
           value={minMag}
-          onChange={(e) => handleChange(e, setMinMag)}
+          onChange={(e) => setMinMag(e.target.value as number)}
           defaultValue={initialMinMag}
+          MenuProps={menuProps}
         >
-          {listMag.map((el) => (
-            <MenuItem key={el.mag} value={el.value}>
+          {mags.map(({ mag, value }: { mag: string; value: number }) => (
+            <MenuItem key={mag} value={value}>
               <Typography variant="subtitle1" align="center">
-                {el.mag}
+                {mag}
               </Typography>
             </MenuItem>
           ))}
@@ -128,13 +114,14 @@ const SelectForm: React.FC<SelectFormProps> = ({
           labelId="timezone-label"
           id="timezone-select"
           value={timeZone}
-          onChange={(e) => handleChange(e, setTimeZone)}
+          onChange={(e) => setTimeZone(e.target.value as string)}
           defaultValue={'local'}
+          MenuProps={menuProps}
         >
-          {listTZone.map((el) => (
-            <MenuItem key={el.tz} value={el.value}>
+          {timeZones.map(({ tz, value }: { tz: string; value: string }) => (
+            <MenuItem key={tz} value={value}>
               <Typography variant="subtitle1" align="center">
-                {el.tz}
+                {tz}
               </Typography>
             </MenuItem>
           ))}
