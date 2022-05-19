@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,19 +62,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MouseOverPopover() {
+const Legend = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handlePopoverOpen = () => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handlePopoverOpen = useCallback((e: React.SyntheticEvent) => {
+    setAnchorEl(e.currentTarget);
+  }, []);
 
-  const handlePopoverClose = () => {
+  const handlePopoverClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
-  const open = Boolean(anchorEl);
+  const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
   return (
     <div>
@@ -129,4 +129,6 @@ export default function MouseOverPopover() {
       </Popover>
     </div>
   );
-}
+};
+
+export default Legend;

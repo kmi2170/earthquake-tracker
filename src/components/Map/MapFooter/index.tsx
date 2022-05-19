@@ -1,5 +1,5 @@
 import { Grid, Button } from '@material-ui/core';
-import MouseOverPopover from './Popover';
+import Legend from './Legend';
 
 interface MapFooterProps {
   initialCener: { lat: number; lng: number };
@@ -19,17 +19,9 @@ const MapFooter = ({
     <div>
       <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
-          <MouseOverPopover />
+          <Legend />
         </Grid>
-        {/* 
-        <Hidden xsDown>
-          <Grid item>
-            <Typography variant="body2" color="textSecondary">
-              Hover over a Circle to View Details
-            </Typography>
-          </Grid>
-        </Hidden>
-      */}
+
         <Grid item>
           <Button
             variant="contained"

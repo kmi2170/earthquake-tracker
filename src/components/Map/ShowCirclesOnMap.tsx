@@ -1,4 +1,4 @@
-// import { Circle, CircleMarker, Popup, Marker } from 'react-leaflet';
+import { useMemo } from 'react';
 import { CircleMarker } from 'react-leaflet';
 import { DisplayEqData } from '../../api/types';
 
@@ -16,10 +16,13 @@ const ShowCirclesOnMap = ({
   timeZone,
   selectedId,
 }: ShowCirclesOnMapProps) => {
-  const lngs = eqData?.map((data) => {
-    if (data.coordinates[0] < 0.0) return data.coordinates[0] + 360;
-    return data.coordinates[0];
-  });
+  const lngs = useMemo( () =>
+      eqData?.map((data) => {
+        if (data.coordinates[0] < 0.0) return data.coordinates[0] + 360;
+        return data.coordinates[0];
+      }),
+    [eqData],
+  );
 
   return (
     <div>

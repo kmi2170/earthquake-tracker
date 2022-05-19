@@ -5,16 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import { DisplayEqData } from '../../api/types';
 import { formatTime } from '../../utils/formatTime';
 import { formatDigits } from '../../utils/formatDigits';
+import { useMemo } from 'react';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
-const markerIcon = new L.Icon({
-  iconRetinaUrl: '/marker-icon-2x.png',
-  iconUrl: '/marker-icon.png',
-  shadowUrl: '/marker-shadow.png',
-  iconSize: [25, 25],
-  iconAnchor: [12, 25],
-});
 
 interface PopupComponentProps {
   data: DisplayEqData;
@@ -29,6 +23,18 @@ const PopupComponent = ({
   selectedId,
   lng,
 }: PopupComponentProps) => {
+  const markerIcon = useMemo(
+    () =>
+      new L.Icon({
+        iconRetinaUrl: '/marker-icon-2x.png',
+        iconUrl: '/marker-icon.png',
+        shadowUrl: '/marker-shadow.png',
+        iconSize: [25, 25],
+        iconAnchor: [12, 25],
+      }),
+    [],
+  );
+
   return (
     <div>
       {data.id === selectedId && (

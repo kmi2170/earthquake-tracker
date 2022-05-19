@@ -1,13 +1,13 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
-import CurrentCenterZoom from './CurrentCenterZoom';
+import SetCenterZoom from './SetCenterZoom';
 import MapFooter from './MapFooter';
-import ShowCirclesOnMap from './ShowDataOnMap';
+import ShowCirclesOnMap from './ShowCirclesOnMap';
 import { DisplayEqData } from '../../api/types';
 
 const useStyle = makeStyles((theme) => ({
@@ -57,6 +57,7 @@ const Map = ({
   setSelectedId,
 }: MapProps) => {
   const classes = useStyle();
+  const mapRef = useRef(null);
 
   useEffect(() => {
     if (selectedId && eqData) {
@@ -67,29 +68,19 @@ const Map = ({
           ? selectedEqData[0]?.coordinates[0] + 360
           : selectedEqData[0]?.coordinates[0];
 
-      flyToHandler({ lat, lng }, 4);
-
-      // const PopupToOpen = popUpRef.current[selectedId];
-      // PopupToOpen.openPopup();
-      // console.log(popUpRef.current[selectedId]);
+      mapRef.current?.flyTo({ lat, lng }, 4, {
+        duration: 3,
+      });
     }
   }, [selectedId]);
 
-  const mapRef = useRef(null);
-
-  const setViewHandler = (cnt: { lat: number; lng: number }, zm: number) => {
-    mapRef.current?.flyTo(cnt, zm, {
-      duration: 3,
-    });
-    setSelectedId('');
-    console.log(mapRef.current);
-  };
-
-  const flyToHandler = (cnt: { lat: number; lng: number }, zm: number) => {
-    mapRef.current?.flyTo(cnt, zm, {
-      duration: 3,
-    });
-  };
+  const setViewHandler = useCallback(
+    (cnt: { lat: number; lng: number }, zm: number) => {
+      mapRef.current?.flyTo(cnt, zm, { duration: 3 });
+      setSelectedId('');
+    },
+    [selectedId],
+  );
 
   return (
     <Paper elevation={6}>
@@ -103,12 +94,13 @@ const Map = ({
           zoom={zoom}
           scrollWheelZoom={true}
         >
-          <CurrentCenterZoom setCenter={setCenter} setZoom={setZoom} />
+          <SetCenterZoom setCenter={setCenter} setZoom={setZoom} />
 
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+
           <ShowCirclesOnMap
             eqData={eqData}
             timeZone={timeZone}
