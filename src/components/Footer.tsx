@@ -1,7 +1,7 @@
-import { Typography, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+
 const Footer = () => {
-  const dt = new Date();
-  const year = dt.getFullYear();
+  const year = new Date().getFullYear();
 
   return (
     <footer>
@@ -9,9 +9,6 @@ const Footer = () => {
         Copyrihgt &copy; kmi {year} All rights reserved. | Earthquake date from
         USGC
       </Typography>
-      {/* 
-          <a href="https://earthquake.usgs.gov/" target="_blank">USGC</a>
-      */}
     </footer>
   );
 };

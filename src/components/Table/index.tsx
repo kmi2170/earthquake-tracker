@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -13,9 +13,8 @@ import {
   // Checkbox,
 } from '@material-ui/core';
 
-import { formatTime } from '../utils/formatTime';
-import { DataProps } from '../api/interface';
-
+import { formatTime } from '../../utils/formatTime';
+import { DisplayEqData } from '../../api/types';
 import EnhancedTableHead from './TableHead';
 import EnhancedTableToolbar from './TableToolbar';
 import TablePaginationActions from './TablePaginationActions';
@@ -24,9 +23,9 @@ export type Orders = 'asc' | 'desc';
 export type OrderBy = 'mag' | 'place' | 'time';
 
 function descendingComparator(
-  a: DataProps,
-  b: DataProps,
-  orderBy: OrderBy
+  a: DisplayEqData,
+  b: DisplayEqData,
+  orderBy: OrderBy,
 ): number {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -39,29 +38,28 @@ function descendingComparator(
 
 function getComparator(order: Orders, orderBy: OrderBy) {
   return order === 'desc'
-    ? (a: DataProps, b: DataProps): number =>
+    ? (a: DisplayEqData, b: DisplayEqData): number =>
         descendingComparator(a, b, orderBy)
-    : (a: DataProps, b: DataProps): number =>
+    : (a: DisplayEqData, b: DisplayEqData): number =>
         -descendingComparator(a, b, orderBy);
 }
 
-type comparatorProps = (a: DataProps, b: DataProps) => number;
+type comparatorProps = (a: DisplayEqData, b: DisplayEqData) => number;
 
 const stableSort = (
-  array: DataProps[],
-  comparator: comparatorProps
-): DataProps[] => {
-  const stabilizedThis = array.map((el: DataProps, index: number): [
-    DataProps,
-    number
-  ] => [el, index]);
+  array: DisplayEqData[],
+  comparator: comparatorProps,
+): DisplayEqData[] => {
+  const stabilizedThis = array.map(
+    (el: DisplayEqData, index: number): [DisplayEqData, number] => [el, index],
+  );
 
   stabilizedThis.sort(
-    (a: [DataProps, number], b: [DataProps, number]): number => {
+    (a: [DisplayEqData, number], b: [DisplayEqData, number]): number => {
       const order = comparator(a[0], b[0]);
       if (order !== 0) return order;
       return a[1] - b[1];
-    }
+    },
   );
 
   return stabilizedThis.map((el) => el[0]);
@@ -93,18 +91,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface EnhancedTablePops {
-  eqData: DataProps[];
+  eqData: DisplayEqData[];
   timeZone: string;
   selectedId: string;
   setSelectedId: (selectedId: string) => void;
 }
 
-const EnhancedTable: React.FC<EnhancedTablePops> = ({
+const EnhancedTable = ({
   eqData,
   timeZone,
   selectedId,
   setSelectedId,
-}) => {
+}: EnhancedTablePops) => {
   const classes = useStyles();
   const rows = eqData;
 
@@ -115,7 +113,7 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
 
   const handleRequestSort = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    property: OrderBy
+    property: OrderBy,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -124,13 +122,13 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number
+    newPage: number,
   ) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -216,6 +214,7 @@ const EnhancedTable: React.FC<EnhancedTablePops> = ({
             </TableBody>
           </Table>
         </TableContainer>
+
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

@@ -1,11 +1,8 @@
 import { Grid, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    // paddingLeft: theme.spacing(2),
-    // paddingRight: theme.spacing(1),
-  },
+const useToolbarStyles = makeStyles(() => ({
+  root: {},
   title: {
     flex: '1 1 100%',
   },

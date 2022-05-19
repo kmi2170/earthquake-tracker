@@ -6,13 +6,13 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { Orders, OrderBy } from './Table';
+import { Orders, OrderBy } from './index';
 
 const headCells = [
   { id: 'mag', numeric: true, disablePadding: false, label: 'Mag.' },
   { id: 'place', numeric: false, disablePadding: false, label: 'Place' },
-  // { id: 'depth', numeric: false, disablePadding: false, label: 'Depth (km)' },
   { id: 'time', numeric: false, disablePadding: false, label: 'Time' },
+  // { id: 'depth', numeric: false, disablePadding: false, label: 'Depth (km)' },
 ];
 
 interface EnhancedTableHeadProps {
@@ -25,17 +25,17 @@ interface EnhancedTableHeadProps {
   orderBy: OrderBy;
   onRequestSort: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    property: OrderBy
+    property: OrderBy,
   ) => void;
 }
 
-const EnhancedTableHead: React.FC<EnhancedTableHeadProps> = (props) => {
+const EnhancedTableHead = (props: EnhancedTableHeadProps) => {
   const { classes, order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property: OrderBy) => (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    onRequestSort(event, property);
-  };
+  const createSortHandler =
+    (property: OrderBy) =>
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+      onRequestSort(event, property);
+    };
 
   return (
     <TableHead>

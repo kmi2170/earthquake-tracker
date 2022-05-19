@@ -7,39 +7,37 @@ import {
   LastPage as LastPageIcon,
 } from '@material-ui/icons';
 
-const useStyles1 = makeStyles((theme) => ({
+const useStyles1 = makeStyles(() => ({
   root: {
     flexShrink: 0,
-    // marginLeft: theme.spacing(2.5),
-    // },
   },
 }));
 
-const TablePaginationActions = (props) => {
+const TablePaginationActions = (props: any) => {
   const classes = useStyles1();
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
   const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     onPageChange(event, 0);
   };
 
   const handleBackButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     onPageChange(event, page - 1);
   };
 
   const handleNextButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     onPageChange(event, page + 1);
   };
 
   const handleLastPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
