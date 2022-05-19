@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Popover, Typography } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
-import { magColor, legends } from '../../constants';
+
+import { magColor, legends } from '../../../constants';
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -12,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1.5),
     backgroundColor: 'rgba(255, 255, 255, 0.65)',
     borderRadius: '10px',
+    maxWidth: '200px',
   },
   legend: {
     padding: '0 0.3rem',
@@ -46,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper: {
     display: 'flex',
-    // flexDirection: 'column',
     alignItems: 'center',
   },
   icon: {
@@ -64,7 +66,7 @@ export default function MouseOverPopover() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handlePopoverOpen = (event) => {
+  const handlePopoverOpen = () => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -85,19 +87,7 @@ export default function MouseOverPopover() {
       >
         LEGEND
       </Typography>
-      {/* 
-      <Button
-        aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-        variant="outlined"
-        size="small"
-        color="secondary"
-      >
-        Legend
-      </Button>
-      */}
+
       <Popover
         id="mouse-over-popover"
         className={classes.popover}
@@ -118,24 +108,21 @@ export default function MouseOverPopover() {
         disableRestoreFocus
       >
         <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
-          Hover over a circle
+          Hover over a circle for the detailed info
         </Typography>
-        <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
-          {' '}
-          e to view the detail
-        </Typography>
+
         {legends.map(
           ({ scale, className }: { scale: string; className: string }) => (
             <div key={className} className={classes.wrapper}>
-              <section className={classes.icon}>
+              <div className={classes.icon}>
                 <FiberManualRecordIcon className={classes[className]} />
-              </section>
+              </div>
 
-              <section className={classes.scale}>
+              <div className={classes.scale}>
                 <Typography variant="h6" className={classes.scale}>
                   {scale}
                 </Typography>
-              </section>
+              </div>
             </div>
           ),
         )}

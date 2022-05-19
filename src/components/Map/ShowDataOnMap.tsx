@@ -3,22 +3,19 @@ import { CircleMarker } from 'react-leaflet';
 import { DisplayEqData } from '../../api/types';
 
 import PopupComponent from './PopUp';
-
-// import { Typography } from '@material-ui/core';
-// import { formatTime } from '../utils/formatTime';
 import { magColor } from '../../constants';
 
-interface ShowDataOnMapProps {
+interface ShowCirclesOnMapProps {
   eqData: DisplayEqData[];
   timeZone: string;
   selectedId: string;
 }
 
-const ShowDataOnMap: React.FC<ShowDataOnMapProps> = ({
+const ShowCirclesOnMap = ({
   eqData,
   timeZone,
   selectedId,
-}) => {
+}: ShowCirclesOnMapProps) => {
   const lngs = eqData?.map((data) => {
     if (data.coordinates[0] < 0.0) return data.coordinates[0] + 360;
     return data.coordinates[0];
@@ -44,12 +41,13 @@ const ShowDataOnMap: React.FC<ShowDataOnMapProps> = ({
                 lng={lngs[i]}
               />
             </CircleMarker>
+
             <CircleMarker
               center={[data.coordinates[1], lngs[i]]}
               color={magColor(data.mag)}
               opacity={0.2}
               radius={1}
-            ></CircleMarker>
+            />
           </div>
         );
       })}
@@ -57,4 +55,4 @@ const ShowDataOnMap: React.FC<ShowDataOnMapProps> = ({
   );
 };
 
-export default ShowDataOnMap;
+export default ShowCirclesOnMap;

@@ -1,5 +1,4 @@
 import { Grid, Button } from '@material-ui/core';
-
 import MouseOverPopover from './Popover';
 
 interface MapFooterProps {
@@ -7,15 +6,15 @@ interface MapFooterProps {
   initialZoom: number;
   setViewHandler: (
     initialCener: { lat: number; lng: number },
-    initialZoom: number
+    initialZoom: number,
   ) => void;
 }
 
-const MapFooter: React.FC<MapFooterProps> = ({
+const MapFooter = ({
   setViewHandler,
   initialCener,
   initialZoom,
-}) => {
+}: MapFooterProps) => {
   return (
     <div>
       <Grid container justifyContent="space-around" alignItems="center">
