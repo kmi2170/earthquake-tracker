@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -23,14 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const menuProps: Partial<MenuProps> = {
-  getContentAnchorEl: null,
-  anchorOrigin: {
-    vertical: 'bottom',
-    horizontal: 'left',
-  },
-};
-
 interface SelectFormProps {
   period: number;
   setPeriod: (period: number) => void;
@@ -53,6 +46,14 @@ const SelectForm: React.FC<SelectFormProps> = ({
   setTimeZone,
 }) => {
   const classes = useStyles();
+
+  const menuProps: Partial<MenuProps> = {
+    getContentAnchorEl: null,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+  };
 
   return (
     <div className={classes.container}>
@@ -131,4 +132,4 @@ const SelectForm: React.FC<SelectFormProps> = ({
   );
 };
 
-export default SelectForm;
+export default memo(SelectForm);

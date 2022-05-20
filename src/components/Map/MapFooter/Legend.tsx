@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -74,12 +74,10 @@ const Legend = () => {
     setAnchorEl(null);
   }, []);
 
-  const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
-
   return (
     <div>
       <Typography
-        aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-owns={!!anchorEl ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
@@ -94,7 +92,7 @@ const Legend = () => {
         classes={{
           paper: classes.paper,
         }}
-        open={open}
+        open={!!anchorEl}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
@@ -131,4 +129,4 @@ const Legend = () => {
   );
 };
 
-export default Legend;
+export default memo(Legend);

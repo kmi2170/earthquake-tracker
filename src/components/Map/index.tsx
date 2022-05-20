@@ -5,10 +5,11 @@ import 'leaflet/dist/leaflet.css';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
-import SetCenterZoom from './SetCenterZoom';
+import SetCenterZoom from './MapParts/SetCenterZoom';
+import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import MapFooter from './MapFooter';
-import ShowCirclesOnMap from './ShowCirclesOnMap';
 import { DisplayEqData } from '../../api/types';
+import { normalizeLng } from '../../utils/normalizeLng';
 
 const useStyle = makeStyles((theme) => ({
   map: {
@@ -63,10 +64,7 @@ const Map = ({
     if (selectedId && eqData) {
       const selectedEqData = eqData.filter((data) => selectedId === data.id);
       const lat = selectedEqData[0]?.coordinates[1];
-      const lng =
-        selectedEqData[0]?.coordinates[0] < 0.0
-          ? selectedEqData[0]?.coordinates[0] + 360
-          : selectedEqData[0]?.coordinates[0];
+      const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
       mapRef.current?.flyTo({ lat, lng }, 4, {
         duration: 3,
@@ -84,30 +82,28 @@ const Map = ({
 
   return (
     <Paper elevation={6}>
-      <div>
-        <MapContainer
-          className={classes.map}
-          whenCreated={(mapInstance) => {
-            mapRef.current = mapInstance;
-          }}
-          center={center}
-          zoom={zoom}
-          scrollWheelZoom={true}
-        >
-          <SetCenterZoom setCenter={setCenter} setZoom={setZoom} />
+      <MapContainer
+        className={classes.map}
+        whenCreated={(mapInstance) => {
+          mapRef.current = mapInstance;
+        }}
+        center={center}
+        zoom={zoom}
+        scrollWheelZoom={true}
+      >
+        <SetCenterZoom setCenter={setCenter} setZoom={setZoom} />
 
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
-          <ShowCirclesOnMap
-            eqData={eqData}
-            timeZone={timeZone}
-            selectedId={selectedId}
-          />
-        </MapContainer>
-      </div>
+        <ShowCirclesOnMap
+          eqData={eqData}
+          timeZone={timeZone}
+          selectedId={selectedId}
+        />
+      </MapContainer>
 
       <MapFooter
         setViewHandler={setViewHandler}

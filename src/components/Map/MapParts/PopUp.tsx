@@ -2,39 +2,28 @@ import { Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import Typography from '@material-ui/core/Typography';
 
-import { DisplayEqData } from '../../api/types';
-import { formatTime } from '../../utils/formatTime';
-import { formatDigits } from '../../utils/formatDigits';
-import { useMemo } from 'react';
+import { DisplayEqData } from '../../../api/types';
+import { formatTime } from '../../../utils/formatTime';
+import { formatDigits } from '../../../utils/formatDigits';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
+const markerIcon = new L.Icon({
+  iconRetinaUrl: '/marker-icon-2x.png',
+  iconUrl: '/marker-icon.png',
+  shadowUrl: '/marker-shadow.png',
+  iconSize: [25, 25],
+  iconAnchor: [12, 25],
+});
 
-interface PopupComponentProps {
+interface PopupProps {
   data: DisplayEqData;
   timeZone: string;
   selectedId: string;
   lng: number;
 }
 
-const PopupComponent = ({
-  data,
-  timeZone,
-  selectedId,
-  lng,
-}: PopupComponentProps) => {
-  const markerIcon = useMemo(
-    () =>
-      new L.Icon({
-        iconRetinaUrl: '/marker-icon-2x.png',
-        iconUrl: '/marker-icon.png',
-        shadowUrl: '/marker-shadow.png',
-        iconSize: [25, 25],
-        iconAnchor: [12, 25],
-      }),
-    [],
-  );
-
+const Popup = ({ data, timeZone, selectedId, lng }: PopupProps) => {
   return (
     <div>
       {data.id === selectedId && (
@@ -66,4 +55,4 @@ const PopupComponent = ({
   );
 };
 
-export default PopupComponent;
+export default Popup;
