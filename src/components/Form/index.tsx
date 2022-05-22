@@ -10,7 +10,7 @@ import {
   MenuProps,
 } from '@material-ui/core';
 
-import { mags, timePeriods, timeZones } from '../constants';
+import { mags, timePeriods, timeZones } from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
@@ -35,6 +35,14 @@ interface SelectFormProps {
   setTimeZone: (timeZone: string) => void;
 }
 
+const menuProps: Partial<MenuProps> = {
+  getContentAnchorEl: null,
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'left',
+  },
+};
+
 const SelectForm: React.FC<SelectFormProps> = ({
   period,
   setPeriod,
@@ -46,14 +54,6 @@ const SelectForm: React.FC<SelectFormProps> = ({
   setTimeZone,
 }) => {
   const classes = useStyles();
-
-  const menuProps: Partial<MenuProps> = {
-    getContentAnchorEl: null,
-    anchorOrigin: {
-      vertical: 'bottom',
-      horizontal: 'left',
-    },
-  };
 
   return (
     <div className={classes.container}>

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Typography } from '@material-ui/core';
 
 const Footer = () => {
@@ -13,4 +14,5 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+// export default Footer;
+export default memo(Footer);

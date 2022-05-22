@@ -23,7 +23,6 @@ import EnhancedTable from '../components/Table';
 import SelectForm from '../components/Form';
 import Footer from '../components/Footer';
 // import Variants from '../components/Skelton';
-// import Map from '../components/Map';
 
 import { useMap } from '../hooks';
 import { RowEqData, DisplayEqData } from '../api/types';

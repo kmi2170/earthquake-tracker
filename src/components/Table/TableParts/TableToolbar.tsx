@@ -8,7 +8,7 @@ const useToolbarStyles = makeStyles(() => ({
   },
 }));
 
-const EnhancedTableToolbar = ({ rowCount }: { rowCount: number }) => {
+const TableToolbar = ({ rowCount }: { rowCount: number }) => {
   const classes = useToolbarStyles();
 
   return (
@@ -29,4 +29,4 @@ const EnhancedTableToolbar = ({ rowCount }: { rowCount: number }) => {
   );
 };
 
-export default EnhancedTableToolbar;
+export default TableToolbar;

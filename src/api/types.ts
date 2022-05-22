@@ -62,3 +62,6 @@ export interface DisplayEqData {
   alert: string;
   tsunami: number;
 }
+
+// tables
+export type Order = 'asc' | 'desc';

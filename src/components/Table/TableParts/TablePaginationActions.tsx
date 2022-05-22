@@ -13,10 +13,14 @@ const useStyles1 = makeStyles(() => ({
   },
 }));
 
-const TablePaginationActions = (props: any) => {
+const TablePaginationActions = ({
+  count,
+  page,
+  rowsPerPage,
+  onPageChange,
+}: any) => {
   const classes = useStyles1();
   const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
 
   const handleFirstPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,

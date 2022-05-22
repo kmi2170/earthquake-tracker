@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -13,57 +13,43 @@ import {
   // Checkbox,
 } from '@material-ui/core';
 
+import { Order } from '../../api/types';
 import { formatTime } from '../../utils/formatTime';
 import { DisplayEqData } from '../../api/types';
-import EnhancedTableHead from './TableHead';
-import EnhancedTableToolbar from './TableToolbar';
-import TablePaginationActions from './TablePaginationActions';
+import EnhancedTableHead from './TableParts/TableHead';
+import EnhancedTableToolbar from './TableParts/TableToolbar';
+import TablePaginationActions from './TableParts/TablePaginationActions';
 
-export type Orders = 'asc' | 'desc';
-export type OrderBy = 'mag' | 'place' | 'time';
-
-function descendingComparator(
-  a: DisplayEqData,
-  b: DisplayEqData,
-  orderBy: OrderBy,
-): number {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) return -1;
+  if (b[orderBy] > a[orderBy]) return 1;
   return 0;
 }
 
-function getComparator(order: Orders, orderBy: OrderBy) {
+function getComparator<T, Key extends keyof T>(
+  order: Order,
+  orderBy: Key,
+): (a: T, b: T) => number {
   return order === 'desc'
-    ? (a: DisplayEqData, b: DisplayEqData): number =>
-        descendingComparator(a, b, orderBy)
-    : (a: DisplayEqData, b: DisplayEqData): number =>
-        -descendingComparator(a, b, orderBy);
+    ? (a, b): number => descendingComparator(a, b, orderBy)
+    : (a, b): number => -descendingComparator(a, b, orderBy);
 }
 
-type comparatorProps = (a: DisplayEqData, b: DisplayEqData) => number;
-
-const stableSort = (
-  array: DisplayEqData[],
-  comparator: comparatorProps,
-): DisplayEqData[] => {
-  const stabilizedThis = array.map(
-    (el: DisplayEqData, index: number): [DisplayEqData, number] => [el, index],
-  );
-
-  stabilizedThis.sort(
-    (a: [DisplayEqData, number], b: [DisplayEqData, number]): number => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) return order;
-      return a[1] - b[1];
-    },
-  );
+// This method is created for cross-browser compatibility, if you don't
+// need to support IE11, you can use Array.prototype.sort() directl
+function stableSort<T>(
+  array: readonly T[],
+  comparator: (a: T, b: T) => number,
+) {
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
 
   return stabilizedThis.map((el) => el[0]);
-};
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,40 +76,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface EnhancedTablePops {
+interface TablePops {
   eqData: DisplayEqData[];
   timeZone: string;
-  selectedId: string;
   setSelectedId: (selectedId: string) => void;
 }
 
-const EnhancedTable = ({
-  eqData,
-  timeZone,
-  selectedId,
-  setSelectedId,
-}: EnhancedTablePops) => {
+const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
   const classes = useStyles();
   const rows = eqData;
 
-  const [order, setOrder] = useState<Orders>('desc');
-  const [orderBy, setOrderBy] = useState<OrderBy>('time');
+  const [order, setOrder] = useState<Order>('desc');
+  const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
 
   const handleRequestSort = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    property: OrderBy,
+    event: React.MouseEvent<unknown>,
+    property: keyof DisplayEqData,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    newPage: number,
-  ) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -164,43 +141,29 @@ const EnhancedTable = ({
               onRequestSort={handleRequestSort}
             />
             <TableBody>
+              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+              rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  const time = formatTime(row.time, timeZone);
-
-                  const mag = Number(row.mag).toLocaleString('en-US', {
+                .map(({ id, mag: magRaw, time: timeRaw, place }) => {
+                  const time = formatTime(timeRaw, timeZone);
+                  const mag = Number(magRaw).toLocaleString('en-US', {
                     maximumFractionDigits: 1,
                     minimumFractionDigits: 1,
                   });
 
                   return (
-                    <Tooltip
-                      key={row.id}
-                      title="Click to View the place on Map"
-                    >
-                      <TableRow hover onClick={() => selectIdHandler(row.id)}>
-                        {/* 
-                        <Link
-                          activeClass="active"
-                          to="top"
-                          spy={true}
-                          smooth={true}
-                          offset={-70}
-                          duration={500}
-                        >
-                        </Link>
-                      */}
+                    <Tooltip key={id} title="Click to View the place on Map">
+                      <TableRow hover onClick={() => selectIdHandler(id)}>
                         <TableCell align="center" size="small" padding="none">
                           <Typography variant="h6">{mag}</Typography>
                         </TableCell>
                         <TableCell align="right" size="small" padding="none">
-                          <Typography variant="h6">{row.place}</Typography>
+                          <Typography variant="h6">{place}</Typography>
                         </TableCell>
                         <TableCell align="right" size="small" padding="normal">
                           <Typography variant="h6">{time}</Typography>
                         </TableCell>
-                        {/* <TableCell align="right">{row.coordinates[2]}</TableCell> */}
                       </TableRow>
                     </Tooltip>
                   );
@@ -230,4 +193,4 @@ const EnhancedTable = ({
   );
 };
 
-export default EnhancedTable;
+export default TableComponent;
