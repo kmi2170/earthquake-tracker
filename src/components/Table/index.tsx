@@ -143,31 +143,36 @@ const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(({ id, mag: magRaw, time: timeRaw, place }) => {
-                  const time = formatTimeDayjs(timeRaw, timeZone);
-                  const mag = Number(magRaw).toLocaleString('en-US', {
-                    maximumFractionDigits: 1,
-                    minimumFractionDigits: 1,
-                  });
+              {rows?.length > 0 &&
+                stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(({ id, mag: magRaw, time: timeRaw, place }) => {
+                    const time = formatTimeDayjs(timeRaw, timeZone);
+                    const mag = Number(magRaw).toLocaleString('en-US', {
+                      maximumFractionDigits: 1,
+                      minimumFractionDigits: 1,
+                    });
 
-                  return (
-                    <Tooltip key={id} title="Click to View the place on Map">
-                      <TableRow hover onClick={() => selectIdHandler(id)}>
-                        <TableCell align="center" size="small" padding="none">
-                          <Typography variant="h6">{mag}</Typography>
-                        </TableCell>
-                        <TableCell align="right" size="small" padding="none">
-                          <Typography variant="h6">{place}</Typography>
-                        </TableCell>
-                        <TableCell align="right" size="small" padding="normal">
-                          <Typography variant="h6">{time}</Typography>
-                        </TableCell>
-                      </TableRow>
-                    </Tooltip>
-                  );
-                })}
+                    return (
+                      <Tooltip key={id} title="Click to View the place on Map">
+                        <TableRow hover onClick={() => selectIdHandler(id)}>
+                          <TableCell align="center" size="small" padding="none">
+                            <Typography variant="h6">{mag}</Typography>
+                          </TableCell>
+                          <TableCell align="right" size="small" padding="none">
+                            <Typography variant="h6">{place}</Typography>
+                          </TableCell>
+                          <TableCell
+                            align="right"
+                            size="small"
+                            padding="normal"
+                          >
+                            <Typography variant="h6">{time}</Typography>
+                          </TableCell>
+                        </TableRow>
+                      </Tooltip>
+                    );
+                  })}
 
               {emptyRows > 0 && (
                 <TableRow style={{ height: 33 * emptyRows }}>

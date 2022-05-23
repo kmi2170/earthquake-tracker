@@ -19,7 +19,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 // import TableComponent from '../components/Table';
-import EnhancedTable from '../components/Table';
+import Table from '../components/Table';
 import SelectForm from '../components/Form';
 import Footer from '../components/Footer';
 // import Variants from '../components/Skelton';
@@ -27,6 +27,7 @@ import Footer from '../components/Footer';
 import { useMap } from '../hooks';
 import { RowEqData, DisplayEqData } from '../api/types';
 import { getStartEndTime } from '../utils/getTime';
+import { extractedEqData } from '../utils/extractEqData';
 // import { getStartEndUTCTime } from '../utils/getUTCTime';
 
 const useStyles = makeStyles(() => ({
@@ -84,8 +85,6 @@ const Home: React.FC = () => {
   const classes = useStyles();
   const { query } = useRouter();
 
-  const [eqData, setEqData] = useState<DisplayEqData[]>([]);
-
   const [period, setPeriod] = useState<number>(initialPeriod);
   const [minMag, setMinMag] = useState<number>(initialMinMag);
   const [timeZone, setTimeZone] = useState<string>('local');
@@ -96,8 +95,6 @@ const Home: React.FC = () => {
   const [zoom, setZoom] = useState(initialZoom);
 
   const [selectedId, setSelectedId] = useState<string>('');
-
-  const Map = useMap(eqData);
 
   const { starttime, endtime } = getStartEndTime(period);
   // const { starttime, endtime } = getStartEndUTCTime(period);
@@ -117,46 +114,17 @@ const Home: React.FC = () => {
     });
   }, [starttime, minMag]);
 
-  // console.log(url);
-
   const { data, isLoading, isError, error } = useQuery<RowEqData, Error>(
     ['eqData', url],
     () => fetcher(url),
     config,
   );
 
-  useEffect(() => {
-    // console.log(data);
-    const extractedData = data?.features.map((feature) => {
-      const { mag, place, time, updated, tz, alert, tsunami, detail } =
-        feature.properties;
-      return {
-        id: feature.id,
-        mag,
-        place,
-        time,
-        updated,
-        tz,
-        alert,
-        tsunami,
-        detail,
-        coordinates: feature.geometry.coordinates,
-      };
-    });
+  const eqData = useMemo(() => extractedEqData(data) || [], [data]);
 
-    setEqData(extractedData);
-  }, [data]);
-
-  if (isLoading)
-    return (
-      <div>
-        <CircularProgress />
-        Data is Loading...
-      </div>
-    );
+  const Map = useMap(eqData);
 
   if (isError) return <div>Error: {error.message}</div>;
-  //if (error) return <div>{error.message}</div>;
 
   return (
     <div className={classes.root}>
@@ -206,18 +174,11 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item className={classes.table} xs={12} sm={6} md={6} lg={5}>
-              {eqData && !isError ? (
-                <EnhancedTable
-                  eqData={eqData}
-                  timeZone={timeZone}
-                  selectedId={selectedId}
-                  setSelectedId={setSelectedId}
-                />
-              ) : (
-                <Typography variant="h6" color="error" align="center">
-                  Loading Data falied. Please Try Again Later.
-                </Typography>
-              )}
+              <Table
+                eqData={eqData}
+                timeZone={timeZone}
+                setSelectedId={setSelectedId}
+              />
             </Grid>
             <Grid item xs={12}>
               <Footer />
