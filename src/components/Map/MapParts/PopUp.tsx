@@ -3,7 +3,7 @@ import L from 'leaflet';
 import Typography from '@material-ui/core/Typography';
 
 import { DisplayEqData } from '../../../api/types';
-import { formatTime } from '../../../utils/formatTime';
+import { formatTimeDayjs } from '../../../utils/formatTimeDayjs';
 import { formatDigits } from '../../../utils/formatDigits';
 
 // delete L.Icon.Default.prototype._getIconUrl;
@@ -33,7 +33,7 @@ const Popup = ({ data, timeZone, selectedId, lng }: PopupProps) => {
       <Tooltip offset={[20, 0]} opacity={1}>
         <Typography variant="h5">M {formatDigits(data.mag, 1, 1)}</Typography>
         <Typography variant="h6" color="textSecondary">
-          {formatTime(data.time, timeZone)}
+          {formatTimeDayjs(data.time, timeZone)}
         </Typography>
         <Typography variant="h6">{data.place}</Typography>
         <Typography variant="h6">

@@ -13,6 +13,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
+    "dayjs": "^1.11.2",
     "leaflet": "^1.7.1",
     "next": "10.2.3",
     "react": "17.0.2",

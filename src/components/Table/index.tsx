@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { Order } from '../../api/types';
-import { formatTime } from '../../utils/formatTime';
+import { formatTimeDayjs } from '../../utils/formatTimeDayjs';
 import { DisplayEqData } from '../../api/types';
 import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
@@ -146,7 +146,7 @@ const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(({ id, mag: magRaw, time: timeRaw, place }) => {
-                  const time = formatTime(timeRaw, timeZone);
+                  const time = formatTimeDayjs(timeRaw, timeZone);
                   const mag = Number(magRaw).toLocaleString('en-US', {
                     maximumFractionDigits: 1,
                     minimumFractionDigits: 1,
