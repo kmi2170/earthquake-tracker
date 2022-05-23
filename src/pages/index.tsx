@@ -8,25 +8,17 @@ import { useQuery } from 'react-query';
 
 import axios from 'axios';
 
-import {
-  Container,
-  Grid,
-  Typography,
-  CircularProgress,
-  Grow,
-  Box,
-} from '@material-ui/core';
+import { Container, Grid, Typography, Grow, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-// import TableComponent from '../components/Table';
 import Table from '../components/Table';
-import SelectForm from '../components/Form';
+import Form from '../components/Form';
 import Footer from '../components/Footer';
-// import Variants from '../components/Skelton';
 
 import { useMap } from '../hooks';
-import { RowEqData, DisplayEqData } from '../api/types';
+import { RowEqData } from '../api/types';
 import { getStartEndTime } from '../utils/getTime';
+import { getStartEndTimeDayjs } from '../utils/getStartEndTimeDayjs';
 import { extractedEqData } from '../utils/extractEqData';
 // import { getStartEndUTCTime } from '../utils/getUTCTime';
 
@@ -68,8 +60,8 @@ const fetcher = async (url: string) => {
   }
 };
 
-const requestUrl = (starttime: string, minMag: number) =>
-  `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
+const requestUrl = (startTime: string, endTime: string, minMag: number) =>
+  `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startTime}&endtime=${endTime}&minmagnitude=${minMag}`;
 
 const config = {
   refetchInterval: 300000,
@@ -96,23 +88,24 @@ const Home: React.FC = () => {
 
   const [selectedId, setSelectedId] = useState<string>('');
 
-  const { starttime, endtime } = getStartEndTime(period);
+  // const { starttime, endtime } = getStartEndTime(period);
+  const { startTime, endTime } = getStartEndTimeDayjs(period);
   // const { starttime, endtime } = getStartEndUTCTime(period);
   // console.log(starttime, endtime);
 
   //const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&endtime=${endtime}&minmagnitude=${minMag}`;
   // const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${starttime}&minmagnitude=${minMag}`;
-  const url = requestUrl(starttime, minMag);
+  const url = requestUrl(startTime, endTime, minMag);
 
   useEffect(() => {
     router.push({
       pathname: '/',
       query: {
-        starttime,
+        startTime,
         minMag,
       },
     });
-  }, [starttime, minMag]);
+  }, [startTime, minMag]);
 
   const { data, isLoading, isError, error } = useQuery<RowEqData, Error>(
     ['eqData', url],
@@ -145,7 +138,7 @@ const Home: React.FC = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Box mt={2}>
-                <SelectForm
+                <Form
                   period={period}
                   setPeriod={setPeriod}
                   initialPeriod={initialPeriod}
