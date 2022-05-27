@@ -1,11 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import router, { useRouter } from 'next/router';
-
 import { useQuery } from 'react-query';
-// import { QueryClient } from 'react-query';
-// import { dehydrate } from 'react-query/hydration';
-//import { GetServerSideProps } from 'next';
-
 import axios from 'axios';
 
 import { Container, Grid, Typography, Grow, Box } from '@material-ui/core';
@@ -14,39 +9,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '../components/Table';
 import Form from '../components/Form';
 import Footer from '../components/Footer';
-
 import { useMap } from '../hooks';
 import { RowEqData } from '../api/types';
-import { getStartEndTime } from '../utils/getTime';
 import { getStartEndTimeDayjs } from '../utils/getStartEndTimeDayjs';
 import { extractedEqData } from '../utils/extractEqData';
-// import { getStartEndUTCTime } from '../utils/getUTCTime';
 
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     minHeight: '100vh',
-    // backgroundImage: 'linear-gradient(white,grey)',
     backgroundImage:
-      //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(250,250,210,1))',
-      //'linear-gradient(to bottom, rgba(0,0,0,0), rgba(218,165,32,.2))',
-      // 'linear-gradient(to bottom, rgb(102,255,255,0.15), rgba(218,165,32,0.25))',
       'linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))',
-  },
-  container: {
-    // padding: 0,
-    // margin: 0,
-  },
-  gridContainer: {
-    // justify: 'center',
-    // alignItems: 'center',
-  },
-  map: {
-    // font: '#009999',
-    // background: '#009900',
-  },
-  table: {
-    // background: '#999900',
   },
 }));
 
@@ -122,8 +95,8 @@ const Home: React.FC = () => {
   return (
     <div className={classes.root}>
       <Grow in>
-        <Container className={classes.container} maxWidth={false}>
-          <Grid className={classes.gridContainer} container spacing={2}>
+        <Container maxWidth={false}>
+          <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Box mt={2}>
                 <Typography
@@ -151,7 +124,7 @@ const Home: React.FC = () => {
               </Box>
             </Grid>
 
-            <Grid item className={classes.map} xs={12} sm={6} md={6} lg={7}>
+            <Grid item xs={12} sm={6} md={6} lg={7}>
               <Map
                 center={center}
                 zoom={zoom}
@@ -166,7 +139,7 @@ const Home: React.FC = () => {
               />
             </Grid>
 
-            <Grid item className={classes.table} xs={12} sm={6} md={6} lg={5}>
+            <Grid item xs={12} sm={6} md={6} lg={5}>
               <Table
                 eqData={eqData}
                 timeZone={timeZone}
@@ -184,22 +157,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//   const starttime = query.starttime
-//     ? query.starttime
-//     : getStartEndUTCTime(initialPeriod).starttime;
-//   const minMag = query.minMag ? query.minMag : initialMinMag;
-
-//   const url = requestUrl(starttime as string, +minMag);
-//   const queryClient = new QueryClient();
-//   await queryClient.prefetchQuery(['eqData', url], () => fetcher(url));
-//   console.log(dehydrate(queryClient));
-//   console.log('SSR');
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// };
