@@ -16,6 +16,6 @@ export const useMap = (eqData: DisplayEqData[]) => {
         ),
         ssr: false,
       }),
-    [eqData],
+    [eqData]
   );
 };

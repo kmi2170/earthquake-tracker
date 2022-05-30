@@ -19,6 +19,7 @@ import { DisplayEqData } from '../../api/types';
 import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
 import TablePaginationActions from './TableParts/TablePaginationActions';
+import { useEqData } from '../../context/hook';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -28,7 +29,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 function getComparator<T, Key extends keyof T>(
   order: Order,
-  orderBy: Key,
+  orderBy: Key
 ): (a: T, b: T) => number {
   return order === 'desc'
     ? (a, b): number => descendingComparator(a, b, orderBy)
@@ -39,7 +40,7 @@ function getComparator<T, Key extends keyof T>(
 // need to support IE11, you can use Array.prototype.sort() directl
 function stableSort<T>(
   array: readonly T[],
-  comparator: (a: T, b: T) => number,
+  comparator: (a: T, b: T) => number
 ) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
@@ -78,13 +79,14 @@ const useStyles = makeStyles((theme) => ({
 
 interface TablePops {
   eqData: DisplayEqData[];
-  timeZone: string;
   setSelectedId: (selectedId: string) => void;
 }
 
-const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
+const TableComponent = ({ eqData, setSelectedId }: TablePops) => {
   const classes = useStyles();
   const rows = eqData;
+
+  const { timeZone } = useEqData();
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
@@ -93,7 +95,7 @@ const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof DisplayEqData,
+    property: keyof DisplayEqData
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -105,7 +107,7 @@ const TableComponent = ({ eqData, timeZone, setSelectedId }: TablePops) => {
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);

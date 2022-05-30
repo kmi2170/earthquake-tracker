@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 
 import { mags, timePeriods, timeZones } from '../../constants';
+import { useEqData } from '../../context/hook';
 
 const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
@@ -24,17 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface SelectFormProps {
-  period: number;
-  setPeriod: (period: number) => void;
-  initialPeriod: number;
-  minMag: number;
-  setMinMag: (minMag: number) => void;
-  initialMinMag: number;
-  timeZone: string;
-  setTimeZone: (timeZone: string) => void;
-}
-
 const menuProps: Partial<MenuProps> = {
   getContentAnchorEl: null,
   anchorOrigin: {
@@ -43,17 +33,19 @@ const menuProps: Partial<MenuProps> = {
   },
 };
 
-const SelectForm: React.FC<SelectFormProps> = ({
-  period,
-  setPeriod,
-  initialPeriod,
-  minMag,
-  setMinMag,
-  initialMinMag,
-  timeZone,
-  setTimeZone,
-}) => {
+const SelectForm = () => {
   const classes = useStyles();
+
+  const {
+    initialPeriod,
+    period,
+    setPeriod,
+    initialMinMag,
+    minMag,
+    setMinMag,
+    timeZone,
+    setTimeZone,
+  } = useEqData();
 
   return (
     <div className={classes.container}>
@@ -78,7 +70,7 @@ const SelectForm: React.FC<SelectFormProps> = ({
                   {period}
                 </Typography>
               </MenuItem>
-            ),
+            )
           )}
         </Select>
       </FormControl>

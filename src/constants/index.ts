@@ -1,5 +1,4 @@
 export const timePeriods = [
-  { period: '1 day', value: 1 },
   { period: '3 days', value: 3 },
   { period: '7 days', value: 7 },
   { period: '14 days', value: 14 },

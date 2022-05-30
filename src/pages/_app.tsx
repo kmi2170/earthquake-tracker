@@ -10,6 +10,7 @@ import theme from '../utils/theme';
 
 import { SEO } from '../components/SEO';
 import '../styles/globals.css';
+import { EqDataContextProvider } from '../context';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const queryClient = React.useRef(new QueryClient());
@@ -34,7 +35,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         </Head>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <EqDataContextProvider>
+          <Component {...pageProps} />
+        </EqDataContextProvider>
         {/* 
           <ReactQueryDevtools />
           */}

@@ -10,6 +10,7 @@ import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import MapFooter from './MapFooter';
 import { DisplayEqData } from '../../api/types';
 import { normalizeLng } from '../../utils/normalizeLng';
+import { useEqData } from '../../context/hook';
 
 const useStyle = makeStyles((theme) => ({
   map: {
@@ -33,32 +34,24 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 interface MapProps {
-  center: { lat: number; lng: number };
-  zoom: number;
-  initialCener: { lat: number; lng: number };
-  initialZoom: number;
-  setCenter: (center: { lat: number; lng: number }) => void;
-  setZoom: (zoom: number) => void;
   eqData: DisplayEqData[];
-  timeZone: string;
   selectedId: string;
   setSelectedId: (selectedId: string) => void;
 }
 
-const Map = ({
-  center,
-  zoom,
-  setCenter,
-  setZoom,
-  initialCener,
-  initialZoom,
-  eqData,
-  timeZone,
-  selectedId,
-  setSelectedId,
-}: MapProps) => {
+const Map = ({ eqData, selectedId, setSelectedId }: MapProps) => {
   const classes = useStyle();
   const mapRef = useRef(null);
+
+  const {
+    timeZone,
+    initialCener,
+    center,
+    setCenter,
+    initialZoom,
+    zoom,
+    setZoom,
+  } = useEqData();
 
   useEffect(() => {
     if (selectedId && eqData) {
@@ -77,7 +70,7 @@ const Map = ({
       mapRef.current?.flyTo(cnt, zm, { duration: 3 });
       setSelectedId('');
     },
-    [selectedId],
+    [selectedId]
   );
 
   return (
