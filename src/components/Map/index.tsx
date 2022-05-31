@@ -52,31 +52,36 @@ const Map = () => {
   } = useEqData();
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
-  if (isError) return <div>Error: {error.message}</div>;
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (selectedId && eqData) {
       moveToEpicenter(selectedId);
     }
   }, [selectedId]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
-  const moveToEpicenter = useCallback((selectedId) => {
-    const selectedEqData = eqData.filter((data) => selectedId === data.id);
-    const lat = selectedEqData[0]?.coordinates[1];
-    const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
+  const moveToEpicenter = useCallback(
+    (selectedid: string) => {
+      const selectedeqdata = eqData.filter((data) => selectedid === data.id);
+      const lat = selectedeqdata[0]?.coordinates[1];
+      const lng = normalizeLng(selectedeqdata[0]?.coordinates[0]);
 
-    mapRef.current?.flyTo({ lat, lng }, 4, {
-      duration: 3,
-    });
-  }, []);
+      mapRef.current?.flyTo({ lat, lng }, 4, {
+        duration: 3,
+      });
+    },
+    [eqData]
+  );
 
   const resetMap = useCallback(
     (center: { lat: number; lng: number }, zoom: number) => {
       mapRef.current?.flyTo(center, zoom, { duration: 3 });
       setSelectedId('');
     },
-    []
+    [setSelectedId]
   );
+
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <Paper elevation={6}>
