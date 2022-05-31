@@ -1,10 +1,7 @@
-import { useState, useMemo } from 'react';
 import { Container, Grid, Typography, Grow, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useMap } from '../hooks/useMap';
-import { useEqData } from '../context/hook';
-import { useCustomQuery } from '../hooks/useCustomQuery';
 import Table from '../components/Table';
 import Form from '../components/Form';
 import Footer from '../components/Footer';
@@ -18,15 +15,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Home: React.FC = () => {
+const Home = () => {
   const classes = useStyles();
-  const [selectedId, setSelectedId] = useState<string>('');
 
-  const { period, minMag } = useEqData();
-  const { eqData, isError, error } = useCustomQuery(period, minMag);
-  const Map = useMap(eqData);
-
-  if (isError) return <div>Error: {error.message}</div>;
+  const Map = useMap();
 
   return (
     <div className={classes.root}>
@@ -52,15 +44,11 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={7}>
-              <Map
-                eqData={eqData}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-              />
+              <Map />
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} lg={5}>
-              <Table eqData={eqData} setSelectedId={setSelectedId} />
+              <Table />
             </Grid>
             <Grid item xs={12}>
               <Footer />

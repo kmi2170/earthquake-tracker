@@ -5,14 +5,14 @@ import 'leaflet/dist/leaflet.css';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
-import SetCenterZoom from './MapParts/SetCenterZoom';
+import GetCenterZoom from './MapParts/GetCenterZoom';
 import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import MapFooter from './MapFooter';
-import { DisplayEqData } from '../../api/types';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useEqData } from '../../context/hook';
+import { useCustomQuery } from '../../hooks/useCustomQuery';
 
-const useStyle = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   map: {
     width: '100%',
     height: '70vh',
@@ -33,17 +33,13 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-interface MapProps {
-  eqData: DisplayEqData[];
-  selectedId: string;
-  setSelectedId: (selectedId: string) => void;
-}
-
-const Map = ({ eqData, selectedId, setSelectedId }: MapProps) => {
-  const classes = useStyle();
+const Map = () => {
+  const classes = useStyles();
   const mapRef = useRef(null);
 
   const {
+    period,
+    minMag,
     timeZone,
     initialCener,
     center,
@@ -51,26 +47,35 @@ const Map = ({ eqData, selectedId, setSelectedId }: MapProps) => {
     initialZoom,
     zoom,
     setZoom,
+    selectedId,
+    setSelectedId,
   } = useEqData();
+  const { eqData, isError, error } = useCustomQuery(period, minMag);
+
+  if (isError) return <div>Error: {error.message}</div>;
 
   useEffect(() => {
     if (selectedId && eqData) {
-      const selectedEqData = eqData.filter((data) => selectedId === data.id);
-      const lat = selectedEqData[0]?.coordinates[1];
-      const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
-
-      mapRef.current?.flyTo({ lat, lng }, 4, {
-        duration: 3,
-      });
+      moveToEpicenter(selectedId);
     }
   }, [selectedId]);
 
-  const setViewHandler = useCallback(
-    (cnt: { lat: number; lng: number }, zm: number) => {
-      mapRef.current?.flyTo(cnt, zm, { duration: 3 });
+  const moveToEpicenter = useCallback((selectedId) => {
+    const selectedEqData = eqData.filter((data) => selectedId === data.id);
+    const lat = selectedEqData[0]?.coordinates[1];
+    const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
+
+    mapRef.current?.flyTo({ lat, lng }, 4, {
+      duration: 3,
+    });
+  }, []);
+
+  const resetMap = useCallback(
+    (center: { lat: number; lng: number }, zoom: number) => {
+      mapRef.current?.flyTo(center, zoom, { duration: 3 });
       setSelectedId('');
     },
-    [selectedId]
+    []
   );
 
   return (
@@ -84,7 +89,7 @@ const Map = ({ eqData, selectedId, setSelectedId }: MapProps) => {
         zoom={zoom}
         scrollWheelZoom={true}
       >
-        <SetCenterZoom setCenter={setCenter} setZoom={setZoom} />
+        <GetCenterZoom setCenter={setCenter} setZoom={setZoom} />
 
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -99,7 +104,7 @@ const Map = ({ eqData, selectedId, setSelectedId }: MapProps) => {
       </MapContainer>
 
       <MapFooter
-        setViewHandler={setViewHandler}
+        resetMap={resetMap}
         initialCener={initialCener}
         initialZoom={initialZoom}
       />

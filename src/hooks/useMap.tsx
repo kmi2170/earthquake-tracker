@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { DisplayEqData } from '../api/types';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export const useMap = (eqData: DisplayEqData[]) => {
+export const useMap = () => {
   return useMemo(
     () =>
       dynamic(() => import('../components/Map'), {
@@ -16,6 +14,6 @@ export const useMap = (eqData: DisplayEqData[]) => {
         ),
         ssr: false,
       }),
-    [eqData]
+    []
   );
 };

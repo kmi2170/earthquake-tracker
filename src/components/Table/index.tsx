@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -20,6 +20,7 @@ import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
 import TablePaginationActions from './TableParts/TablePaginationActions';
 import { useEqData } from '../../context/hook';
+import { useCustomQuery } from '../../hooks/useCustomQuery';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -77,16 +78,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface TablePops {
-  eqData: DisplayEqData[];
-  setSelectedId: (selectedId: string) => void;
-}
-
-const TableComponent = ({ eqData, setSelectedId }: TablePops) => {
+const TableComponent = () => {
   const classes = useStyles();
-  const rows = eqData;
 
-  const { timeZone } = useEqData();
+  const { period, minMag, timeZone, setSelectedId } = useEqData();
+  const { eqData: rows } = useCustomQuery(period, minMag);
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
@@ -200,4 +196,4 @@ const TableComponent = ({ eqData, setSelectedId }: TablePops) => {
   );
 };
 
-export default TableComponent;
+export default memo(TableComponent);

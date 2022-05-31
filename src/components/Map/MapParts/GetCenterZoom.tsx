@@ -1,11 +1,11 @@
 import { useMapEvent } from 'react-leaflet';
 
-interface SetCenterZoomProps {
+interface GetCenterZoomProps {
   setCenter: (center: { lat: number; lng: number }) => void;
   setZoom: (zoom: number) => void;
 }
 
-const SetCenterZoom = ({ setCenter, setZoom }: SetCenterZoomProps) => {
+const GetCenterZoom = ({ setCenter, setZoom }: GetCenterZoomProps) => {
   const map = useMapEvent('moveend', () => {
     setCenter(map.getCenter());
     setZoom(map.getZoom());
@@ -13,4 +13,4 @@ const SetCenterZoom = ({ setCenter, setZoom }: SetCenterZoomProps) => {
   return null;
 };
 
-export default SetCenterZoom;
+export default GetCenterZoom;

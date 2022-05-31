@@ -23,6 +23,7 @@ export const useCustomQuery = (period: number, minMag: number) => {
     config
   );
 
+  // not sure if useMemo is needed here
   const eqData: DisplayEqData[] = useMemo(
     () => extractedEqData(data) || [],
     [data]

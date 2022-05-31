@@ -27,6 +27,8 @@ export interface IEqDataContext {
   setCenter: Dispatch<SetStateAction<InitialCener>>;
   zoom: number;
   setZoom: Dispatch<SetStateAction<number>>;
+  selectedId: string;
+  setSelectedId: Dispatch<SetStateAction<string>>;
 }
 
 export const EqDataContext = createContext({} as IEqDataContext);
@@ -48,6 +50,8 @@ export const EqDataContextProvider = ({
   const [center, setCenter] = useState<InitialCener>(initialCener);
   const [zoom, setZoom] = useState<number>(initialZoom);
 
+  const [selectedId, setSelectedId] = useState<string>('');
+
   const value = useMemo(
     () => ({
       initialPeriod,
@@ -64,8 +68,10 @@ export const EqDataContextProvider = ({
       setCenter,
       zoom,
       setZoom,
+      selectedId,
+      setSelectedId,
     }),
-    [period, minMag, timeZone, center, zoom]
+    [period, minMag, timeZone, center, zoom, selectedId]
   );
 
   return (

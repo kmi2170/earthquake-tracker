@@ -5,17 +5,13 @@ import Legend from './Legend';
 interface MapFooterProps {
   initialCener: { lat: number; lng: number };
   initialZoom: number;
-  setViewHandler: (
+  resetMap: (
     initialCener: { lat: number; lng: number },
-    initialZoom: number,
+    initialZoom: number
   ) => void;
 }
 
-const MapFooter = ({
-  setViewHandler,
-  initialCener,
-  initialZoom,
-}: MapFooterProps) => {
+const MapFooter = ({ resetMap, initialCener, initialZoom }: MapFooterProps) => {
   return (
     <div>
       <Grid container justifyContent="space-around" alignItems="center">
@@ -29,7 +25,7 @@ const MapFooter = ({
             color="primary"
             size="small"
             style={{ marginBottom: '0.2rem', padding: '0.0rem 0.5rem' }}
-            onClick={() => setViewHandler(initialCener, initialZoom)}
+            onClick={() => resetMap(initialCener, initialZoom)}
           >
             Reset Map
           </Button>
