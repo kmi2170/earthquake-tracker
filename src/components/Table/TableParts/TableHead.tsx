@@ -7,7 +7,10 @@ import {
 } from '@material-ui/core';
 
 import { tableHeadItems } from '../../../constants';
-import { Orders, OrderBy } from '../../../api/types';
+import { DisplayEqData } from '../../../api/types';
+import { Order } from '../../../api/types';
+
+type OrderBy = keyof DisplayEqData;
 
 interface TableHeadProps {
   classes: {
@@ -15,11 +18,11 @@ interface TableHeadProps {
     root: string;
     visuallyHidden: string;
   };
-  order: Orders;
+  order: Order;
   orderBy: OrderBy;
   onRequestSort: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    property: OrderBy,
+    property: keyof DisplayEqData
   ) => void;
 }
 
