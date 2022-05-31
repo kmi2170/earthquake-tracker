@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Table,
@@ -196,4 +196,4 @@ const TableComponent = () => {
   );
 };
 
-export default memo(TableComponent);
+export default TableComponent;
