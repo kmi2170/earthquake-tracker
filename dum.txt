@@ -1,0 +1,15 @@
+
+> eq-tracker@0.1.0 test
+> jest "src/components/Form"
+
+  console.log
+    [36m<input[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"MuiSelect-nativeInput"[39m
+      [33mdata-testid[39m=[32m"period-select"[39m
+      [33mtabindex[39m=[32m"-1"[39m
+      [33mvalue[39m=[32m"3"[39m
+    [36m/>[39m
+
+      at src/components/Form/index.test.tsx:37:13
+
