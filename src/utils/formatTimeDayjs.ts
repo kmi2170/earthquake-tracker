@@ -9,7 +9,7 @@ dayjs.extend(timezone);
 
 export const formatTimeDayjs = (
   epochTime: number,
-  timeZone: string,
+  timeZone: string
 ): string => {
   const t0 = dayjs.unix(epochTime / 1000);
 
@@ -19,9 +19,7 @@ export const formatTimeDayjs = (
 
   const t_sign = tz_offset < 0 ? '-' : '+';
   const tz_offset_str =
-    timeZone === 'local'
-      ? t_sign + ('0' + Math.abs(tz_offset)).slice(-2)
-      : '+00';
+    timeZone === 'local' ? t_sign + `0${Math.abs(tz_offset)}`.slice(-2) : '+00';
 
   const time = timeZone === 'local' ? t_local : t_utc;
 

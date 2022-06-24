@@ -52,6 +52,7 @@ export const EqDataContextProvider = ({
 
   const [selectedId, setSelectedId] = useState<string>('');
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const value = useMemo(
     () => ({
       initialPeriod,
@@ -73,6 +74,7 @@ export const EqDataContextProvider = ({
     }),
     [period, minMag, timeZone, center, zoom, selectedId]
   );
+  /* eslint-enabl react-hooks/exhaustive-deps */
 
   return (
     <EqDataContext.Provider value={value}>{children}</EqDataContext.Provider>
