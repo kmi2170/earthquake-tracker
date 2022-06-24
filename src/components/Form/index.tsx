@@ -62,7 +62,6 @@ const SelectForm = () => {
           onChange={(e) => setPeriod(e.target.value as number)}
           defaultValue={initialPeriod}
           MenuProps={menuProps}
-          inputProps={{ 'data-testid': 'period-select' }}
         >
           {timePeriods.map(
             ({ period, value }: { period: string; value: number }) => (
