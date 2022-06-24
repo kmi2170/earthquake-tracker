@@ -17,42 +17,61 @@ const periods = timePeriods.map((item) => item.period);
 const magnitudes = mags.map((item) => item.mag);
 const timezones = timeZones.map((item) => item.tz);
 
-describe('Form', () => {
-  const user = userEvent.setup();
+const user = userEvent.setup();
+const setup = () =>
+  render(
+    <EqDataContextProvider>
+      <Form />
+    </EqDataContextProvider>
+  );
+type Setup = typeof setup;
 
-  beforeEach(() => {
-    render(
-      <EqDataContextProvider>
-        <Form />
-      </EqDataContextProvider>
-    );
-  });
+describe('Form', () => {
+  // beforeEach(() => {});
   afterEach(() => cleanup());
 
   describe('default select', () => {
-    test('default period', () => defaultValue(0, '3 days'));
-    test('default min. magnitude', () => defaultValue(1, '4.0'));
-    test('default timezone', () => defaultValue(2, 'Local'));
+    it('default period', () => {
+      expect.assertions(1);
+      defaultValue(setup, 0, '3 days');
+    });
+    it('default min. magnitude', () => {
+      expect.assertions(1);
+      defaultValue(setup, 1, '4.0');
+    });
+    it('default timezone', () => {
+      expect.assertions(1);
+      defaultValue(setup, 2, 'Local');
+    });
   });
 
   describe('select period', () => {
-    test.each(periods)('period: %s', async (period) => {
-      await clickOption(user, 0, period);
+    it.each(periods)('period: %s', async (text) => {
+      expect.assertions(1);
+      await clickOption(setup, user, 0, text);
     });
   });
   describe('select min. magnitude', () => {
-    test.each(magnitudes)('min. magnitude: %s', async (period) => {
-      await clickOption(user, 1, period);
+    it.each(magnitudes)('min. magnitude: %s', async (text) => {
+      expect.assertions(1);
+      await clickOption(setup, user, 1, text);
     });
   });
   describe('select timezone', () => {
-    test.each(timezones)('timezone: %s', async (period) => {
-      await clickOption(user, 2, period);
+    it.each(timezones)('timezone: %s', async (text) => {
+      expect.assertions(1);
+      await clickOption(setup, user, 2, text);
     });
   });
 });
 
-const clickOption = async (user: UserEvent, index: number, text: string) => {
+const clickOption = async (
+  setup: Setup,
+  user: UserEvent,
+  index: number,
+  text: string
+) => {
+  setup();
   const btn = screen.getAllByRole('button');
   fireEvent.mouseDown(btn[index]);
   const listbox = within(screen.getByRole('listbox'));
@@ -60,7 +79,9 @@ const clickOption = async (user: UserEvent, index: number, text: string) => {
   await user.click(listbox.getByText(text));
   expect(btn[index].textContent).toBe(text);
 };
-const defaultValue = (index: number, text: string) => {
+
+const defaultValue = (setup: Setup, index: number, text: string) => {
+  setup();
   const btn = screen.getAllByRole('button');
   expect(btn[index].textContent).toBe(text);
 };

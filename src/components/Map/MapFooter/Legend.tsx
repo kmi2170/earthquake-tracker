@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
 
-import { magColor, legends } from '../../../constants';
+import { magColor, legends, LegendClass } from '../../../constants';
 
 const useStyles = makeStyles((theme) => ({
   popover: {
@@ -64,7 +64,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Legend = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(
+    null
+  );
 
   const handlePopoverOpen = useCallback((e: React.SyntheticEvent) => {
     setAnchorEl(e.currentTarget);
@@ -77,7 +79,7 @@ const Legend = () => {
   return (
     <div>
       <Typography
-        aria-owns={!!anchorEl ? 'mouse-over-popover' : undefined}
+        aria-owns={!anchorEl ? 'mouse-over-popover' : undefined}
         aria-haspopup="true"
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
@@ -110,10 +112,12 @@ const Legend = () => {
         </Typography>
 
         {legends.map(
-          ({ scale, className }: { scale: string; className: string }) => (
+          ({ scale, className }: { scale: string; className: LegendClass }) => (
             <div key={className} className={classes.wrapper}>
               <div className={classes.icon}>
-                <FiberManualRecordIcon className={classes[className]} />
+                <span className={classes[className]}>
+                  <FiberManualRecordIcon />
+                </span>
               </div>
 
               <div className={classes.scale}>
@@ -122,7 +126,7 @@ const Legend = () => {
                 </Typography>
               </div>
             </div>
-          ),
+          )
         )}
       </Popover>
     </div>

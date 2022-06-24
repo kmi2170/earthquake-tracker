@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { RowEqData } from '../api/types';
 
 export const fetcher = async (url: string) => {
   try {
-    const { data } = await axios(url);
+    const { data } = await axios.get<RowEqData[]>(url);
 
     return data;
   } catch (error) {

@@ -40,6 +40,7 @@ export const legends = [
   { scale: '5 ≤ M < 6', className: 'magM' },
   { scale: 'M < 5', className: 'magS' },
 ];
+export type LegendClass = 'magX' | 'magL' | 'magM' | 'magS';
 
 export const tableHeadItems = [
   { id: 'mag', label: 'Mag.' },

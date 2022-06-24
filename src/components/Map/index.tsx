@@ -1,5 +1,6 @@
 import { useRef, useEffect, useCallback } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
+import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import Paper from '@material-ui/core/Paper';
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Map = () => {
+const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
@@ -66,7 +67,7 @@ const Map = () => {
       const lat = selectedeqdata[0]?.coordinates[1];
       const lng = normalizeLng(selectedeqdata[0]?.coordinates[0]);
 
-      mapRef.current?.flyTo({ lat, lng }, 4, {
+      (mapRef.current as Map)?.flyTo({ lat, lng }, 4, {
         duration: 3,
       });
     },
@@ -75,7 +76,7 @@ const Map = () => {
 
   const resetMap = useCallback(
     (center: { lat: number; lng: number }, zoom: number) => {
-      mapRef.current?.flyTo(center, zoom, { duration: 3 });
+      (mapRef.current as Map)?.flyTo(center, zoom, { duration: 3 });
       setSelectedId('');
     },
     [setSelectedId]
@@ -117,4 +118,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default MapComponent;
