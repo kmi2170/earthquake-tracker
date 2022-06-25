@@ -11,11 +11,13 @@ const popupMessage = 'Hover over a circle for the detailed info';
 describe('Legend', () => {
   setup();
   const legend = screen.getByText('LEGEND');
-  it(`hover over Legend and appear a popup with the message: ${popupMessage}`, async () => {
+
+  it(`hover over Legend, then appear a popup with the message: ${popupMessage}`, async () => {
     await user.hover(legend);
     expect(screen.getByText(popupMessage)).toBeInTheDocument();
   });
-  it(`unhover over Legend and disappear a popup`, async () => {
+
+  it(`unhover over Legend, then disappear the popup`, async () => {
     await user.unhover(legend);
     expect(screen.queryByText(popupMessage)).not.toBeInTheDocument();
   });
