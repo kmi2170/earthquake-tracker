@@ -7,5 +7,13 @@ module.exports = {
       tsconfig: './tsconfig.jest.json',
     },
     setupFileAfterEnv: ['./src/jest.setup.ts'],
+    coverageThreshhold: {
+      global: {
+        branches: 100,
+        functions: 100,
+        lines: 100,
+        statements: 100,
+      },
+    },
   },
 };
