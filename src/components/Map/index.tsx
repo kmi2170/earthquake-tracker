@@ -84,8 +84,6 @@ const MapComponent = () => {
 
   if (isError) return <div>Error: {error.message}</div>;
 
-  console.log(zoom);
-
   return (
     <Paper elevation={6}>
       <MapContainer
