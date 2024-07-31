@@ -71,7 +71,7 @@ const MapComponent = () => {
         duration: 3,
       });
     },
-    [eqData]
+    [eqData],
   );
 
   const resetMap = useCallback(
@@ -79,10 +79,12 @@ const MapComponent = () => {
       (mapRef.current as Map)?.flyTo(center, zoom, { duration: 3 });
       setSelectedId('');
     },
-    [setSelectedId]
+    [setSelectedId],
   );
 
   if (isError) return <div>Error: {error.message}</div>;
+
+  console.log(zoom);
 
   return (
     <Paper elevation={6}>
@@ -106,6 +108,7 @@ const MapComponent = () => {
           eqData={eqData}
           timeZone={timeZone}
           selectedId={selectedId}
+          zoom={zoom}
         />
       </MapContainer>
 
