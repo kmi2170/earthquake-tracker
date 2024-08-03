@@ -7,8 +7,7 @@ const Footer = () => {
   return (
     <footer>
       <Typography variant="h6">
-        Copyrihgt &copy; kmi {year} All rights reserved. | Earthquake date from
-        USGC
+        &copy; Kemmei H. {year} All rights reserved. | Earthquake date from USGC
       </Typography>
     </footer>
   );
