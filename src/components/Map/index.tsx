@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -12,6 +12,7 @@ import MapFooter from './MapFooter';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useEqData } from '../../context/hook';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
+import RadiusSlider from './MapParts/Slider';
 
 const useStyles = makeStyles((theme) => ({
   map: {
@@ -53,13 +54,13 @@ const MapComponent = () => {
   } = useEqData();
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
+  const [cRadius, setCRadius] = useState(1);
+
   useEffect(() => {
     if (selectedId && eqData) {
       moveToEpicenter(selectedId);
     }
   }, [selectedId]);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   const moveToEpicenter = useCallback(
     (selectedid: string) => {
@@ -81,6 +82,8 @@ const MapComponent = () => {
     },
     [setSelectedId],
   );
+
+  const changeCRadius = (value: number) => setCRadius(value);
 
   if (isError) return <div>Error: {error.message}</div>;
 
@@ -107,8 +110,11 @@ const MapComponent = () => {
           timeZone={timeZone}
           selectedId={selectedId}
           zoom={zoom}
+          cRadius={cRadius}
         />
       </MapContainer>
+
+      <RadiusSlider value={cRadius} changeValue={changeCRadius} />
 
       <MapFooter
         resetMap={resetMap}

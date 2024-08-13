@@ -11,6 +11,7 @@ interface ShowCirclesOnMapProps {
   timeZone: string;
   selectedId: string;
   zoom: number;
+  cRadius: number;
 }
 
 const ShowCirclesOnMap = ({
@@ -18,6 +19,7 @@ const ShowCirclesOnMap = ({
   timeZone,
   selectedId,
   zoom,
+  cRadius,
 }: ShowCirclesOnMapProps) => {
   const lngs = useMemo(
     () => eqData?.map((data) => normalizeLng(data.coordinates[0])),
@@ -35,7 +37,7 @@ const ShowCirclesOnMap = ({
               fillColor={magColor(data.mag)}
               opacity={0.5}
               fillOpacity={0.6}
-              radius={data.mag ** 1.5 * zoom}
+              radius={data.mag ** 1.5 * zoom * cRadius}
             >
               <PopupComponent
                 data={data}
