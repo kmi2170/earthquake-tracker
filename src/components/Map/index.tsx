@@ -83,7 +83,7 @@ const MapComponent = () => {
     [setSelectedId],
   );
 
-  const changeCRadius = (value: number) => setCRadius(value);
+  const changeCRadius = useCallback((value: number) => setCRadius(value), []);
 
   if (isError) return <div>Error: {error.message}</div>;
 

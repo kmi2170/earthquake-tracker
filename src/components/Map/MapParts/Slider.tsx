@@ -8,7 +8,7 @@ type RadiusSliderProps = {
   changeValue: (value: number) => void;
 };
 
-export default function RadiusSlider(props: RadiusSliderProps) {
+const RadiusSlider = (props: RadiusSliderProps) => {
   const { value, changeValue } = props;
 
   const handleChange = (
@@ -42,4 +42,6 @@ export default function RadiusSlider(props: RadiusSliderProps) {
       </Box>
     </Box>
   );
-}
+};
+
+export default React.memo(RadiusSlider);
