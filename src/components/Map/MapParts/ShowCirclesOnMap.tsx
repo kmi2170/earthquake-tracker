@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { CircleMarker } from 'react-leaflet';
 import { DisplayEqData } from '../../../api/types';
 
@@ -60,4 +60,4 @@ const ShowCirclesOnMap = ({
   );
 };
 
-export default ShowCirclesOnMap;
+export default memo(ShowCirclesOnMap);
