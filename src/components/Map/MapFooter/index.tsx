@@ -1,13 +1,14 @@
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Legend from './Legend';
+import { memo } from 'react';
 
 interface MapFooterProps {
   initialCener: { lat: number; lng: number };
   initialZoom: number;
   resetMap: (
     initialCener: { lat: number; lng: number },
-    initialZoom: number
+    initialZoom: number,
   ) => void;
 }
 
@@ -35,4 +36,4 @@ const MapFooter = ({ resetMap, initialCener, initialZoom }: MapFooterProps) => {
   );
 };
 
-export default MapFooter;
+export default memo(MapFooter);
