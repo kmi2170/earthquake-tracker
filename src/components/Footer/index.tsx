@@ -7,11 +7,10 @@ const Footer = () => {
   return (
     <footer>
       <Typography variant="h6">
-        &copy; Kemmei H. {year} All rights reserved. | Earthquake date from USGC
+        &copy; {year} Kemmei H. | Earthquake date by USGC
       </Typography>
     </footer>
   );
 };
 
-// export default Footer;
 export default memo(Footer);
