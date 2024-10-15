@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -55,16 +55,6 @@ const MapComponent = () => {
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
   const [cRadius, setCRadius] = useState(1);
-
-  // const [map, setMap] = useState<Map>(null);
-  // const map = useMap();
-
-  // useEffect(() => {
-  //   // You can now access the map instance here
-  //   if (mapRef !== null) {
-  //     mapRef.current = map;
-  //   }
-  // }, [map]);
 
   useEffect(() => {
     if (selectedId && eqData) {
