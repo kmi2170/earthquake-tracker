@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   Typography,
   InputLabel,
@@ -8,7 +8,7 @@ import {
   Select,
   Theme,
   MenuProps,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { mags, timePeriods, timeZones } from '../../constants';
 import { useEqData } from '../../context/hook';
@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const menuProps: Partial<MenuProps> = {
-  getContentAnchorEl: null,
   anchorOrigin: {
     vertical: 'bottom',
     horizontal: 'left',
@@ -70,7 +69,7 @@ const SelectForm = () => {
                   {period}
                 </Typography>
               </MenuItem>
-            )
+            ),
           )}
         </Select>
       </FormControl>
@@ -107,7 +106,7 @@ const SelectForm = () => {
           labelId="timezone-label"
           id="timezone-select"
           value={timeZone}
-          onChange={(e) => setTimeZone(e.target.value as string)}
+          onChange={(e) => setTimeZone(e.target.value)}
           defaultValue={'local'}
           MenuProps={menuProps}
         >

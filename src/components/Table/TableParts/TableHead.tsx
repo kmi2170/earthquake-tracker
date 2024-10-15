@@ -4,7 +4,7 @@ import {
   TableRow,
   TableSortLabel,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { tableHeadItems } from '../../../constants';
 import { DisplayEqData } from '../../../api/types';

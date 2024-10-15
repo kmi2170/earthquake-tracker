@@ -1,6 +1,6 @@
 import { Marker, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 import { DisplayEqData } from '../../../api/types';
 import { formatTimeDayjs } from '../../../utils/formatTimeDayjs';

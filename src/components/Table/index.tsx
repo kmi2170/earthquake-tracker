@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
   Paper,
   Tooltip,
   // Checkbox,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { Order } from '../../api/types';
 import { formatTimeDayjs } from '../../utils/formatTimeDayjs';

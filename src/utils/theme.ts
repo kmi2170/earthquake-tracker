@@ -1,8 +1,12 @@
-import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
-import { red } from '@material-ui/core/colors';
+import {
+  createTheme,
+  responsiveFontSizes,
+  // adaptV4Theme,
+  // createBreakpoints,
+} from '@mui/material/styles';
+import { red } from '@mui/material/colors';
 
-const breakpoints = createBreakpoints({});
+// const breakpoints = createBreakpoints({});
 
 // breakpoints.values.lg = 1024
 // breakpoints.values['xxl'] = 3000
@@ -58,32 +62,32 @@ let theme = createTheme({
     //   },
     // },
   },
-  overrides: {
-    MuiIconButton: {
-      root: {
-        [breakpoints.down('sm')]: {
-          padding: 0,
-          paddingLeft: 1,
-        },
-      },
-    },
-    MuiTablePagination: {
-      selectRoot: {
-        [breakpoints.down('sm')]: {
-          marginLeft: 0,
-          marginRight: 5,
-        },
-      },
-    },
-    MuiToolbar: {
-      regular: {
-        [breakpoints.down('sm')]: {
-          paddingTop: '0.5rem',
-          minHeight: 0,
-        },
-      },
-    },
-  },
+  // overrides: {
+  //   MuiIconButton: {
+  //     root: {
+  //       [breakpoints.down('sm')]: {
+  //         padding: 0,
+  //         paddingLeft: 1,
+  //       },
+  //     },
+  //   },
+  //   MuiTablePagination: {
+  //     selectRoot: {
+  //       [breakpoints.down('sm')]: {
+  //         marginLeft: 0,
+  //         marginRight: 5,
+  //       },
+  //     },
+  //   },
+  //   MuiToolbar: {
+  //     regular: {
+  //       [breakpoints.down('sm')]: {
+  //         paddingTop: '0.5rem',
+  //         minHeight: 0,
+  //       },
+  //     },
+  //   },
+  // },
 });
 
 // theme.typography.subtitle2 = {

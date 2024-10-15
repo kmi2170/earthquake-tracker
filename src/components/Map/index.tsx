@@ -1,10 +1,10 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
 
 import GetCenterZoom from './MapParts/GetCenterZoom';
 import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     map: {
       height: '50vh',
     },
@@ -55,6 +55,16 @@ const MapComponent = () => {
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
   const [cRadius, setCRadius] = useState(1);
+
+  // const [map, setMap] = useState<Map>(null);
+  // const map = useMap();
+
+  // useEffect(() => {
+  //   // You can now access the map instance here
+  //   if (mapRef !== null) {
+  //     mapRef.current = map;
+  //   }
+  // }, [map]);
 
   useEffect(() => {
     if (selectedId && eqData) {
@@ -91,9 +101,10 @@ const MapComponent = () => {
     <Paper elevation={6}>
       <MapContainer
         className={classes.map}
-        whenCreated={(mapInstance) => {
-          mapRef.current = mapInstance;
-        }}
+        // whenCreated={(mapInstance) => {
+        //   mapRef.current = mapInstance;
+        // }}
+        ref={mapRef}
         center={center}
         zoom={zoom}
         scrollWheelZoom={true}

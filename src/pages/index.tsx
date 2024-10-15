@@ -1,5 +1,5 @@
-import { Container, Grid, Typography, Grow, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid, Typography, Grow, Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { useMap } from '../hooks/useMap';
 import Table from '../components/Table';

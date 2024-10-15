@@ -1,8 +1,8 @@
 import { memo, useCallback, useState } from 'react';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { FiberManualRecord as FiberManualRecordIcon } from '@material-ui/icons';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
 
 import { magColor, legends, LegendClass } from '../../../constants';
 

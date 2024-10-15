@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 
 const Footer = () => {
   const year = new Date().getFullYear();

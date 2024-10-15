@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
-// import Stack from '@material-ui/core/Stack';
-import Slider from '@material-ui/core/Slider';
+import Box from '@mui/material/Box';
+// import Stack from '@mui/material/Stack';
+import Slider from '@mui/material/Slider';
 
 type RadiusSliderProps = {
   value: number;
@@ -11,10 +11,7 @@ type RadiusSliderProps = {
 const RadiusSlider = (props: RadiusSliderProps) => {
   const { value, changeValue } = props;
 
-  const handleChange = (
-    event: React.ChangeEvent,
-    newValue: number | number[],
-  ) => {
+  const handleChange = (event: Event, newValue: number | number[]) => {
     //const handleChange = (event: Event, newValue: number | number[]) => {
     changeValue(newValue as number);
   };

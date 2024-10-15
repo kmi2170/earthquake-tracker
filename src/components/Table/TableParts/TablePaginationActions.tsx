@@ -1,11 +1,12 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import { IconButton } from '@mui/material';
 import {
   FirstPage as FirstPageIcon,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   LastPage as LastPageIcon,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 const useStyles1 = makeStyles(() => ({
   root: {
@@ -57,19 +58,19 @@ const TablePaginationActions = ({
   };
 
   return (
-    <div className={classes.root}>
+    (<div className={classes.root}>
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
         aria-label="first page"
-      >
+        size="large">
         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
-      >
+        size="large">
         {theme.direction === 'rtl' ? (
           <KeyboardArrowRight />
         ) : (
@@ -80,7 +81,7 @@ const TablePaginationActions = ({
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
-      >
+        size="large">
         {theme.direction === 'rtl' ? (
           <KeyboardArrowLeft />
         ) : (
@@ -91,10 +92,10 @@ const TablePaginationActions = ({
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
-      >
+        size="large">
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
-    </div>
+    </div>)
   );
 };
 
