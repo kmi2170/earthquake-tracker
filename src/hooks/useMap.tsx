@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
-export const useMap = () => {
+export const useDynamicMap = () => {
   return useMemo(
     () =>
       dynamic(() => import('../components/Map'), {
@@ -14,6 +14,6 @@ export const useMap = () => {
         ),
         ssr: false,
       }),
-    []
+    [],
   );
 };

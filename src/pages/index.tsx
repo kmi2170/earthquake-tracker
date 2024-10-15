@@ -1,7 +1,7 @@
 import { Container, Grid, Typography, Grow, Box } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { useMap } from '../hooks/useMap';
+import { useDynamicMap } from '../hooks/useMap';
 import Table from '../components/Table';
 import Form from '../components/Form';
 import Footer from '../components/Footer';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 const Home = () => {
   const classes = useStyles();
 
-  const Map = useMap();
+  const Map = useDynamicMap();
 
   return (
     <div className={classes.root}>
