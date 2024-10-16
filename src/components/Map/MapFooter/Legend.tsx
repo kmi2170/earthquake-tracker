@@ -3,30 +3,18 @@ import { memo } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import makeStyles from '@mui/styles/makeStyles';
 
 import { legends } from '../../../constants';
 
-const useStyles = makeStyles(() => ({
-  legend: {
-    marginBottom: '0.5rem',
-  },
-  box: {
-    width: '50px',
-    height: '20px',
-  },
-}));
-
 const Legend = () => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.legend}>
+    <Box sx={{ marginBottom: '2rem' }}>
       <Typography
         align="center"
         variant="subtitle2"
         component="h3"
         gutterBottom
+        sx={{ fontSize: '1.25rem' }}
       >
         Magnitude
       </Typography>
@@ -36,9 +24,12 @@ const Legend = () => {
           return (
             <Grid key={mag}>
               <Box
-                className={classes.box}
-                sx={{ backgroundColor: color }}
-              ></Box>
+                sx={{
+                  width: '50px',
+                  height: '20px',
+                  backgroundColor: color,
+                }}
+              />
             </Grid>
           );
         })}
@@ -47,12 +38,20 @@ const Legend = () => {
         {legends.map(({ mag }) => {
           return (
             <Grid key={mag}>
-              <Box className={classes.box}>
+              <Box
+                sx={{
+                  width: '50px',
+                  height: '20px',
+                }}
+              >
                 <Typography
                   align="left"
                   variant="body1"
                   marginLeft="-4px"
-                  sx={{ color: mag === 4 ? 'white' : 'black' }}
+                  sx={{
+                    color: mag === 4 ? 'white' : 'black',
+                    fontSize: '1.25rem',
+                  }}
                 >
                   {mag}
                 </Typography>
@@ -61,7 +60,7 @@ const Legend = () => {
           );
         })}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

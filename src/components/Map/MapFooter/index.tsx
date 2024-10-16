@@ -30,8 +30,8 @@ const MapFooter = ({
           <Button
             variant="contained"
             color="primary"
-            size="small"
-            style={{ marginBottom: '0.2rem', padding: '0.0rem 0.5rem' }}
+            size="large"
+            style={{ marginBottom: '1.0rem', padding: '0.25rem 0.75rem' }}
             onClick={() => resetMap(initialCenter, initialZoom)}
           >
             Reset Map
