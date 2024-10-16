@@ -25,7 +25,6 @@ export const magColor = (m: number): string => {
     s: '#666666',
     m: '#ffff00',
     l: '#ffc0cb',
-    // l: '#f7347a',
     x: '#ff0000',
   };
 
