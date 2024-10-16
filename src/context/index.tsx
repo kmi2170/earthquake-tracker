@@ -5,9 +5,10 @@ import {
   Dispatch,
   SetStateAction,
   useMemo,
+  ReactNode,
 } from 'react';
 
-interface InitialCener {
+interface InitialCenter {
   lat: number;
   lng: number;
 }
@@ -21,10 +22,10 @@ export interface IEqDataContext {
   setMinMag: Dispatch<SetStateAction<number>>;
   timeZone: string;
   setTimeZone: Dispatch<SetStateAction<string>>;
-  initialCener: InitialCener;
+  initialCenter: InitialCenter;
   initialZoom: number;
-  center: InitialCener;
-  setCenter: Dispatch<SetStateAction<InitialCener>>;
+  center: InitialCenter;
+  setCenter: Dispatch<SetStateAction<InitialCenter>>;
   zoom: number;
   setZoom: Dispatch<SetStateAction<number>>;
   selectedId: string;
@@ -36,7 +37,7 @@ export const EqDataContext = createContext({} as IEqDataContext);
 export const EqDataContextProvider = ({
   children,
 }: {
-  children: ReactChild;
+  children: ReactNode;
 }) => {
   const initialPeriod = 3;
   const initialMinMag = 4;
@@ -45,9 +46,9 @@ export const EqDataContextProvider = ({
 
   const [timeZone, setTimeZone] = useState<string>('local');
 
-  const initialCener = { lat: 0, lng: 180 };
+  const initialCenter = { lat: 0, lng: 180 };
   const initialZoom = 1;
-  const [center, setCenter] = useState<InitialCener>(initialCener);
+  const [center, setCenter] = useState<InitialCenter>(initialCenter);
   const [zoom, setZoom] = useState<number>(initialZoom);
 
   const [selectedId, setSelectedId] = useState<string>('');
@@ -63,7 +64,7 @@ export const EqDataContextProvider = ({
       setMinMag,
       timeZone,
       setTimeZone,
-      initialCener,
+      initialCenter,
       initialZoom,
       center,
       setCenter,
@@ -72,7 +73,7 @@ export const EqDataContextProvider = ({
       selectedId,
       setSelectedId,
     }),
-    [period, minMag, timeZone, center, zoom, selectedId]
+    [period, minMag, timeZone, center, zoom, selectedId],
   );
   /* eslint-enabl react-hooks/exhaustive-deps */
 
