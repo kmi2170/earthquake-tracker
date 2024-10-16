@@ -1,14 +1,11 @@
 import { memo } from 'react';
+
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { MenuProps, Theme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import {
-  Typography,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-  Theme,
-  MenuProps,
-} from '@mui/material';
 
 import { mags, timePeriods, timeZones } from '../../constants';
 import { useEqData } from '../../context/hook';
@@ -50,14 +47,13 @@ const SelectForm = () => {
     <div className={classes.container}>
       <FormControl className={classes.formControl}>
         <InputLabel id="period-label" shrink>
-          <Typography variant="h6" align="center">
-            Last
-          </Typography>
+          Last
         </InputLabel>
         <Select
           labelId="period-label"
           id="period-select"
           value={period}
+          label="Last"
           onChange={(e) => setPeriod(e.target.value as number)}
           defaultValue={initialPeriod}
           MenuProps={menuProps}
@@ -65,56 +61,50 @@ const SelectForm = () => {
           {timePeriods.map(
             ({ period, value }: { period: string; value: number }) => (
               <MenuItem key={period} value={value}>
-                <Typography variant="subtitle1" align="center">
-                  {period}
-                </Typography>
+                {period}
               </MenuItem>
             ),
           )}
         </Select>
       </FormControl>
+
       <FormControl className={classes.formControl}>
         <InputLabel id="minmag-label" shrink>
-          <Typography variant="h6" align="center">
-            Min. Mag.
-          </Typography>
+          Min. Mag.
         </InputLabel>
         <Select
           labelId="minmag-label"
           id="minmag-select"
           value={minMag}
+          label="Min Mag."
           onChange={(e) => setMinMag(e.target.value as number)}
           defaultValue={initialMinMag}
           MenuProps={menuProps}
         >
           {mags.map(({ mag, value }: { mag: string; value: number }) => (
             <MenuItem key={mag} value={value}>
-              <Typography variant="subtitle1" align="center">
-                {mag}
-              </Typography>
+              {mag}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
+
       <FormControl className={classes.formControl}>
         <InputLabel id="timezone-label" shrink>
-          <Typography variant="h6" align="center">
-            Time
-          </Typography>
+          Time Zone
         </InputLabel>
         <Select
           labelId="timezone-label"
           id="timezone-select"
           value={timeZone}
+          label="Time Zone"
           onChange={(e) => setTimeZone(e.target.value)}
           defaultValue={'local'}
           MenuProps={menuProps}
         >
           {timeZones.map(({ tz, value }: { tz: string; value: string }) => (
             <MenuItem key={tz} value={value}>
-              <Typography variant="subtitle1" align="center">
-                {tz}
-              </Typography>
+              {tz}
             </MenuItem>
           ))}
         </Select>
