@@ -12,7 +12,7 @@ import MapFooter from './MapFooter';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useEqData } from '../../context/hook';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
-import RadiusSlider from './MapParts/Slider';
+import Slider from './MapParts/Slider';
 
 const useStyles = makeStyles((theme) => ({
   map: {
@@ -115,7 +115,7 @@ const MapComponent = () => {
         />
       </MapContainer>
 
-      <RadiusSlider value={cRadius} changeValue={changeCRadius} />
+      <Slider value={cRadius} changeValue={changeCRadius} />
 
       <MapFooter
         resetMap={resetMap}
