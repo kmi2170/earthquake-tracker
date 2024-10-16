@@ -119,7 +119,7 @@ const MapComponent = () => {
 
       <MapFooter
         resetMap={resetMap}
-        initialCener={initialCener}
+        initialCenter={initialCener}
         initialZoom={initialZoom}
       />
     </Paper>
