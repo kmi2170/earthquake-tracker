@@ -28,7 +28,7 @@ const Legend = () => {
         component="h3"
         gutterBottom
       >
-        Mag.
+        Magnitude
       </Typography>
 
       <Grid container>
