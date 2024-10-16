@@ -1,4 +1,7 @@
-import { Container, Grid, Typography, Grow, Box } from '@mui/material';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid2';
+import Typography from '@mui/material/Typography';
+
 import makeStyles from '@mui/styles/makeStyles';
 
 import { useDynamicMap } from '../hooks/useMap';
@@ -22,40 +25,43 @@ const Home = () => {
 
   return (
     <div className={classes.root}>
-      {/* <Grow in> */}
       <Container maxWidth={false}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Box mt={2}>
-              <Typography
-                variant="h3"
-                component="h1"
-                align="center"
-                style={{ fontFamily: 'Oswald' }}
-              >
-                Earthquake Tracker
-              </Typography>
-            </Box>
+        <Grid container spacing={3}>
+          <Grid
+            size={{ xs: 12, sm: 6 }}
+            sx={{
+              mt: 2,
+            }}
+          >
+            <Typography
+              variant="h3"
+              component="h1"
+              align="center"
+              style={{ fontFamily: 'Oswald' }}
+            >
+              Earthquake Tracker
+            </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Box mt={2}>
-              <Form />
-            </Box>
+          <Grid
+            size={{ xs: 12, sm: 6 }}
+            sx={{
+              mt: 2,
+            }}
+          >
+            <Form />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={6} lg={7}>
+          <Grid size={{ xs: 12, sm: 6, md: 6, lg: 7, xl: 8 }}>
             <Map />
           </Grid>
-
-          <Grid item xs={12} sm={6} md={6} lg={5}>
+          <Grid size={{ xs: 12, sm: 6, md: 6, lg: 5, xl: 4 }}>
             <Table />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <Footer />
           </Grid>
         </Grid>
       </Container>
-      {/* </Grow> */}
     </div>
   );
 };
