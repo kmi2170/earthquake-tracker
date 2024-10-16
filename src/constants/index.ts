@@ -24,7 +24,8 @@ export const magColor = (m: number): string => {
   const colors = {
     s: '#666666',
     m: '#ffff00',
-    l: '#f7347a',
+    l: '#ffc0cb',
+    // l: '#f7347a',
     x: '#ff0000',
   };
 
@@ -34,12 +35,20 @@ export const magColor = (m: number): string => {
   return colors['x'];
 };
 
+// export const legends = [
+//   { scale: '7 ≤ M', className: 'magX' },
+//   { scale: '6 ≤ M < 7', className: 'magL' },
+//   { scale: '5 ≤ M < 6', className: 'magM' },
+//   { scale: 'M < 5', className: 'magS' },
+// ];
+
 export const legends = [
-  { scale: '7 ≤ M', className: 'magX' },
-  { scale: '6 ≤ M < 7', className: 'magL' },
-  { scale: '5 ≤ M < 6', className: 'magM' },
-  { scale: 'M < 5', className: 'magS' },
+  { mag: 4, color: magColor(4) },
+  { mag: 5, color: magColor(5) },
+  { mag: 6, color: magColor(6) },
+  { mag: 7, color: magColor(7) },
 ];
+
 export type LegendClass = 'magX' | 'magL' | 'magM' | 'magS';
 
 export const tableHeadItems = [

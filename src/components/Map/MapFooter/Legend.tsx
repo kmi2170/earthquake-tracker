@@ -1,134 +1,66 @@
-import { memo, useCallback, useState } from 'react';
-import Popover from '@mui/material/Popover';
+import { memo } from 'react';
+
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid2';
+import Box from '@mui/material/Box';
 import makeStyles from '@mui/styles/makeStyles';
-import { FiberManualRecord as FiberManualRecordIcon } from '@mui/icons-material';
 
-import { magColor, legends, LegendClass } from '../../../constants';
+import { legends } from '../../../constants';
 
-const useStyles = makeStyles((theme) => ({
-  popover: {
-    pointerEvents: 'none',
-  },
-  paper: {
-    padding: theme.spacing(1.5),
-    backgroundColor: 'rgba(255, 255, 255, 0.65)',
-    borderRadius: '10px',
-    maxWidth: '200px',
-  },
+const useStyles = makeStyles(() => ({
   legend: {
-    padding: '0 0.3rem',
-    marginBottom: '0.1rem',
-    borderRadius: '5px',
-    borderStyle: 'solid',
-    borderColor: 'grey',
-    backgroundColor: 'grey',
-    color: 'white',
-    fontStyle: 'bold',
-    fontSize: '.85rem',
+    marginBottom: '0.5rem',
   },
-  magS: {
-    color: magColor(4.0),
-    fontSize: '1.5rem',
-    alignItems: 'center',
-  },
-  magM: {
-    color: magColor(5.5),
-    fontSize: '1.5rem',
-    alignItems: 'center',
-  },
-  magL: {
-    color: magColor(6.5),
-    fontSize: '1.5rem',
-    alignItems: 'center',
-  },
-  magX: {
-    color: magColor(7.5),
-    fontSize: '1.5rem',
-    alignItems: 'center',
-  },
-  wrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  icon: {
-    width: '30&',
-    paddingLeft: '0.5rem',
-  },
-  scale: {
-    width: '70&',
-    paddingLeft: '0.5rem',
-    paddingBottom: '0.15rem',
+  box: {
+    width: '50px',
+    height: '20px',
   },
 }));
 
 const Legend = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(
-    null
-  );
-
-  const handlePopoverOpen = useCallback((e: React.SyntheticEvent) => {
-    setAnchorEl(e.currentTarget);
-  }, []);
-
-  const handlePopoverClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
 
   return (
-    <div>
+    <div className={classes.legend}>
       <Typography
-        aria-owns={!anchorEl ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-        className={classes.legend}
+        align="center"
+        variant="subtitle2"
+        component="h3"
+        gutterBottom
       >
-        LEGEND
+        Mag.
       </Typography>
 
-      <Popover
-        id="mouse-over-popover"
-        className={classes.popover}
-        classes={{
-          paper: classes.paper,
-        }}
-        open={!!anchorEl}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Typography variant="h6" style={{ paddingLeft: '0.5rem' }}>
-          Hover over a circle for the detailed info
-        </Typography>
-
-        {legends.map(
-          ({ scale, className }: { scale: string; className: LegendClass }) => (
-            <div key={className} className={classes.wrapper}>
-              <div className={classes.icon}>
-                <span className={classes[className]}>
-                  <FiberManualRecordIcon />
-                </span>
-              </div>
-
-              <div className={classes.scale}>
-                <Typography variant="h6" className={classes.scale}>
-                  {scale}
+      <Grid container>
+        {legends.map(({ mag, color }) => {
+          return (
+            <Grid key={mag}>
+              <Box
+                className={classes.box}
+                sx={{ backgroundColor: color }}
+              ></Box>
+            </Grid>
+          );
+        })}
+      </Grid>
+      <Grid container>
+        {legends.map(({ mag }) => {
+          return (
+            <Grid key={mag}>
+              <Box className={classes.box}>
+                <Typography
+                  align="left"
+                  variant="body1"
+                  marginLeft="-4px"
+                  sx={{ color: mag === 4 ? 'white' : 'black' }}
+                >
+                  {mag}
                 </Typography>
-              </div>
-            </div>
-          )
-        )}
-      </Popover>
+              </Box>
+            </Grid>
+          );
+        })}
+      </Grid>
     </div>
   );
 };

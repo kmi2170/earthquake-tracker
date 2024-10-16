@@ -1,10 +1,12 @@
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Legend from './Legend';
 import { memo } from 'react';
 
+import Grid from '@mui/material/Grid2';
+import Button from '@mui/material/Button';
+
+import Legend from './Legend';
+
 interface MapFooterProps {
-  initialCener: { lat: number; lng: number };
+  initialCenter: { lat: number; lng: number };
   initialZoom: number;
   resetMap: (
     initialCener: { lat: number; lng: number },
@@ -12,21 +14,25 @@ interface MapFooterProps {
   ) => void;
 }
 
-const MapFooter = ({ resetMap, initialCener, initialZoom }: MapFooterProps) => {
+const MapFooter = ({
+  resetMap,
+  initialCenter: initialCenter,
+  initialZoom,
+}: MapFooterProps) => {
   return (
     <div>
       <Grid container justifyContent="space-around" alignItems="center">
-        <Grid item>
+        <Grid>
           <Legend />
         </Grid>
 
-        <Grid item>
+        <Grid>
           <Button
             variant="contained"
             color="primary"
             size="small"
             style={{ marginBottom: '0.2rem', padding: '0.0rem 0.5rem' }}
-            onClick={() => resetMap(initialCener, initialZoom)}
+            onClick={() => resetMap(initialCenter, initialZoom)}
           >
             Reset Map
           </Button>
