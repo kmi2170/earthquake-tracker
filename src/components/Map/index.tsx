@@ -43,7 +43,7 @@ const MapComponent = () => {
     period,
     minMag,
     timeZone,
-    initialCener,
+    initialCenter,
     center,
     setCenter,
     initialZoom,
@@ -119,7 +119,7 @@ const MapComponent = () => {
 
       <MapFooter
         resetMap={resetMap}
-        initialCenter={initialCener}
+        initialCenter={initialCenter}
         initialZoom={initialZoom}
       />
     </Paper>
