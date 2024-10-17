@@ -10,9 +10,10 @@ import GetCenterZoom from './MapParts/GetCenterZoom';
 import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import MapFooter from './MapFooter';
 import { normalizeLng } from '../../utils/normalizeLng';
-import { useEqData } from '../../context/hook';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
 import Slider from './MapParts/Slider';
+import { useEqData } from '../../context/useEqData';
+import { useMapData } from '../../context/useMapData';
 
 const useStyles = makeStyles((theme) => ({
   map: {
@@ -39,10 +40,9 @@ const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
+  const { period, minMag, timeZone } = useEqData();
+
   const {
-    period,
-    minMag,
-    timeZone,
     initialCenter,
     center,
     setCenter,
@@ -51,22 +51,16 @@ const MapComponent = () => {
     setZoom,
     selectedId,
     setSelectedId,
-  } = useEqData();
+  } = useMapData();
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
   const [cRadius, setCRadius] = useState(1);
 
-  useEffect(() => {
-    if (selectedId && eqData) {
-      moveToEpicenter(selectedId);
-    }
-  }, [selectedId]);
-
   const moveToEpicenter = useCallback(
-    (selectedid: string) => {
-      const selectedeqdata = eqData.filter((data) => selectedid === data.id);
-      const lat = selectedeqdata[0]?.coordinates[1];
-      const lng = normalizeLng(selectedeqdata[0]?.coordinates[0]);
+    (selectedId: string) => {
+      const selectedEqData = eqData.filter((data) => selectedId === data.id);
+      const lat = selectedEqData[0]?.coordinates[1];
+      const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
       (mapRef.current as Map)?.flyTo({ lat, lng }, 4, {
         duration: 3,
@@ -85,15 +79,18 @@ const MapComponent = () => {
 
   const changeCRadius = useCallback((value: number) => setCRadius(value), []);
 
+  useEffect(() => {
+    if (selectedId && eqData) {
+      moveToEpicenter(selectedId);
+    }
+  }, [selectedId, eqData, moveToEpicenter]);
+
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
     <Paper elevation={6}>
       <MapContainer
         className={classes.map}
-        // whenCreated={(mapInstance) => {
-        //   mapRef.current = mapInstance;
-        // }}
         ref={mapRef}
         center={center}
         zoom={zoom}

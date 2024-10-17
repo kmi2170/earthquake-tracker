@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import Form from './index';
-import { EqDataContextProvider } from '../../context';
+import { EqDataContextProvider } from '../../context/eqDataContext';
 import { mags, timePeriods, timeZones } from '../../constants';
 
 const periods = timePeriods.map((item) => item.period);
@@ -21,7 +21,7 @@ const setup = () =>
   render(
     <EqDataContextProvider>
       <Form />
-    </EqDataContextProvider>
+    </EqDataContextProvider>,
   );
 
 describe('Form', () => {

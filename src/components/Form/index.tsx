@@ -8,7 +8,7 @@ import { MenuProps, Theme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
 import { mags, timePeriods, timeZones } from '../../constants';
-import { useEqData } from '../../context/hook';
+import { useEqData } from '../../context/useEqData';
 
 const useStyles = makeStyles((theme: Theme) => ({
   formControl: {

@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth={false}>
+      <Container maxWidth={false} sx={{ maxWidth: '2000px' }}>
         <Grid container spacing={3}>
           <Grid
             size={{ xs: 12, sm: 6 }}

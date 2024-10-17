@@ -14,7 +14,8 @@ import theme from '../utils/theme';
 
 import { SEO } from '../components/SEO';
 import '../styles/globals.css';
-import { EqDataContextProvider } from '../context';
+import { EqDataContextProvider } from '../context/eqDataContext';
+import { EqMapContextProvider } from '../context/eqMapContext ';
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -43,10 +44,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             />
             <SEO />
           </Head>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+
           <CssBaseline />
           <EqDataContextProvider>
-            <Component {...pageProps} />
+            <EqMapContextProvider>
+              <Component {...pageProps} />
+            </EqMapContextProvider>
           </EqDataContextProvider>
           {/* 
             <ReactQueryDevtools />

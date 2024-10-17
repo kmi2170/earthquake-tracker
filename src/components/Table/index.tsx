@@ -17,8 +17,9 @@ import { DisplayEqData } from '../../api/types';
 import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
 import TablePaginationActions from './TableParts/TablePaginationActions';
-import { useEqData } from '../../context/hook';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
+import { useEqData } from '../../context/useEqData';
+import { useMapData } from '../../context/useMapData';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -79,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
 const TableComponent = () => {
   const classes = useStyles();
 
-  const { period, minMag, timeZone, setSelectedId } = useEqData();
+  const { period, minMag, timeZone } = useEqData();
+  const { setSelectedId } = useMapData();
   const { eqData: rows } = useCustomQuery(period, minMag);
 
   const [order, setOrder] = useState<Order>('desc');
