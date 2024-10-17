@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   container: {
-    minHeight: '60vh',
-    maxHeight: '60vh',
+    minHeight: '70vh',
+    maxHeight: '70vh',
   },
   visuallyHidden: {
     border: 0,
