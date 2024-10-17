@@ -53,7 +53,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             */}
         </QueryClientProvider>
       </ThemeProvider>
-      )
     </StyledEngineProvider>
   );
 };
