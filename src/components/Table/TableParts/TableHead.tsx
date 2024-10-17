@@ -1,10 +1,8 @@
-import {
-  TableCell,
-  TableHead,
-  TableRow,
-  TableSortLabel,
-  Typography,
-} from '@mui/material';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
 
 import { tableHeadItems } from '../../../constants';
 import { DisplayEqData } from '../../../api/types';
@@ -22,7 +20,7 @@ interface TableHeadProps {
   orderBy: OrderBy;
   onRequestSort: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    property: keyof DisplayEqData
+    property: keyof DisplayEqData,
   ) => void;
 }
 
@@ -51,14 +49,18 @@ const TableHeadComponent = ({
             size="small"
           >
             {id === 'place' ? (
-              <Typography variant="subtitle1">{label}</Typography>
+              <Typography variant="subtitle1" component="h3">
+                {label}
+              </Typography>
             ) : (
               <TableSortLabel
                 active={orderBy === id}
                 direction={orderBy === id ? order : 'asc'}
                 onClick={createSortHandler(id as OrderBy)}
               >
-                <Typography variant="subtitle1">{label}</Typography>
+                <Typography variant="subtitle1" component="h3">
+                  {label}
+                </Typography>
                 {orderBy === id ? (
                   <span className={classes.visuallyHidden}>
                     {order === 'desc'

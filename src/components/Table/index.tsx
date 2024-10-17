@@ -1,17 +1,15 @@
 import { useState } from 'react';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
 import makeStyles from '@mui/styles/makeStyles';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-  TableRow,
-  Typography,
-  Paper,
-  Tooltip,
-  // Checkbox,
-} from '@mui/material';
 
 import { Order } from '../../api/types';
 import { formatTimeDayjs } from '../../utils/formatTimeDayjs';
@@ -30,7 +28,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 function getComparator<T, Key extends keyof T>(
   order: Order,
-  orderBy: Key
+  orderBy: Key,
 ): (a: T, b: T) => number {
   return order === 'desc'
     ? (a, b): number => descendingComparator(a, b, orderBy)
@@ -41,7 +39,7 @@ function getComparator<T, Key extends keyof T>(
 // need to support IE11, you can use Array.prototype.sort() directl
 function stableSort<T>(
   array: readonly T[],
-  comparator: (a: T, b: T) => number
+  comparator: (a: T, b: T) => number,
 ) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
@@ -91,7 +89,7 @@ const TableComponent = () => {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof DisplayEqData
+    property: keyof DisplayEqData,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -103,7 +101,7 @@ const TableComponent = () => {
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -155,17 +153,28 @@ const TableComponent = () => {
                       <Tooltip key={id} title="Click to View the place on Map">
                         <TableRow hover onClick={() => selectIdHandler(id)}>
                           <TableCell align="center" size="small" padding="none">
-                            <Typography variant="h6">{mag}</Typography>
+                            <Typography variant="h6" component="p">
+                              {mag}
+                            </Typography>
                           </TableCell>
-                          <TableCell align="right" size="small" padding="none">
-                            <Typography variant="h6">{place}</Typography>
+                          <TableCell
+                            align="right"
+                            size="small"
+                            component="p"
+                            padding="none"
+                          >
+                            <Typography variant="h6" component="p">
+                              {place}
+                            </Typography>
                           </TableCell>
                           <TableCell
                             align="right"
                             size="small"
                             padding="normal"
                           >
-                            <Typography variant="h6">{time}</Typography>
+                            <Typography variant="h6" component="p">
+                              {time}
+                            </Typography>
                           </TableCell>
                         </TableRow>
                       </Tooltip>

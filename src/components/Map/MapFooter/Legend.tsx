@@ -12,7 +12,7 @@ const Legend = () => {
       <Typography
         align="center"
         variant="subtitle2"
-        component="h3"
+        component="p"
         gutterBottom
         sx={{ fontSize: '1.25rem' }}
       >
@@ -47,6 +47,7 @@ const Legend = () => {
                 <Typography
                   align="left"
                   variant="body1"
+                  component="span"
                   marginLeft="-4px"
                   sx={{
                     color: mag === 4 ? 'white' : 'black',

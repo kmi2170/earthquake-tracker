@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 const TableToolbar = ({ rowCount }: { rowCount: number }) => {
   return (
     <Toolbar>
-      <Typography variant="h6" id="tableTitle" component="div" align="left">
+      <Typography variant="h6" id="tableTitle" component="h2" align="left">
         {rowCount} Earthquakes
       </Typography>
     </Toolbar>
