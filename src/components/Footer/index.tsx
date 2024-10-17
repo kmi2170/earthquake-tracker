@@ -1,4 +1,5 @@
 import { memo } from 'react';
+
 import { Typography } from '@mui/material';
 
 const Footer = () => {

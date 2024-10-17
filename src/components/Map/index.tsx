@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { Map } from 'leaflet';
@@ -22,15 +24,8 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     margin: 0,
   },
-  leaflet: {
-    width: '100%',
-    height: '100%',
-  },
   [theme.breakpoints.down('md')]: {
     map: {
-      height: '50vh',
-    },
-    leaflet: {
       height: '50vh',
     },
   },
@@ -62,16 +57,20 @@ const MapComponent = () => {
       const lat = selectedEqData[0]?.coordinates[1];
       const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
-      (mapRef.current as Map)?.flyTo({ lat, lng }, 4, {
-        duration: 3,
-      });
+      if (mapRef.current !== null) {
+        (mapRef.current as Map)?.flyTo({ lat, lng }, 4, {
+          duration: 2,
+        });
+      }
     },
     [eqData],
   );
 
   const resetMap = useCallback(
     (center: { lat: number; lng: number }, zoom: number) => {
-      (mapRef.current as Map)?.flyTo(center, zoom, { duration: 3 });
+      if (mapRef.current !== null) {
+        (mapRef.current as Map)?.flyTo(center, zoom, { duration: 1 });
+      }
       setSelectedId('');
     },
     [setSelectedId],
@@ -85,7 +84,7 @@ const MapComponent = () => {
     }
   }, [selectedId, eqData, moveToEpicenter]);
 
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError) return <div>Error: {error?.message}</div>;
 
   return (
     <Paper elevation={6}>

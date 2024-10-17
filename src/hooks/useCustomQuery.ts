@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 
@@ -20,13 +22,13 @@ export const useCustomQuery = (period: number, minMag: number) => {
   const { data, isError, error } = useQuery<RowEqData, Error>(
     ['eqData', url],
     () => fetcher(url),
-    config
+    config,
   );
 
   // not sure if useMemo is needed here
   const eqData: DisplayEqData[] = useMemo(
-    () => extractedEqData(data) || [],
-    [data]
+    () => (data ? extractedEqData(data) : []),
+    [data],
   );
 
   return { eqData, isError, error };

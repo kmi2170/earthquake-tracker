@@ -1,20 +1,23 @@
-import {
-  createTheme,
-  responsiveFontSizes,
-  // adaptV4Theme,
-  // createBreakpoints,
-} from '@mui/material/styles';
+'use client';
+
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import { Oswald, Roboto_Condensed } from 'next/font/google';
 
-// const breakpoints = createBreakpoints({});
+export const oswald = Oswald({
+  subsets: ['latin'],
+  style: 'normal',
+  weight: ['400', '700'],
+  display: 'swap',
+});
 
-// breakpoints.values.lg = 1024
-// breakpoints.values['xxl'] = 3000
-// '@media (min-width:600px)': {
-//     fontSize: '1.5rem',
-//   },
+export const roboto = Roboto_Condensed({
+  subsets: ['latin'],
+  style: 'normal',
+  weight: ['400', '700'],
+  display: 'swap',
+});
 
-// Create a theme instance.
 let theme = createTheme({
   palette: {
     primary: {
@@ -30,87 +33,11 @@ let theme = createTheme({
       default: '#fff',
     },
   },
-  // typography: {
-  //   fontSize: 14,
-  // },
   typography: {
-    fontFamily: [
-      'Roboto Condensed',
-      'Roboto',
-      'Oswald',
-      'sans-serif',
-      // 'Rubik',
-      // 'Raleway',
-    ].join(','),
-
-    // h4: {
-    //   fontSize: '2.125rem',
-    //   [breakpoints.down('sm')]: {
-    //     fontSize: '1.5rem',
-    //   },
-    // },
-    // subtitle2: {
-    //   fontSize: '0.875rem',
-    //   [breakpoints.down('sm')]: {
-    //     fontSize: '0.65rem',
-    //   },
-    // },
-    // body2: {
-    //   fontSize: '0.875rem',
-    //   [breakpoints.down('sm')]: {
-    //     fontSize: '0.65rem',
-    //   },
-    // },
+    fontFamily: oswald.style.fontFamily,
   },
-  // overrides: {
-  //   MuiIconButton: {
-  //     root: {
-  //       [breakpoints.down('sm')]: {
-  //         padding: 0,
-  //         paddingLeft: 1,
-  //       },
-  //     },
-  //   },
-  //   MuiTablePagination: {
-  //     selectRoot: {
-  //       [breakpoints.down('sm')]: {
-  //         marginLeft: 0,
-  //         marginRight: 5,
-  //       },
-  //     },
-  //   },
-  //   MuiToolbar: {
-  //     regular: {
-  //       [breakpoints.down('sm')]: {
-  //         paddingTop: '0.5rem',
-  //         minHeight: 0,
-  //       },
-  //     },
-  //   },
-  // },
 });
 
-// theme.typography.subtitle2 = {
-//   fontSize: '0.875rem',
-//   [theme.breakpoints.down('sm')]: {
-//     fontSize: '0.65rem',
-//   },
-// };
-
 theme = responsiveFontSizes(theme);
-// fontFamily: ['Raleway', 'Lobster', 'sans-serif'].join(','),
-
-// theme.typography.h4 = {
-//   fontSize: 12,
-//   [theme.breakpoints.up('sm')]: {
-//     fontSize: 15,
-//   },
-// [theme.breakpoints.up('md')]: {
-//   fontSize: 12,
-// },
-// [theme.breakpoints.up('lg')]: {
-//   fontSize: 12,
-// },
-//};
 
 export default theme;

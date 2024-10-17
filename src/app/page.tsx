@@ -1,30 +1,27 @@
+'use client';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid2';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-import makeStyles from '@mui/styles/makeStyles';
 
 import { useDynamicMap } from '../hooks/useMap';
 import Table from '../components/Table';
 import Form from '../components/Form';
 import Footer from '../components/Footer';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    minHeight: '100vh',
-    backgroundImage:
-      'linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))',
-  },
-}));
-
 const Home = () => {
-  const classes = useStyles();
-
   const Map = useDynamicMap();
 
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        minHeight: '100vh',
+        backgroundImage:
+          'linear-gradient(to bottom, rgb(255,255,255,1.0), rgba(218,165,32,0.1))',
+      }}
+    >
       <Container maxWidth={false} sx={{ maxWidth: '2000px' }}>
         <Grid container spacing={3}>
           <Grid
@@ -33,12 +30,7 @@ const Home = () => {
               mt: 3,
             }}
           >
-            <Typography
-              variant="h3"
-              component="h1"
-              align="center"
-              style={{ fontFamily: 'Oswald' }}
-            >
+            <Typography variant="h3" component="h1" align="center">
               Earthquake Tracker
             </Typography>
           </Grid>
@@ -62,7 +54,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </Box>
   );
 };
 

@@ -32,7 +32,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
         height: '50px',
       }}
     >
-      <Dot color={dotColor} size="3rem" />
+      <Dot color={dotColor} fontSize={2} marginBottom={0.25} />
       <Slider
         max={1}
         min={0.1}
@@ -42,26 +42,36 @@ const RadiusSlider = (props: RadiusSliderProps) => {
         onChange={handleChange}
         sx={{ width: 250 }}
       />
-      <Dot color={dotColor} size="8rem" />
+      <Dot color={dotColor} fontSize={7} marginBottom={0.75} />
     </Box>
   );
 };
 
 export default memo(RadiusSlider);
 
-const Dot = ({ color, size }: { color: string; size: string }) => {
+const Dot = ({
+  color = 'black',
+  fontSize = 2,
+  marginBottom = 0,
+}: {
+  color: string;
+  fontSize: number;
+  marginBottom?: number;
+}) => {
   return (
     <Box
       sx={{
         color,
-        margin: '0.5rem 0.5rem 0 0.5rem',
+        marginLeft: '0.75rem',
+        marginRight: '0.5rem',
+        marginBottom: `${marginBottom}rem`,
       }}
     >
       <Typography
         variant="body2"
         component="span"
         sx={{
-          fontSize: size,
+          fontSize: `${fontSize}rem`,
         }}
       >
         •
