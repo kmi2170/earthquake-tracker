@@ -86,7 +86,7 @@ const MapComponent = () => {
       moveToEpicenter(selectedId);
       setSelectedId('');
     }
-  }, [selectedId, eqData, moveToEpicenter]);
+  }, [selectedId, eqData, moveToEpicenter, setSelectedId]);
 
   if (isError) return <div>Error: {error?.message}</div>;
 

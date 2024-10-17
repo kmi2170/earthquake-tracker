@@ -1,3 +1,4 @@
+'use client';
 import { memo } from 'react';
 
 import FormControl from '@mui/material/FormControl';
