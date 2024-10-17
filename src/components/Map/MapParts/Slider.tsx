@@ -23,13 +23,13 @@ const RadiusSlider = (props: RadiusSliderProps) => {
   return (
     <Box
       sx={{
-        marginTop: 3,
-        marginBottom: 2,
+        marginTop: 1,
+        marginBottom: 1,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100px',
+        height: '50px',
       }}
     >
       <Dot color={dotColor} size="3rem" />
