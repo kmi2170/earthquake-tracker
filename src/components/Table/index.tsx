@@ -22,6 +22,7 @@ import TablePaginationActions from './TableParts/TablePaginationActions';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
 import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
+import { Theme } from '@mui/material';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -54,7 +55,7 @@ function stableSort<T>(
   return stabilizedThis.map((el) => el[0]);
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     width: '100%',
   },
