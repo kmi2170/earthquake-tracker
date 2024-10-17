@@ -30,7 +30,7 @@ const Home = () => {
           <Grid
             size={{ xs: 12, sm: 6 }}
             sx={{
-              mt: 2,
+              mt: 3,
             }}
           >
             <Typography

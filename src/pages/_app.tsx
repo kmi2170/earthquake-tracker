@@ -4,7 +4,11 @@ import Head from 'next/head';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider,
+} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../utils/theme';
 
@@ -12,12 +16,10 @@ import { SEO } from '../components/SEO';
 import '../styles/globals.css';
 import { EqDataContextProvider } from '../context';
 
-
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const queryClient = React.useRef(new QueryClient());
@@ -32,7 +34,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <StyledEngineProvider injectFirst>
-      (<ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient.current}>
           <Head>
             <meta
@@ -50,7 +52,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             <ReactQueryDevtools />
             */}
         </QueryClientProvider>
-      </ThemeProvider>)
+      </ThemeProvider>
+      )
     </StyledEngineProvider>
   );
 };
