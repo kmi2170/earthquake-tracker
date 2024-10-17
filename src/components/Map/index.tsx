@@ -16,8 +16,9 @@ import { useCustomQuery } from '../../hooks/useCustomQuery';
 import Slider from './MapParts/Slider';
 import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
+import { Theme } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   map: {
     width: '100%',
     height: '70vh',
