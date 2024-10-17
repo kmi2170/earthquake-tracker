@@ -85,7 +85,7 @@ const TableComponent = () => {
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(20);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -191,7 +191,7 @@ const TableComponent = () => {
         </TableContainer>
 
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[20, 50, 100]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}
