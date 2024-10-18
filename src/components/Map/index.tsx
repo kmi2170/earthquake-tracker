@@ -50,7 +50,9 @@ const MapComponent = () => {
     selectedId,
     setSelectedId,
   } = useMapData();
-  const { eqData, isError, error } = useCustomQuery(period, minMag);
+  const { eqData, isError, error } = useCustomQuery(period);
+
+  const filteredEqData = eqData.filter((data) => data.mag >= minMag);
 
   const [circleRadius, setCircleRadius] = useState(1);
 
@@ -73,7 +75,9 @@ const MapComponent = () => {
 
   const moveToEpicenter = useCallback(
     (selectedId: string) => {
-      const selectedEqData = eqData.filter((data) => selectedId === data.id);
+      const selectedEqData = filteredEqData.filter(
+        (data) => selectedId === data.id,
+      );
       const lat = selectedEqData[0]?.coordinates[1];
       const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
@@ -83,7 +87,7 @@ const MapComponent = () => {
         });
       }
     },
-    [eqData],
+    [filteredEqData],
   );
 
   const resetMap = useCallback(
@@ -102,11 +106,11 @@ const MapComponent = () => {
   );
 
   useEffect(() => {
-    if (selectedId && eqData) {
+    if (selectedId && filteredEqData) {
       moveToEpicenter(selectedId);
       setSelectedId('');
     }
-  }, [selectedId, eqData, moveToEpicenter, setSelectedId]);
+  }, [selectedId, filteredEqData, moveToEpicenter, setSelectedId]);
 
   if (isError) return <div>Error: {error?.message}</div>;
 
@@ -130,7 +134,7 @@ const MapComponent = () => {
         />
 
         <ShowCirclesOnMap
-          eqData={eqData}
+          eqData={filteredEqData}
           timeZone={timeZone}
           selectedId={selectedId}
           zoom={zoom}

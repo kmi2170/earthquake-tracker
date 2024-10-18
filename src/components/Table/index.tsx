@@ -85,7 +85,9 @@ const TableComponent = () => {
 
   const { period, minMag, timeZone } = useEqData();
   const { setSelectedId } = useMapData();
-  const { eqData: rows } = useCustomQuery(period, minMag);
+
+  const { eqData } = useCustomQuery(period);
+  const filteredRows = eqData.filter((data) => data.mag >= minMag);
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
@@ -122,12 +124,13 @@ const TableComponent = () => {
   };
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage -
+    Math.min(rowsPerPage, filteredRows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={6}>
-        <EnhancedTableToolbar rowCount={rows.length} />
+        <EnhancedTableToolbar rowCount={filteredRows.length} />
         <TableContainer className={classes.container}>
           <Table
             aria-labelledby="tableTitle"
@@ -144,8 +147,8 @@ const TableComponent = () => {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {rows?.length > 0 &&
-                stableSort(rows, getComparator(order, orderBy))
+              {filteredRows?.length > 0 &&
+                stableSort(filteredRows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(({ id, mag: magRaw, time: timeRaw, place }) => {
                     const time = formatTimeDayjs(timeRaw, timeZone);
@@ -198,7 +201,7 @@ const TableComponent = () => {
         <TablePagination
           rowsPerPageOptions={[20, 50, 100]}
           component="div"
-          count={rows.length}
+          count={filteredRows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

@@ -17,10 +17,7 @@ export const config = {
 
 const minMagnitude = 3;
 
-export const useCustomQuery = (
-  period: number,
-  // minMag: number
-) => {
+export const useCustomQuery = (period: number) => {
   const { startTime } = getStartEndTimeDayjs(period);
   const url = requestUrl(startTime, minMagnitude);
 
