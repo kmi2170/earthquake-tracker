@@ -177,7 +177,7 @@ const TableComponent = () => {
                             size="small"
                             padding="normal"
                           >
-                            <Typography variant="h6" component="p">
+                            <Typography variant="subtitle1" component="p">
                               {time}
                             </Typography>
                           </TableCell>
