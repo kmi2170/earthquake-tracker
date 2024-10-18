@@ -32,7 +32,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
         height: '50px',
       }}
     >
-      <Dot color={dotColor} fontSize={2} marginBottom={0.25} />
+      <MemoizedDot color={dotColor} fontSize={2} marginBottom={0.25} />
       <Slider
         max={1}
         min={0.1}
@@ -42,7 +42,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
         onChange={handleChange}
         sx={{ width: 250 }}
       />
-      <Dot color={dotColor} fontSize={7} marginBottom={0.75} />
+      <MemoizedDot color={dotColor} fontSize={7} marginBottom={0.75} />
     </Box>
   );
 };
@@ -79,3 +79,5 @@ const Dot = ({
     </Box>
   );
 };
+
+const MemoizedDot = memo(Dot);

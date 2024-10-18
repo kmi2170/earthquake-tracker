@@ -11,8 +11,8 @@ import ReactQueryProvider from './ReactQueryProvider';
 export const metadata: Metadata = {
   title: 'Earthquake Tracker',
   description: [
-    'Next.js project with TypeScript, React-QUery, React-Leaflet, Material-UI.',
-    'Display worldwide earthquake event information happened up to 90 days ago',
+    'Next.js project with TypeScript, React-QUery, React-Leaflet, Material-UI,.',
+    'Display worldwide earthquake event information  up to the last 90 days,',
     'in Map and Table',
   ].join(' '),
 };

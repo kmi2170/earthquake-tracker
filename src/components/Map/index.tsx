@@ -71,8 +71,6 @@ const MapComponent = () => {
     setInitialZoom(initZoom);
   }, [setZoom, setInitialZoom]);
 
-  console.log(zoom);
-
   const moveToEpicenter = useCallback(
     (selectedId: string) => {
       const selectedEqData = eqData.filter((data) => selectedId === data.id);
