@@ -22,7 +22,7 @@ import { breakpoints } from '../../constants';
 const useStyles = makeStyles((theme: Theme) => ({
   map: {
     width: '100%',
-    height: '70vh',
+    height: '60vh',
     padding: 0,
     margin: 0,
   },
@@ -69,7 +69,6 @@ const MapComponent = () => {
 
     setZoom(initZoom);
     setInitialZoom(initZoom);
-    console.log('init zoom', initZoom);
   }, [setZoom, setInitialZoom]);
 
   console.log(zoom);
@@ -137,7 +136,7 @@ const MapComponent = () => {
           timeZone={timeZone}
           selectedId={selectedId}
           zoom={zoom}
-          cRadius={circleRadius}
+          circleRadius={circleRadius}
         />
       </MapContainer>
 
