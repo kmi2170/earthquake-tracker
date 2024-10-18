@@ -16,11 +16,12 @@ type InitialCenter = {
 
 export type EqMapContextType = {
   initialCenter: InitialCenter;
-  initialZoom: number;
+  initialZoom: number | null;
+  setInitialZoom: Dispatch<SetStateAction<number | null>>;
   center: InitialCenter;
   setCenter: Dispatch<SetStateAction<InitialCenter>>;
-  zoom: number;
-  setZoom: Dispatch<SetStateAction<number>>;
+  zoom: number | null;
+  setZoom: Dispatch<SetStateAction<number | null>>;
   selectedId: string;
   setSelectedId: Dispatch<SetStateAction<string>>;
 };
@@ -30,16 +31,16 @@ export const EqMapContext = createContext({} as EqMapContextType);
 const initialCenter = { lat: 0, lng: 180 };
 
 export const EqMapContextProvider = ({ children }: { children: ReactNode }) => {
-  const initialZoom = 1.0;
   const [center, setCenter] = useState<InitialCenter>(initialCenter);
-  const [zoom, setZoom] = useState<number>(initialZoom);
-
+  const [initialZoom, setInitialZoom] = useState<number | null>(null);
+  const [zoom, setZoom] = useState<number | null>(initialZoom);
   const [selectedId, setSelectedId] = useState<string>('');
 
   const value = useMemo(
     () => ({
       initialCenter,
       initialZoom,
+      setInitialZoom,
       center,
       setCenter,
       zoom,

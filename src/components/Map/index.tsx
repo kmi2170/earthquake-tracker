@@ -17,6 +17,7 @@ import Slider from './MapParts/Slider';
 import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
 import { Theme } from '@mui/material';
+import { breakpoints } from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   map: {
@@ -43,6 +44,7 @@ const MapComponent = () => {
     center,
     setCenter,
     initialZoom,
+    setInitialZoom,
     zoom,
     setZoom,
     selectedId,
@@ -50,7 +52,27 @@ const MapComponent = () => {
   } = useMapData();
   const { eqData, isError, error } = useCustomQuery(period, minMag);
 
-  const [cRadius, setCRadius] = useState(1);
+  const [circleRadius, setCircleRadius] = useState(1);
+
+  useEffect(() => {
+    const width = window.innerWidth;
+    let initZoom = 0.75;
+    if (width > breakpoints.xl) {
+      initZoom = 2;
+    } else if (width > breakpoints.lg) {
+      initZoom = 1.5;
+    } else if (width > breakpoints.md) {
+      initZoom = 1.5;
+    } else if (width > breakpoints.sm) {
+      initZoom = 1.5;
+    }
+
+    setZoom(initZoom);
+    setInitialZoom(initZoom);
+    console.log('init zoom', initZoom);
+  }, [setZoom, setInitialZoom]);
+
+  console.log(zoom);
 
   const moveToEpicenter = useCallback(
     (selectedId: string) => {
@@ -77,7 +99,10 @@ const MapComponent = () => {
     [setSelectedId],
   );
 
-  const changeCRadius = useCallback((value: number) => setCRadius(value), []);
+  const changeCRadius = useCallback(
+    (value: number) => setCircleRadius(value),
+    [],
+  );
 
   useEffect(() => {
     if (selectedId && eqData) {
@@ -88,6 +113,8 @@ const MapComponent = () => {
 
   if (isError) return <div>Error: {error?.message}</div>;
 
+  if (initialZoom === null || zoom === null) return;
+
   return (
     <Paper elevation={6}>
       <MapContainer
@@ -95,6 +122,7 @@ const MapComponent = () => {
         ref={mapRef}
         center={center}
         zoom={zoom}
+        zoomSnap={0.25}
         scrollWheelZoom={true}
       >
         <GetCenterZoom setCenter={setCenter} setZoom={setZoom} />
@@ -109,11 +137,11 @@ const MapComponent = () => {
           timeZone={timeZone}
           selectedId={selectedId}
           zoom={zoom}
-          cRadius={cRadius}
+          cRadius={circleRadius}
         />
       </MapContainer>
 
-      <Slider value={cRadius} changeValue={changeCRadius} />
+      <Slider value={circleRadius} changeValue={changeCRadius} />
 
       <MapFooter
         resetMap={resetMap}
