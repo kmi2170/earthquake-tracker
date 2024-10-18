@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { CircleMarker } from 'react-leaflet';
 
 import { DisplayEqData } from '../../../api/types';
-import { magColor } from '../../../constants';
+import { magnitudeColor } from '../../../constants';
 import { normalizeLng } from '../../../utils/normalizeLng';
 import PopupComponent from './PopUp';
 
@@ -12,7 +12,7 @@ type ShowCirclesOnMapProps = {
   timeZone: string;
   selectedId: string;
   zoom: number;
-  cRadius: number;
+  circleRadius: number;
 };
 
 const ShowCirclesOnMap = ({
@@ -20,7 +20,7 @@ const ShowCirclesOnMap = ({
   timeZone,
   selectedId,
   zoom,
-  cRadius,
+  circleRadius,
 }: ShowCirclesOnMapProps) => {
   const latlons = useMemo(
     () => eqData?.map((data) => normalizeLng(data.coordinates[0])),
@@ -28,17 +28,17 @@ const ShowCirclesOnMap = ({
   );
 
   return (
-    <div>
+    <>
       {eqData?.map((data: DisplayEqData, i) => {
         return (
           <div key={data.id}>
             <CircleMarker
               center={[data.coordinates[1], latlons[i]]}
-              color={magColor(data.mag)}
-              fillColor={magColor(data.mag)}
+              color={magnitudeColor(data.mag)}
+              fillColor={magnitudeColor(data.mag)}
               opacity={0.5}
               fillOpacity={0.6}
-              radius={data.mag ** 1.5 * zoom * cRadius}
+              radius={data.mag ** 1.5 * zoom * circleRadius}
             >
               <PopupComponent
                 data={data}
@@ -50,14 +50,14 @@ const ShowCirclesOnMap = ({
 
             <CircleMarker
               center={[data.coordinates[1], latlons[i]]}
-              color={magColor(data.mag)}
+              color={magnitudeColor(data.mag)}
               opacity={0.2}
               radius={1}
             />
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

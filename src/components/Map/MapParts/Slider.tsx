@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 
-import { magColor } from '../../../constants';
+import { magnitudeColor } from '../../../constants';
 
 type RadiusSliderProps = {
   value: number;
@@ -18,7 +18,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
     changeValue(newValue as number);
   };
 
-  const dotColor = magColor(4);
+  const dotColor = magnitudeColor(4);
 
   return (
     <Box
