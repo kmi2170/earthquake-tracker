@@ -72,23 +72,6 @@ const MapComponent = () => {
     setInitialZoom(initZoom);
   }, [setZoom, setInitialZoom]);
 
-  const moveToEpicenter = useCallback(
-    (selectedId: string) => {
-      const selectedEqData = filteredEqData.filter(
-        (data) => selectedId === data.id,
-      );
-      const lat = selectedEqData[0]?.coordinates[1];
-      const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
-
-      if (mapRef.current !== null) {
-        (mapRef.current as Map)?.flyTo({ lat, lng }, 4, {
-          duration: 2,
-        });
-      }
-    },
-    [filteredEqData],
-  );
-
   const resetMap = useCallback(
     (center: { lat: number; lng: number }, zoom: number) => {
       if (mapRef.current !== null) {
@@ -110,11 +93,24 @@ const MapComponent = () => {
   );
 
   useEffect(() => {
-    if (selectedId && filteredEqData) {
+    if (selectedId) {
+      const moveToEpicenter = (selectedId: string) => {
+        const selectedEqData = filteredEqData.filter(
+          (data) => selectedId === data.id,
+        );
+        const lat = selectedEqData[0]?.coordinates[1];
+        const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
+
+        if (mapRef.current !== null) {
+          (mapRef.current as Map)?.flyTo({ lat, lng }, 5, {
+            duration: 2,
+          });
+        }
+      };
+
       moveToEpicenter(selectedId);
-      setSelectedId('');
     }
-  }, [selectedId, filteredEqData, moveToEpicenter, setSelectedId]);
+  }, [selectedId]);
 
   if (isError) return <div>Error: {error?.message}</div>;
 
