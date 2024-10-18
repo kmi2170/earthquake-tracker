@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography';
 
 import { DisplayEqData } from '../../../api/types';
 import { formatTimeDayjs } from '../../../utils/formatTimeDayjs';
-import { formatDigits } from '../../../utils/formatDigits';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
@@ -31,25 +30,25 @@ const Popup = ({ data, timeZone, selectedId, lng }: PopupProps) => {
       )}
 
       <Tooltip offset={[20, 0]} opacity={1}>
-        <Typography variant="h5">M {formatDigits(data.mag, 1, 1)}</Typography>
+        <Typography variant="h5">M {data?.mag?.toFixed(1)}</Typography>
         <Typography variant="h6" color="textSecondary">
           {formatTimeDayjs(data.time, timeZone)}
         </Typography>
-        <Typography variant="h6">{data.place}</Typography>
+        <Typography variant="h6">{data?.place}</Typography>
         <Typography variant="h6">
-          Depth: {formatDigits(data.coordinates[2], 1, 1)} km
+          Depth: {data?.coordinates[2]?.toFixed(1)} km
         </Typography>
 
         <Typography variant="h6" color="textSecondary">
-          Lat: {formatDigits(data.coordinates[1], 3, 3)}, Lng:{' '}
-          {formatDigits(data.coordinates[0], 3, 3)}
+          Lat: {data?.coordinates[1].toFixed(3)}, Lng:{' '}
+          {data?.coordinates[0].toFixed(3)}
         </Typography>
 
-        {data.tsunami && (
+        {data?.tsunami ? (
           <Typography variant="h6" color="error">
             Potential Tsunami Threat
           </Typography>
-        )}
+        ) : null}
       </Tooltip>
     </div>
   );
