@@ -38,6 +38,29 @@ export const magnitudeColor = (m: number): string => {
   return colors['xl'];
 };
 
+export const magnitudeMarks = [
+  {
+    value: 3,
+    label: '3',
+  },
+  {
+    value: 4,
+    label: '4',
+  },
+  {
+    value: 5,
+    label: '5',
+  },
+  {
+    value: 6,
+    label: '6',
+  },
+  {
+    value: 7,
+    label: '7',
+  },
+];
+
 export const legends = [
   { mag: 4, color: magnitudeColor(4) },
   { mag: 5, color: magnitudeColor(5) },

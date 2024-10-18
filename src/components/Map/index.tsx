@@ -37,8 +37,7 @@ const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
-  const { period, minMag, timeZone } = useEqData();
-
+  const { period, minMag, setMinMag, timeZone } = useEqData();
   const {
     initialCenter,
     center,
@@ -50,8 +49,8 @@ const MapComponent = () => {
     selectedId,
     setSelectedId,
   } = useMapData();
-  const { eqData, isError, error } = useCustomQuery(period);
 
+  const { eqData, isError, error } = useCustomQuery(period);
   const filteredEqData = eqData.filter((data) => data.mag >= minMag);
 
   const [circleRadius, setCircleRadius] = useState(1);
@@ -100,8 +99,13 @@ const MapComponent = () => {
     [setSelectedId],
   );
 
-  const changeCRadius = useCallback(
+  const changeCircleRadius = useCallback(
     (value: number) => setCircleRadius(value),
+    [],
+  );
+
+  const changeMinMagnitude = useCallback(
+    (value: number) => setMinMag(value),
     [],
   );
 
@@ -142,7 +146,12 @@ const MapComponent = () => {
         />
       </MapContainer>
 
-      <Slider value={circleRadius} changeValue={changeCRadius} />
+      <Slider
+        circleRadius={circleRadius}
+        changeCircleRadius={changeCircleRadius}
+        minMagnitude={minMag}
+        changeMinMagnitude={changeMinMagnitude}
+      />
 
       <MapFooter
         resetMap={resetMap}
