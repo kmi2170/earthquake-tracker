@@ -204,6 +204,9 @@ const TableComponent = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           ActionsComponent={TablePaginationActions}
+          sx={{
+            marginTop: '0.5rem',
+          }}
         />
       </Paper>
     </div>

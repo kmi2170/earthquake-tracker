@@ -36,6 +36,24 @@ let theme = createTheme({
   typography: {
     fontFamily: oswald.style.fontFamily,
   },
+  components: {
+    MuiTablePagination: {
+      styleOverrides: {
+        selectLabel: {
+          fontSize: '1.25rem',
+        },
+        select: {
+          paddingTop: '1.0rem',
+          fontSize: '1.25rem',
+        },
+        displayedRows: {
+          marginRight: '0.5rem',
+          fontSize: '1.25rem',
+        },
+        selectIcon: {},
+      },
+    },
+  },
 });
 
 theme = responsiveFontSizes(theme);

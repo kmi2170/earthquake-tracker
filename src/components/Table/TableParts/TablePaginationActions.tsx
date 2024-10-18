@@ -32,6 +32,8 @@ const TablePaginationActions = ({
   const classes = useStyles1();
   const theme = useTheme();
 
+  const iconSize = '2rem';
+
   const handleFirstPageButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
@@ -62,41 +64,45 @@ const TablePaginationActions = ({
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
         aria-label="first page"
-        size="large"
       >
-        {theme.direction === 'rtl' ? <LastPage /> : <FirstPage />}
+        {theme.direction === 'rtl' ? (
+          <LastPage sx={{ fontSize: iconSize }} />
+        ) : (
+          <FirstPage sx={{ fontSize: iconSize }} />
+        )}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
-        size="large"
       >
         {theme.direction === 'rtl' ? (
-          <KeyboardArrowRight />
+          <KeyboardArrowRight sx={{ fontSize: iconSize }} />
         ) : (
-          <KeyboardArrowLeft />
+          <KeyboardArrowLeft sx={{ fontSize: iconSize }} />
         )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
-        size="large"
       >
         {theme.direction === 'rtl' ? (
-          <KeyboardArrowLeft />
+          <KeyboardArrowLeft sx={{ fontSize: iconSize }} />
         ) : (
-          <KeyboardArrowRight />
+          <KeyboardArrowRight sx={{ fontSize: iconSize }} />
         )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
-        size="large"
       >
-        {theme.direction === 'rtl' ? <FirstPage /> : <LastPage />}
+        {theme.direction === 'rtl' ? (
+          <FirstPage sx={{ fontSize: iconSize }} />
+        ) : (
+          <LastPage sx={{ fontSize: iconSize }} />
+        )}
       </IconButton>
     </div>
   );

@@ -52,8 +52,6 @@ const MapComponent = () => {
 
   const [cRadius, setCRadius] = useState(1);
 
-  console.log('map >>>>>>>>>>>>>>>>>>');
-
   const moveToEpicenter = useCallback(
     (selectedId: string) => {
       const selectedEqData = eqData.filter((data) => selectedId === data.id);
