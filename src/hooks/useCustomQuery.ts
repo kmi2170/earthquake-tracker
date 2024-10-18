@@ -9,7 +9,7 @@ import { extractedEqData } from '../utils/extractEqData';
 import { getStartEndTimeDayjs } from '../utils/getStartEndTimeDayjs';
 
 export const config = {
-  refetchInterval: 300000,
+  refetchInterval: 1800000,
   onSuccess: () => {
     console.log('Success data fetching');
   },
