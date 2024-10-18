@@ -3,6 +3,8 @@ export const timePeriods = [
   { period: '7 days', value: 7 },
   { period: '14 days', value: 14 },
   { period: '30 days', value: 30 },
+  { period: '60 days', value: 60 },
+  { period: '90 days', value: 90 },
 ];
 
 export const timeZones = [

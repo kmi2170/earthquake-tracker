@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Earthquake Tracker',
   description: [
     'Next.js project with TypeScript, React-QUery, React-Leaflet, Material-UI.',
-    'Display worldwide earthquake event information happened up to 30 days ago',
+    'Display worldwide earthquake event information happened up to 90 days ago',
     'in Map and Table',
   ].join(' '),
 };
