@@ -15,9 +15,14 @@ export const config = {
   },
 };
 
-export const useCustomQuery = (period: number, minMag: number) => {
+const minMagnitude = 3;
+
+export const useCustomQuery = (
+  period: number,
+  // minMag: number
+) => {
   const { startTime } = getStartEndTimeDayjs(period);
-  const url = requestUrl(startTime, minMag);
+  const url = requestUrl(startTime, minMagnitude);
 
   const { data, isError, error } = useQuery<RowEqData, Error>(
     ['eqData', url],
