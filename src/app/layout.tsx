@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../utils/theme';
 import { EqDataContextProvider } from '../context/eqDataContext';
 import { EqMapContextProvider } from '../context/eqMapContext ';
-import ReactQueryProvider from './ReactQueryProvider';
+import ReactQueryProvider from '../context/ReactQueryProvider';
 
 export const metadata: Metadata = {
   title: 'Earthquake Tracker',
