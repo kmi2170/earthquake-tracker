@@ -20,35 +20,29 @@ export const mags = [
   { mag: '7.0', value: 7 },
 ];
 
-export const magColor = (m: number): string => {
+export const magnitudeColor = (m: number): string => {
   const colors = {
     s: '#666666',
     m: '#ffff00',
-    l: '#ffc0cb',
-    x: '#ff0000',
+    l: '#ffa500',
+    x: '#ff6fff',
+    xl: '#ff0000',
   };
 
   if (m < 5) return colors['s'];
   if (m < 6) return colors['m'];
   if (m < 7) return colors['l'];
-  return colors['x'];
+  if (m < 8) return colors['x'];
+  return colors['xl'];
 };
 
-// export const legends = [
-//   { scale: '7 ≤ M', className: 'magX' },
-//   { scale: '6 ≤ M < 7', className: 'magL' },
-//   { scale: '5 ≤ M < 6', className: 'magM' },
-//   { scale: 'M < 5', className: 'magS' },
-// ];
-
 export const legends = [
-  { mag: 4, color: magColor(4) },
-  { mag: 5, color: magColor(5) },
-  { mag: 6, color: magColor(6) },
-  { mag: 7, color: magColor(7) },
+  { mag: 4, color: magnitudeColor(4) },
+  { mag: 5, color: magnitudeColor(5) },
+  { mag: 6, color: magnitudeColor(6) },
+  { mag: 7, color: magnitudeColor(7) },
+  { mag: 8, color: magnitudeColor(8) },
 ];
-
-export type LegendClass = 'magX' | 'magL' | 'magM' | 'magS';
 
 export const tableHeadItems = [
   { id: 'mag', label: 'Mag.' },
