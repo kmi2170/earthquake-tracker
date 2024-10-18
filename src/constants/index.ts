@@ -16,7 +16,6 @@ export const mags = [
   { mag: '3.0', value: 3 },
   { mag: '3.5', value: 3.5 },
   { mag: '4.0', value: 4 },
-  { mag: '4.5', value: 4.5 },
   { mag: '5.0', value: 5 },
   { mag: '6.0', value: 6 },
   { mag: '7.0', value: 7 },
