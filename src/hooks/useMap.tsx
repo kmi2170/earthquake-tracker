@@ -1,17 +1,21 @@
-// 'use client';
-
 import { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import CircularProgress from '@mui/material/CircularProgress';
+import LoadingSpinner from '../components/Map/MapParts/LoadingSpinner';
 
 export const useDynamicMap = () => {
   return useMemo(
     () =>
       dynamic(() => import('../components/Map'), {
         loading: () => (
-          <div>
-            <CircularProgress />
-            Map is Loading...
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '66vh',
+              background: 'lightgray',
+            }}
+          >
+            <LoadingSpinner />
           </div>
         ),
         ssr: false,
