@@ -51,7 +51,9 @@ const MapComponent = () => {
   } = useMapData();
 
   const { eqData, isError, error } = useCustomQuery(period);
-  const filteredEqData = eqData.filter((data) => data.mag >= minMag);
+  const filteredEqData = eqData
+    .filter((data) => data.mag >= minMag)
+    .sort((a, b) => a.mag - b.mag);
 
   const [circleRadius, setCircleRadius] = useState(1);
 
