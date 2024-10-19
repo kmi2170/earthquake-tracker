@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  select: {
+    height: '3rem',
+  },
 }));
 
 const menuProps: Partial<MenuProps> = {
@@ -51,6 +54,7 @@ const SelectForm = () => {
           Last
         </InputLabel>
         <Select
+          className={classes.select}
           labelId="period-label"
           id="period-select"
           value={period}
@@ -74,6 +78,7 @@ const SelectForm = () => {
           Min. Mag.
         </InputLabel>
         <Select
+          className={classes.select}
           labelId="minmag-label"
           id="minmag-select"
           value={minMag}
@@ -95,6 +100,7 @@ const SelectForm = () => {
           Time Zone
         </InputLabel>
         <Select
+          className={classes.select}
           labelId="timezone-label"
           id="timezone-select"
           value={timeZone}
