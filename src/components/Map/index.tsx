@@ -4,34 +4,30 @@ import { useRef, useEffect, useCallback, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { AxiosError } from 'axios';
 
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography';
 
 import GetCenterZoom from './MapParts/GetCenterZoom';
 import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
+import Sliders from './MapParts/Sliders';
 import MapFooter from './MapFooter';
+import LoadingSpinner from './MapParts/LoadingSpinner';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
-import Sliders from './MapParts/Sliders';
 import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
-import { Theme } from '@mui/material';
 import { breakpoints } from '../../constants';
-import LoadingSpinner from './MapParts/LoadingSpinner';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   map: {
     width: '100%',
     height: '50vh',
     padding: 0,
     margin: 0,
   },
-  // [theme.breakpoints.down('md')]: {
-  //   map: {
-  //     height: '50vh',
-  //   },
-  // },
 }));
 
 const MapComponent = () => {
@@ -115,7 +111,9 @@ const MapComponent = () => {
     }
   }, [selectedId]);
 
-  if (isError) return <div>Error: {error?.message}</div>;
+  if (isError) {
+    return <ErrorMessage error={error as AxiosError} />;
+  }
 
   if (initialZoom === null || zoom === null) return;
 
@@ -165,23 +163,37 @@ const MapComponent = () => {
 
 export default MapComponent;
 
-// const LoadingSpinner = () => {
-//   return (
-//     <Box
-//       sx={{
-//         position: 'absolute',
-//         top: '50%',
-//         left: '50%',
-//         transform: 'translate(-50%, -50%)',
-//         zIndex: 1000,
-//       }}
-//     >
-//       <CircularProgress
-//         color="secondary"
-//         size={100}
-//         thickness={8}
-//         sx={{ fontSize: '8rem' }}
-//       />
-//     </Box>
-//   );
-// };
+type ErrorMessageProps = {
+  error: AxiosError;
+};
+
+const ErrorMessage = ({ error }: ErrorMessageProps) => {
+  let message;
+
+  if (
+    error.response?.data &&
+    (error.response.data as string).includes(
+      'matching events exceeds search limit of',
+    )
+  ) {
+    const str = error.response.data as string;
+    const lines = str.split(/\n\s*\n/);
+    message = lines[1];
+  } else {
+    message = error.message;
+  }
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '66vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Typography sx={{ fontSize: '1.5rem' }}>Error: {message}</Typography>
+    </div>
+  );
+};
