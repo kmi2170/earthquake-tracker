@@ -24,13 +24,15 @@ export const mags = [
 
 export const magnitudeColor = (m: number): string => {
   const colors = {
-    s: '#666666',
+    xs: '#666666',
+    s: '#bdb76b',
     m: '#ffff00',
     l: '#ffa500',
     x: '#ff6fff',
     xl: '#ff0000',
   };
 
+  if (m < 4) return colors['xs'];
   if (m < 5) return colors['s'];
   if (m < 6) return colors['m'];
   if (m < 7) return colors['l'];
@@ -39,6 +41,10 @@ export const magnitudeColor = (m: number): string => {
 };
 
 export const magnitudeMarks = [
+  {
+    value: 2,
+    label: '2',
+  },
   {
     value: 3,
     label: '3',
@@ -62,6 +68,7 @@ export const magnitudeMarks = [
 ];
 
 export const legends = [
+  { mag: 3, color: magnitudeColor(3) },
   { mag: 4, color: magnitudeColor(4) },
   { mag: 5, color: magnitudeColor(5) },
   { mag: 6, color: magnitudeColor(6) },

@@ -15,7 +15,7 @@ import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import MapFooter from './MapFooter';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
-import Slider from './MapParts/Slider';
+import Sliders from './MapParts/Sliders';
 import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
 import { Theme } from '@mui/material';
@@ -148,7 +148,7 @@ const MapComponent = () => {
         />
       </MapContainer>
 
-      <Slider
+      <Sliders
         circleRadius={circleRadius}
         changeCircleRadius={changeCircleRadius}
         minMagnitude={minMag}

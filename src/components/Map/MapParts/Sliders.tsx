@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 
 import { magnitudeColor, magnitudeMarks } from '../../../constants';
 
-type RadiusSliderProps = {
+type Sliders = {
   circleRadius: number;
   changeCircleRadius: (value: number) => void;
   minMagnitude: number;
   changeMinMagnitude: (value: number) => void;
 };
 
-const RadiusSlider = (props: RadiusSliderProps) => {
+const Sliders = (props: Sliders) => {
   const {
     circleRadius,
     changeCircleRadius: changeCircleRadius,
@@ -35,7 +35,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
     changeMinMagnitude(newValue as number);
   };
 
-  const dotColor = magnitudeColor(4);
+  const dotColor = magnitudeColor(3);
 
   return (
     <Box
@@ -108,7 +108,7 @@ const RadiusSlider = (props: RadiusSliderProps) => {
   );
 };
 
-export default memo(RadiusSlider);
+export default memo(Sliders);
 
 const Dot = ({
   color = 'black',

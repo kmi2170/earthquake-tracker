@@ -48,7 +48,7 @@ const Legend = () => {
                   component="span"
                   marginLeft="-4px"
                   sx={{
-                    color: mag === 4 ? 'white' : 'black',
+                    color: mag === 3 ? 'white' : 'black',
                     fontSize: '1.25rem',
                   }}
                 >
