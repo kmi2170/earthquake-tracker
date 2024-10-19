@@ -23,7 +23,7 @@ const Legend = () => {
             <Grid key={mag}>
               <Box
                 sx={{
-                  width: '50px',
+                  width: '30px',
                   height: '20px',
                   backgroundColor: color,
                 }}
@@ -38,7 +38,7 @@ const Legend = () => {
             <Grid key={mag}>
               <Box
                 sx={{
-                  width: '50px',
+                  width: '30px',
                   height: '20px',
                 }}
               >
