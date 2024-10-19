@@ -6,6 +6,8 @@ import { Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import makeStyles from '@mui/styles/makeStyles';
 
 import GetCenterZoom from './MapParts/GetCenterZoom';
@@ -50,7 +52,7 @@ const MapComponent = () => {
     setSelectedId,
   } = useMapData();
 
-  const { eqData, isError, error } = useCustomQuery(period);
+  const { eqData, isFetching, isError, error } = useCustomQuery(period);
   const filteredEqData = eqData
     .filter((data) => data.mag >= minMag)
     .sort((a, b) => a.mag - b.mag);
@@ -119,7 +121,7 @@ const MapComponent = () => {
   if (initialZoom === null || zoom === null) return;
 
   return (
-    <Paper elevation={6}>
+    <Paper elevation={6} sx={{ position: 'relative' }}>
       <MapContainer
         className={classes.map}
         ref={mapRef}
@@ -128,6 +130,8 @@ const MapComponent = () => {
         zoomSnap={0.25}
         scrollWheelZoom={true}
       >
+        {isFetching && <LoadingSpinner />}
+
         <GetCenterZoom setCenter={setCenter} setZoom={setZoom} />
 
         <TileLayer
@@ -161,3 +165,24 @@ const MapComponent = () => {
 };
 
 export default MapComponent;
+
+const LoadingSpinner = () => {
+  return (
+    <Box
+      sx={{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 1000,
+      }}
+    >
+      <CircularProgress
+        color="secondary"
+        size={100}
+        thickness={8}
+        sx={{ fontSize: '8rem' }}
+      />
+    </Box>
+  );
+};

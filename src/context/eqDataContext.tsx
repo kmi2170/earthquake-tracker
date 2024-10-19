@@ -27,7 +27,7 @@ export const EqDataContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const initialPeriod = 3;
+  const initialPeriod = 7;
   const initialMinMag = 4;
   const [period, setPeriod] = useState<number>(initialPeriod);
   const [minMag, setMinMag] = useState<number>(initialMinMag);
