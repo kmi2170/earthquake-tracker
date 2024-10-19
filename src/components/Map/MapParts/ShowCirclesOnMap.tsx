@@ -35,4 +35,3 @@ const ShowCirclesOnMap = ({
 };
 
 export default ShowCirclesOnMap;
-// export default memo(ShowCirclesOnMap);

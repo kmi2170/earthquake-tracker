@@ -1,10 +1,11 @@
+import { Fragment, memo, useState } from 'react';
 import { CircleMarker, Marker, Tooltip } from 'react-leaflet';
+import L from 'leaflet';
+
 import { DisplayEqData } from '../../../api/types';
 import { normalizeLng } from '../../../utils/normalizeLng';
 import { magnitudeColor } from '../../../constants';
-import L from 'leaflet';
 import PopupComponent from './PopUp';
-import { Fragment, useState } from 'react';
 
 type CircleProps = {
   data: DisplayEqData;
@@ -69,4 +70,4 @@ const Circle = (props: CircleProps) => {
   );
 };
 
-export default Circle;
+export default memo(Circle);
