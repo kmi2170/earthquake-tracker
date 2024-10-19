@@ -8,23 +8,22 @@ import { fetcher, requestUrl } from '../lib';
 import { extractedEqData } from '../utils/extractEqData';
 import { getStartEndTimeDayjs } from '../utils/getStartEndTimeDayjs';
 
-export const config = {
-  refetchInterval: 1800000,
-  onSuccess: () => {
-    console.log('Success data fetching');
-  },
-};
-
 const minMagnitude = 3;
 
 export const useCustomQuery = (period: number) => {
   const { startTime } = getStartEndTimeDayjs(period);
   const url = requestUrl(startTime, minMagnitude);
 
-  const { data, isError, error } = useQuery<RowEqData, Error>(
+  const { data, isFetching, isError, error } = useQuery<RowEqData, Error>(
     ['eqData', url],
     () => fetcher(url),
-    config,
+    {
+      keepPreviousData: true,
+      refetchInterval: 1800000,
+      onSuccess: () => {
+        console.log('Success data fetching');
+      },
+    },
   );
 
   // not sure if useMemo is needed here
@@ -33,5 +32,5 @@ export const useCustomQuery = (period: number) => {
     [data],
   );
 
-  return { eqData, isError, error };
+  return { eqData, isFetching, isError, error };
 };
