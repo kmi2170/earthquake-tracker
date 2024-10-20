@@ -1,11 +1,11 @@
 'use client';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { MenuProps, Theme } from '@mui/material';
+import { MenuProps } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
@@ -19,7 +19,7 @@ import { useEqData } from '../../context/useEqData';
 // import { formatDateByTimezoneInDayjs } from '../../utils/formatDateByTImezoneInDayjs';
 // import { TimeZone } from '../../context/eqDataContext';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   formControl: {
     minWidth: 80,
   },

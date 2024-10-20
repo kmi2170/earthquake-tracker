@@ -2,10 +2,11 @@ import Typography from '@mui/material/Typography';
 
 import { DisplayEqData } from '../../../api/types';
 import { formatDateByTimezone } from '../../../utils/formatDateByTimeZone';
+import { TimeZone } from '../../../context/eqDataContext';
 
 interface PopupContentProps {
   data: DisplayEqData;
-  timeZone: string;
+  timeZone: TimeZone;
 }
 
 const PopupContent = ({ data, timeZone }: PopupContentProps) => {

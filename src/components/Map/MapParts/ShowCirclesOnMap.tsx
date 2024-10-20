@@ -1,9 +1,10 @@
 import { DisplayEqData } from '../../../api/types';
+import { TimeZone } from '../../../context/eqDataContext';
 import Circle from './Circle';
 
 type ShowCirclesOnMapProps = {
   eqData: DisplayEqData[];
-  timeZone: string;
+  timeZone: TimeZone;
   selectedId: string;
   zoom: number;
   circleRadius: number;

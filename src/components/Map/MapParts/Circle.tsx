@@ -6,10 +6,11 @@ import { DisplayEqData } from '../../../api/types';
 import { normalizeLng } from '../../../utils/normalizeLng';
 import { magnitudeColor } from '../../../constants';
 import PopupComponent from './PopUp';
+import { TimeZone } from '../../../context/eqDataContext';
 
 type CircleProps = {
   data: DisplayEqData;
-  timeZone: string;
+  timeZone: TimeZone;
   zoom: number;
   circleRadius: number;
   selectedId: string;
