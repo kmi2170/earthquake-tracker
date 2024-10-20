@@ -34,7 +34,17 @@ const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
-  const { endDate, period, minMag, setMinMag, timeZone } = useEqData();
+  const {
+    endDate,
+    period,
+    initialMinMag,
+    minMag,
+    setMinMag,
+    initialMaxMag,
+    maxMag,
+    setMaxMag,
+    timeZone,
+  } = useEqData();
   const {
     initialCenter,
     center,
@@ -53,6 +63,7 @@ const MapComponent = () => {
   );
   const filteredEqData = eqData
     .filter((data) => data.mag >= minMag)
+    .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag))
     .sort((a, b) => a.mag - b.mag);
 
   const [circleRadius, setCircleRadius] = useState(1);
@@ -91,6 +102,11 @@ const MapComponent = () => {
 
   const changeMinMagnitude = useCallback(
     (value: number) => setMinMag(value),
+    [],
+  );
+
+  const changeMaxMagnitude = useCallback(
+    (value: number) => setMaxMag(value),
     [],
   );
 
@@ -151,8 +167,12 @@ const MapComponent = () => {
       <Sliders
         circleRadius={circleRadius}
         changeCircleRadius={changeCircleRadius}
+        initialMinMagnitude={initialMinMag}
         minMagnitude={minMag}
         changeMinMagnitude={changeMinMagnitude}
+        initialMaxMagnitude={initialMaxMag}
+        maxMagnitude={maxMag}
+        changeMaxMagnitude={changeMaxMagnitude}
       />
 
       <MapFooter

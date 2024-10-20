@@ -9,30 +9,39 @@ import { magnitudeColor, magnitudeMarks } from '../../../constants';
 type Sliders = {
   circleRadius: number;
   changeCircleRadius: (value: number) => void;
+  initialMinMagnitude: number;
   minMagnitude: number;
   changeMinMagnitude: (value: number) => void;
+  initialMaxMagnitude: number;
+  maxMagnitude: number;
+  changeMaxMagnitude: (value: number) => void;
 };
 
 const Sliders = (props: Sliders) => {
   const {
     circleRadius,
     changeCircleRadius: changeCircleRadius,
+    initialMinMagnitude,
     minMagnitude,
     changeMinMagnitude,
+    initialMaxMagnitude,
+    maxMagnitude,
+    changeMaxMagnitude,
   } = props;
 
-  const handleCircularRadiusChange = (
-    event: Event,
-    newValue: number | number[],
-  ) => {
-    changeCircleRadius(newValue as number);
+  const handleCircularRadiusChange = (event: Event, newValue: number) => {
+    changeCircleRadius(newValue);
   };
 
-  const handleMinMagnitudeChange = (
-    event: Event,
-    newValue: number | number[],
-  ) => {
-    changeMinMagnitude(newValue as number);
+  const handleMagnitudeChange = (event: Event, newValue: number[]) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (newValue[1] - newValue[0] > 0) {
+      changeMinMagnitude(newValue[0]);
+      changeMaxMagnitude(newValue[1]);
+    }
   };
 
   const dotColor = magnitudeColor(3);
@@ -92,16 +101,17 @@ const Sliders = (props: Sliders) => {
           Min. Magnitude
         </Typography>
         <Slider
-          max={7}
-          min={3}
+          min={initialMinMagnitude}
+          max={initialMaxMagnitude}
           step={1}
-          aria-label="min-magnitude"
+          aria-label="magnitude-range"
           valueLabelDisplay="auto"
           marks={magnitudeMarks}
-          value={minMagnitude}
-          onChange={handleMinMagnitudeChange}
+          value={[minMagnitude, maxMagnitude]}
+          onChange={handleMagnitudeChange}
           color="secondary"
           sx={{ width: 200 }}
+          disableSwap
         />
       </Box>
     </Box>

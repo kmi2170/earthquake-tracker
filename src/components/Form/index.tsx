@@ -54,24 +54,17 @@ const SelectForm = () => {
     period,
     setPeriod,
     initialMinMag,
+    initialMaxMag,
     minMag,
     setMinMag,
+    maxMag,
+    setMaxMag,
     // timeZone,
     // setTimeZone,
   } = useEqData();
 
   return (
     <div className={classes.container}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <MobileDatePicker
-          className={classes.datePicker}
-          label="From"
-          value={endDate}
-          maxDate={dayjs()}
-          onAccept={(newValue) => setEndDate(newValue as Dayjs)}
-        />
-      </LocalizationProvider>
-
       <FormControl className={classes.formControl}>
         <InputLabel id="period-label" shrink>
           Last
@@ -96,6 +89,16 @@ const SelectForm = () => {
         </Select>
       </FormControl>
 
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <MobileDatePicker
+          className={classes.datePicker}
+          label="From"
+          value={endDate}
+          maxDate={dayjs()}
+          onAccept={(newValue) => setEndDate(newValue as Dayjs)}
+        />
+      </LocalizationProvider>
+
       <FormControl className={classes.formControl}>
         <InputLabel id="minmag-label" shrink>
           Min. Mag.
@@ -108,6 +111,28 @@ const SelectForm = () => {
           label="Min Mag."
           onChange={(e) => setMinMag(e.target.value as number)}
           defaultValue={initialMinMag}
+          MenuProps={menuProps}
+        >
+          {mags.map(({ mag, value }: { mag: string; value: number }) => (
+            <MenuItem key={mag} value={value}>
+              {mag}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <FormControl className={classes.formControl}>
+        <InputLabel id="maxmag-label" shrink>
+          Min. Mag.
+        </InputLabel>
+        <Select
+          className={classes.select}
+          labelId="maxmag-label"
+          id="maxmag-select"
+          value={maxMag}
+          label="Max Mag."
+          onChange={(e) => setMaxMag(e.target.value as number)}
+          defaultValue={initialMaxMag}
           MenuProps={menuProps}
         >
           {mags.map(({ mag, value }: { mag: string; value: number }) => (

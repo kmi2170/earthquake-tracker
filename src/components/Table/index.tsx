@@ -83,11 +83,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TableComponent = () => {
   const classes = useStyles();
 
-  const { endDate, period, minMag, timeZone } = useEqData();
+  const { endDate, period, minMag, maxMag, timeZone } = useEqData();
   const { setSelectedId } = useMapData();
 
   const { eqData } = useCustomQuery(period, endDate);
-  const filteredRows = eqData.filter((data) => data.mag >= minMag);
+  const filteredRows = eqData
+    .filter((data) => data.mag >= minMag)
+    .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag));
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');

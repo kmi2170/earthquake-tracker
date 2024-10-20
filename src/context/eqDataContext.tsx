@@ -13,12 +13,15 @@ import {
 export type EqDataContextType = {
   initialPeriod: number;
   initialMinMag: number;
+  initialMaxMag: number;
   endDate: Dayjs;
   setEndDate: Dispatch<SetStateAction<Dayjs>>;
   period: number;
   setPeriod: Dispatch<SetStateAction<number>>;
   minMag: number;
   setMinMag: Dispatch<SetStateAction<number>>;
+  maxMag: number;
+  setMaxMag: Dispatch<SetStateAction<number>>;
   timeZone: TimeZone;
   setTimeZone: Dispatch<SetStateAction<TimeZone>>;
 };
@@ -33,11 +36,13 @@ export const EqDataContextProvider = ({
   children: ReactNode;
 }) => {
   const initialPeriod = 7;
-  const initialMinMag = 4;
+  const initialMinMag = 3;
+  const initialMaxMag = 8;
   const initialEndDate = dayjs(new Date());
   const [endDate, setEndDate] = useState(initialEndDate);
   const [period, setPeriod] = useState<number>(initialPeriod);
   const [minMag, setMinMag] = useState<number>(initialMinMag);
+  const [maxMag, setMaxMag] = useState<number>(initialMaxMag);
 
   const [timeZone, setTimeZone] = useState<TimeZone>('local');
 
@@ -45,16 +50,19 @@ export const EqDataContextProvider = ({
     () => ({
       initialPeriod,
       initialMinMag,
+      initialMaxMag,
       endDate,
       setEndDate,
       period,
       setPeriod,
       minMag,
       setMinMag,
+      maxMag,
+      setMaxMag,
       timeZone,
       setTimeZone,
     }),
-    [endDate, period, minMag, timeZone],
+    [endDate, period, minMag, maxMag, timeZone],
   );
 
   return (

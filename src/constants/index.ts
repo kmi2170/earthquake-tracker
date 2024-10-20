@@ -20,6 +20,7 @@ export const mags = [
   { mag: '5.0', value: 5 },
   { mag: '6.0', value: 6 },
   { mag: '7.0', value: 7 },
+  { mag: '< 8.0', value: 8 },
 ];
 
 export const magnitudeColor = (m: number): string => {
@@ -64,6 +65,10 @@ export const magnitudeMarks = [
   {
     value: 7,
     label: '7',
+  },
+  {
+    value: 8,
+    label: '< 8',
   },
 ];
 
