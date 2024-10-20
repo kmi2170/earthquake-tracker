@@ -7,5 +7,9 @@ export const fetcher = async (url: string) => {
   return data;
 };
 
-export const requestUrl = (startTime: string, minMag: number) =>
-  `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startTime}&minmagnitude=${minMag}`;
+export const requestUrl = (
+  minMag: number,
+  startTime: string,
+  endTime: string,
+) =>
+  `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${startTime}&endtime=${endTime}&minmagnitude=${minMag}`;

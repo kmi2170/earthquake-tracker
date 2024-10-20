@@ -1,15 +1,16 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { TimeZone } from '../context/eqDataContext';
 // import 'daysjs/locale/en'
 // dayjs.locale('en');
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export const formatTimeDayjs = (
+export const formatDateByTimezone = (
   epochTime: number,
-  timeZone: string
+  timeZone: TimeZone,
 ): string => {
   const t0 = dayjs.unix(epochTime / 1000);
 

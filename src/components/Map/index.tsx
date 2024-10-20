@@ -34,7 +34,7 @@ const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
-  const { period, minMag, setMinMag, timeZone } = useEqData();
+  const { endDate, period, minMag, setMinMag, timeZone } = useEqData();
   const {
     initialCenter,
     center,
@@ -47,7 +47,10 @@ const MapComponent = () => {
     setSelectedId,
   } = useMapData();
 
-  const { eqData, isFetching, isError, error } = useCustomQuery(period);
+  const { eqData, isFetching, isError, error } = useCustomQuery(
+    period,
+    endDate,
+  );
   const filteredEqData = eqData
     .filter((data) => data.mag >= minMag)
     .sort((a, b) => a.mag - b.mag);

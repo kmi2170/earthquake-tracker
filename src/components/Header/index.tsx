@@ -1,35 +1,38 @@
-import Grid from '@mui/material/Grid2';
+import Box from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Form from '../Form';
 
 const Header = () => {
   return (
-    <Grid
-      container
+    <Box
       sx={{
-        marginTop: '1rem',
-        marginBottom: '2rem',
+        marginTop: '2rem',
+        marginBottom: '1.5rem',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Grid
-        size={{ xs: 12, sm: 6 }}
+      <Box
+        size={{ xs: 12 }}
         sx={{
-          mt: 3,
+          mt: 0,
         }}
       >
         <Typography variant="h3" component="h1" align="center">
           Earthquake Tracker
         </Typography>
-      </Grid>
-      <Grid
-        size={{ xs: 12, sm: 6 }}
+      </Box>
+      <Box
+        size={{ xs: 12 }}
         sx={{
-          mt: 2,
+          mt: 3,
         }}
       >
         <Form />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

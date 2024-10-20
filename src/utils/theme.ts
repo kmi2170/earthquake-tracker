@@ -50,7 +50,6 @@ let theme = createTheme({
           marginRight: '0.5rem',
           fontSize: '1.25rem',
         },
-        selectIcon: {},
       },
     },
   },

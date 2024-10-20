@@ -1,5 +1,6 @@
 'use client';
 
+import dayjs, { Dayjs } from 'dayjs';
 import {
   useState,
   createContext,
@@ -12,13 +13,17 @@ import {
 export type EqDataContextType = {
   initialPeriod: number;
   initialMinMag: number;
+  endDate: Dayjs;
+  setEndDate: Dispatch<SetStateAction<Dayjs>>;
   period: number;
-  minMag: number;
   setPeriod: Dispatch<SetStateAction<number>>;
+  minMag: number;
   setMinMag: Dispatch<SetStateAction<number>>;
-  timeZone: string;
-  setTimeZone: Dispatch<SetStateAction<string>>;
+  timeZone: TimeZone;
+  setTimeZone: Dispatch<SetStateAction<TimeZone>>;
 };
+
+export type TimeZone = 'local' | 'utc';
 
 export const EqDataContext = createContext({} as EqDataContextType);
 
@@ -29,15 +34,19 @@ export const EqDataContextProvider = ({
 }) => {
   const initialPeriod = 7;
   const initialMinMag = 4;
+  const initialEndDate = dayjs(new Date());
+  const [endDate, setEndDate] = useState(initialEndDate);
   const [period, setPeriod] = useState<number>(initialPeriod);
   const [minMag, setMinMag] = useState<number>(initialMinMag);
 
-  const [timeZone, setTimeZone] = useState<string>('local');
+  const [timeZone, setTimeZone] = useState<TimeZone>('local');
 
   const value = useMemo(
     () => ({
       initialPeriod,
       initialMinMag,
+      endDate,
+      setEndDate,
       period,
       setPeriod,
       minMag,
@@ -45,7 +54,7 @@ export const EqDataContextProvider = ({
       timeZone,
       setTimeZone,
     }),
-    [period, minMag, timeZone],
+    [endDate, period, minMag, timeZone],
   );
 
   return (

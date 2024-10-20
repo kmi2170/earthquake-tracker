@@ -1,5 +1,5 @@
 'use client';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -8,21 +8,32 @@ import MenuItem from '@mui/material/MenuItem';
 import { MenuProps, Theme } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
-import { mags, timePeriods, timeZones } from '../../constants';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from 'dayjs';
+
+import { mags, timePeriods } from '../../constants';
 import { useEqData } from '../../context/useEqData';
+// import { timeZones } from '../../constants';
+// import { formatDateByTimezoneInDayjs } from '../../utils/formatDateByTImezoneInDayjs';
+// import { TimeZone } from '../../context/eqDataContext';
 
 const useStyles = makeStyles((theme: Theme) => ({
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 100,
+    minWidth: 80,
   },
   container: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 5,
   },
   select: {
-    height: '3rem',
+    // height: '3rem',
+  },
+  datePicker: {
+    width: '110px',
   },
 }));
 
@@ -38,17 +49,29 @@ const SelectForm = () => {
 
   const {
     initialPeriod,
+    endDate,
+    setEndDate,
     period,
     setPeriod,
     initialMinMag,
     minMag,
     setMinMag,
-    timeZone,
-    setTimeZone,
+    // timeZone,
+    // setTimeZone,
   } = useEqData();
 
   return (
     <div className={classes.container}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <MobileDatePicker
+          className={classes.datePicker}
+          label="From"
+          value={endDate}
+          maxDate={dayjs()}
+          onAccept={(newValue) => setEndDate(newValue as Dayjs)}
+        />
+      </LocalizationProvider>
+
       <FormControl className={classes.formControl}>
         <InputLabel id="period-label" shrink>
           Last
@@ -95,7 +118,7 @@ const SelectForm = () => {
         </Select>
       </FormControl>
 
-      <FormControl className={classes.formControl}>
+      {/* <FormControl className={classes.formControl}>
         <InputLabel id="timezone-label" shrink>
           Time Zone
         </InputLabel>
@@ -105,7 +128,10 @@ const SelectForm = () => {
           id="timezone-select"
           value={timeZone}
           label="Time Zone"
-          onChange={(e) => setTimeZone(e.target.value)}
+          onChange={(e) => {
+            setTimeZone(e.target.value as TimeZone);
+            setEndDate(formatDateByTimezoneInDayjs(endDate, timeZone));
+          }}
           defaultValue={'local'}
           MenuProps={menuProps}
         >
@@ -115,7 +141,7 @@ const SelectForm = () => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
     </div>
   );
 };

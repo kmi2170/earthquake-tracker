@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import makeStyles from '@mui/styles/makeStyles';
 
 import { Order } from '../../api/types';
-import { formatTimeDayjs } from '../../utils/formatTimeDayjs';
+import { formatDateByTimezone } from '../../utils/formatDateByTimeZone';
 import { DisplayEqData } from '../../api/types';
 import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
@@ -83,10 +83,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TableComponent = () => {
   const classes = useStyles();
 
-  const { period, minMag, timeZone } = useEqData();
+  const { endDate, period, minMag, timeZone } = useEqData();
   const { setSelectedId } = useMapData();
 
-  const { eqData } = useCustomQuery(period);
+  const { eqData } = useCustomQuery(period, endDate);
   const filteredRows = eqData.filter((data) => data.mag >= minMag);
 
   const [order, setOrder] = useState<Order>('desc');
@@ -151,7 +151,7 @@ const TableComponent = () => {
                 stableSort(filteredRows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(({ id, mag: magRaw, time: timeRaw, place }) => {
-                    const time = formatTimeDayjs(timeRaw, timeZone);
+                    const time = formatDateByTimezone(timeRaw, timeZone);
                     const mag = Number(magRaw).toLocaleString('en-US', {
                       maximumFractionDigits: 1,
                       minimumFractionDigits: 1,

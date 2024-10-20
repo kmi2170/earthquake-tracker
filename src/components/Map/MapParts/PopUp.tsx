@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 
 import { DisplayEqData } from '../../../api/types';
-import { formatTimeDayjs } from '../../../utils/formatTimeDayjs';
+import { formatDateByTimezone } from '../../../utils/formatDateByTimeZone';
 
 interface PopupContentProps {
   data: DisplayEqData;
@@ -13,7 +13,7 @@ const PopupContent = ({ data, timeZone }: PopupContentProps) => {
     <>
       <Typography variant="h5">M {data?.mag?.toFixed(1)}</Typography>
       <Typography variant="h6" color="textSecondary">
-        {formatTimeDayjs(data.time, timeZone)}
+        {formatDateByTimezone(data.time, timeZone)}
       </Typography>
       <Typography variant="h6">{data?.place}</Typography>
       <Typography variant="h6">
