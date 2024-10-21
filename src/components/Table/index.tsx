@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material';
 
 import { Order } from '../../api/types';
 import { formatDateByTimezone } from '../../utils/formatDateByTimeZone';
@@ -20,9 +21,9 @@ import EnhancedTableHead from './TableParts/TableHead';
 import EnhancedTableToolbar from './TableParts/TableToolbar';
 import TablePaginationActions from './TableParts/TablePaginationActions';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
-import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
-import { Theme } from '@mui/material';
+import { useEqDate } from '../../context/useEqDate';
+import { useEqMag } from '../../context/useEqMag';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -83,7 +84,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const TableComponent = () => {
   const classes = useStyles();
 
-  const { endDate, period, minMag, maxMag, timeZone } = useEqData();
+  const { minMag, maxMag } = useEqMag();
+  const { endDate, period, timeZone } = useEqDate();
   const { setSelectedId } = useMapData();
 
   const { eqData } = useCustomQuery(period, endDate);

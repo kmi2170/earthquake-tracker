@@ -4,9 +4,10 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../utils/theme';
-import { EqDataContextProvider } from '../context/eqDataContext';
 import { EqMapContextProvider } from '../context/eqMapContext ';
 import ReactQueryProvider from '../context/ReactQueryProvider';
+import { EqDateContextProvider } from '../context/eqDateContext';
+import { EqMagContextProvider } from '../context/eqMagContext';
 
 export const metadata: Metadata = {
   title: 'Earthquake Tracker',
@@ -30,9 +31,11 @@ export default function RootLayout({
             <CssBaseline />
 
             <ReactQueryProvider>
-              <EqDataContextProvider>
-                <EqMapContextProvider>{children}</EqMapContextProvider>
-              </EqDataContextProvider>
+              <EqMagContextProvider>
+                <EqDateContextProvider>
+                  <EqMapContextProvider>{children}</EqMapContextProvider>
+                </EqDateContextProvider>
+              </EqMagContextProvider>
             </ReactQueryProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>

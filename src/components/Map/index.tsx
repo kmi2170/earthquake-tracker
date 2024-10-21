@@ -17,9 +17,10 @@ import MapFooter from './MapFooter';
 import LoadingSpinner from './MapParts/LoadingSpinner';
 import { normalizeLng } from '../../utils/normalizeLng';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
-import { useEqData } from '../../context/useEqData';
 import { useMapData } from '../../context/useMapData';
 import { breakpoints } from '../../constants';
+import { useEqDate } from '../../context/useEqDate';
+import { useEqMag } from '../../context/useEqMag';
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -34,17 +35,11 @@ const MapComponent = () => {
   const classes = useStyles();
   const mapRef = useRef(null);
 
-  const {
-    endDate,
-    period,
-    initialMinMag,
-    minMag,
-    setMinMag,
-    initialMaxMag,
-    maxMag,
-    setMaxMag,
-    timeZone,
-  } = useEqData();
+  const { initialMinMag, minMag, setMinMag, initialMaxMag, maxMag, setMaxMag } =
+    useEqMag();
+
+  const { endDate, period, timeZone } = useEqDate();
+
   const {
     initialCenter,
     center,
