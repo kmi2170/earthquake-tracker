@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuProps } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
@@ -14,7 +14,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { mags, timePeriods } from '../../constants';
-import { useEqData } from '../../context/useEqData';
+import { useEqMag } from '../../context/useEqMag';
+import { useEqDate } from '../../context/useEqDate';
 // import { timeZones } from '../../constants';
 // import { formatDateByTimezoneInDayjs } from '../../utils/formatDateByTImezoneInDayjs';
 // import { TimeZone } from '../../context/eqDataContext';
@@ -47,21 +48,24 @@ const menuProps: Partial<MenuProps> = {
 const SelectForm = () => {
   const classes = useStyles();
 
-  const {
-    initialPeriod,
-    endDate,
-    setEndDate,
-    period,
-    setPeriod,
-    initialMinMag,
-    initialMaxMag,
-    minMag,
-    setMinMag,
-    maxMag,
-    setMaxMag,
-    // timeZone,
-    // setTimeZone,
-  } = useEqData();
+  const { initialPeriod, endDate, setEndDate, period, setPeriod } = useEqDate();
+
+  const { initialMinMag, initialMaxMag, minMag, setMinMag, maxMag, setMaxMag } =
+    useEqMag();
+
+  const handleChangeMinMag = (e: SelectChangeEvent<number>) => {
+    const newMinMag = e.target.value as number;
+    if (maxMag - newMinMag >= 1) {
+      setMinMag(newMinMag);
+    }
+  };
+
+  const handleChangeMaxMag = (e: SelectChangeEvent<number>) => {
+    const newMaxMag = e.target.value as number;
+    if (newMaxMag - minMag >= 1) {
+      setMaxMag(newMaxMag);
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -109,7 +113,7 @@ const SelectForm = () => {
           id="minmag-select"
           value={minMag}
           label="Min Mag."
-          onChange={(e) => setMinMag(e.target.value as number)}
+          onChange={handleChangeMinMag}
           defaultValue={initialMinMag}
           MenuProps={menuProps}
         >
@@ -123,7 +127,7 @@ const SelectForm = () => {
 
       <FormControl className={classes.formControl}>
         <InputLabel id="maxmag-label" shrink>
-          Min. Mag.
+          Max. Mag.
         </InputLabel>
         <Select
           className={classes.select}
@@ -131,7 +135,7 @@ const SelectForm = () => {
           id="maxmag-select"
           value={maxMag}
           label="Max Mag."
-          onChange={(e) => setMaxMag(e.target.value as number)}
+          onChange={handleChangeMaxMag}
           defaultValue={initialMaxMag}
           MenuProps={menuProps}
         >

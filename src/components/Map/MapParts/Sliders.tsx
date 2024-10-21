@@ -38,7 +38,7 @@ const Sliders = (props: Sliders) => {
       return;
     }
 
-    if (newValue[1] - newValue[0] > 0) {
+    if (newValue[1] - newValue[0] >= 1) {
       changeMinMagnitude(newValue[0]);
       changeMaxMagnitude(newValue[1]);
     }
