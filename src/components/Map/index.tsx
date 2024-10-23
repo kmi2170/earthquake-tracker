@@ -1,66 +1,44 @@
 'use client';
 
-import { useRef, useEffect, useCallback, useState, forwardRef } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import { Map } from 'leaflet';
+import { useRef, useEffect, useCallback, useState } from 'react';
+import L from 'leaflet';
+
 import 'leaflet/dist/leaflet.css';
-import { AxiosError } from 'axios';
 
 import Paper from '@mui/material/Paper';
-import makeStyles from '@mui/styles/makeStyles';
-import Typography from '@mui/material/Typography';
 
-import GetCenterZoom from './MapParts/GetCenterZoom';
-import ShowCirclesOnMap from './MapParts/ShowCirclesOnMap';
 import Sliders from './MapParts/Sliders';
 import MapMain from './MapMain';
 import MapFooter from './MapFooter';
 // import LoadingSpinner from './MapParts/LoadingSpinner';
-import { normalizeLng } from '../../utils/normalizeLng';
 import { useCustomQuery } from '../../hooks/useCustomQuery';
 import { useMapData } from '../../context/useMapData';
 import { breakpoints } from '../../constants';
 import { useEqDate } from '../../context/useEqDate';
 import { useEqMag } from '../../context/useEqMag';
 
-const useStyles = makeStyles(() => ({
-  map: {
-    width: '100%',
-    height: '50vh',
-    padding: 0,
-    margin: 0,
-  },
-}));
-
 const MapComponent = () => {
-  const classes = useStyles();
-  const mapRef = useRef(null);
+  const mapRef = useRef<L.Map | null>(null);
 
   const { initialMinMag, minMag, setMinMag, initialMaxMag, maxMag, setMaxMag } =
     useEqMag();
 
-  const { endDate, period, timeZone } = useEqDate();
+  // const { endDate, period } = useEqDate();
 
   const {
     initialCenter,
-    center,
-    setCenter,
     initialZoom,
     setInitialZoom,
     zoom,
     setZoom,
-    selectedId,
     setSelectedId,
   } = useMapData();
 
-  const { eqData, isFetching, isError, error } = useCustomQuery(
-    period,
-    endDate,
-  );
-  const filteredEqData = eqData
-    .filter((data) => data.mag >= minMag)
-    .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag))
-    .sort((a, b) => a.mag - b.mag);
+  // const { eqData } = useCustomQuery(period, endDate);
+  // const filteredEqData = eqData
+  //   .filter((data) => data.mag >= minMag)
+  //   .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag))
+  //   .sort((a, b) => a.mag - b.mag);
 
   const [circleRadius, setCircleRadius] = useState(1);
 
@@ -84,7 +62,7 @@ const MapComponent = () => {
   const resetMap = useCallback(
     (center: { lat: number; lng: number }, zoom: number) => {
       if (mapRef.current !== null) {
-        (mapRef.current as Map)?.flyTo(center, zoom, { duration: 1 });
+        mapRef.current?.flyTo(center, zoom, { duration: 1 });
       }
       setSelectedId('');
     },
@@ -106,25 +84,25 @@ const MapComponent = () => {
     [],
   );
 
-  useEffect(() => {
-    if (selectedId) {
-      const moveToEpicenter = (selectedId: string) => {
-        const selectedEqData = filteredEqData.filter(
-          (data) => selectedId === data.id,
-        );
-        const lat = selectedEqData[0]?.coordinates[1];
-        const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
+  // useEffect(() => {
+  //   if (selectedId) {
+  //     const moveToEpicenter = (selectedId: string) => {
+  //       const selectedEqData = filteredEqData.filter(
+  //         (data) => selectedId === data.id,
+  //       );
+  //       const lat = selectedEqData[0]?.coordinates[1];
+  //       const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
-        if (mapRef.current !== null) {
-          (mapRef.current as Map)?.flyTo({ lat, lng }, 5, {
-            duration: 2,
-          });
-        }
-      };
+  //       if (mapRef.current !== null) {
+  //         (mapRef.current as Map)?.flyTo({ lat, lng }, 5, {
+  //           duration: 2,
+  //         });
+  //       }
+  //     };
 
-      moveToEpicenter(selectedId);
-    }
-  }, [selectedId]);
+  //     moveToEpicenter(selectedId);
+  //   }
+  // }, [selectedId]);
 
   // if (isError) {
   //   return <ErrorMessage error={error as AxiosError} />;

@@ -1,9 +1,16 @@
 'use client';
 
-import { forwardRef } from 'react';
+import {
+  forwardRef,
+  LegacyRef,
+  RefAttributes,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { AxiosError } from 'axios';
-import { Map } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import makeStyles from '@mui/styles/makeStyles';
@@ -16,6 +23,7 @@ import { useEqDate } from '../../../context/useEqDate';
 import { useEqMag } from '../../../context/useEqMag';
 import LoadingSpinner from '../MapParts/LoadingSpinner';
 import ErrorMessage from '../MapParts/ErrorMessage';
+import { normalizeLng } from '../../../utils/normalizeLng';
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -30,22 +38,43 @@ type MapMainProps = {
   circleRadius: number;
 };
 
-const MapMain = forwardRef<Map, MapMainProps>(function MapMain(params, ref) {
+const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
   const { circleRadius } = params;
+
+  const mapRef = useRef<L.Map | null>(null);
+
+  useImperativeHandle(ref, () => mapRef.current as L.Map);
 
   const classes = useStyles();
 
   const { minMag, maxMag } = useEqMag();
-
   const { center, setCenter, initialZoom, zoom, setZoom, selectedId } =
     useMapData();
-
   const { endDate, period, timeZone } = useEqDate();
-
   const { eqData, isFetching, isError, error } = useCustomQuery(
     period,
     endDate,
   );
+
+  useEffect(() => {
+    if (selectedId) {
+      const moveToEpicenter = (selectedId: string) => {
+        const selectedEqData = filteredEqData.filter(
+          (data) => selectedId === data.id,
+        );
+        const lat = selectedEqData[0]?.coordinates[1];
+        const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
+
+        if (mapRef?.current !== null) {
+          mapRef.current?.flyTo({ lat, lng }, 5, {
+            duration: 2,
+          });
+        }
+      };
+
+      moveToEpicenter(selectedId);
+    }
+  }, [selectedId]);
 
   const filteredEqData = eqData
     .filter((data) => data.mag >= minMag)
@@ -61,7 +90,7 @@ const MapMain = forwardRef<Map, MapMainProps>(function MapMain(params, ref) {
   return (
     <MapContainer
       className={classes.map}
-      ref={ref}
+      ref={mapRef}
       center={center}
       zoom={zoom}
       zoomSnap={0.25}
