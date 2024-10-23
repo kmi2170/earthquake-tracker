@@ -16,7 +16,7 @@ interface MapFooterProps {
 
 const MapFooter = ({
   resetMap,
-  initialCenter: initialCenter,
+  initialCenter,
   initialZoom,
 }: MapFooterProps) => {
   return (

@@ -43,7 +43,7 @@ const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
 
   const mapRef = useRef<L.Map | null>(null);
 
-  useImperativeHandle(ref, () => mapRef.current as L.Map);
+  useImperativeHandle(ref, () => mapRef.current as L.Map, []);
 
   const classes = useStyles();
 

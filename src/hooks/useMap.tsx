@@ -5,7 +5,7 @@ import LoadingSpinner from '../components/Map/MapParts/LoadingSpinner';
 export const useDynamicMap = () => {
   return useMemo(
     () =>
-      dynamic(() => import('../components/Map'), {
+      dynamic(() => import('../components/Map/MapMain'), {
         loading: () => (
           <div
             style={{
