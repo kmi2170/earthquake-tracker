@@ -14,8 +14,7 @@ import { useDynamicMap } from '../../hooks/useMap';
 const MapComponent = () => {
   const { initialMinMag, minMag, setMinMag, initialMaxMag, maxMag, setMaxMag } =
     useEqMag();
-  const { initialCenter, initialZoom, setInitialZoom, setZoom, setSelectedId } =
-    useMapData();
+  const { initialCenter, initialZoom, setInitialZoom, setZoom } = useMapData();
 
   const Map = useDynamicMap();
 
