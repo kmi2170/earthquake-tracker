@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, forwardRef, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { AxiosError } from 'axios';
 import L from 'leaflet';
@@ -33,7 +33,7 @@ type MapMainProps = {
   setReset: Dispatch<SetStateAction<boolean>>;
 };
 
-const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
+const MapMain = (params: MapMainProps) => {
   const { circleRadius, reset, setReset } = params;
 
   const mapRef = useRef<L.Map | null>(null);
@@ -127,6 +127,6 @@ const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
       />
     </MapContainer>
   );
-});
+};
 
 export default MapMain;
