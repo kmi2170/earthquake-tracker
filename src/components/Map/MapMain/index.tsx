@@ -91,7 +91,7 @@ const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
 
   const filteredEqData = eqData
     .filter((data) => data.mag >= minMag)
-    .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag))
+    .filter((data) => data.mag < (maxMag === 8 ? 100 : maxMag))
     .sort((a, b) => a.mag - b.mag);
 
   if (isError) {

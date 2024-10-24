@@ -91,7 +91,7 @@ const TableComponent = () => {
   const { eqData } = useCustomQuery(period, endDate);
   const filteredRows = eqData
     .filter((data) => data.mag >= minMag)
-    .filter((data) => data.mag <= (maxMag === 8 ? 100 : maxMag));
+    .filter((data) => data.mag < (maxMag === 8 ? 100 : maxMag));
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof DisplayEqData>('time');
