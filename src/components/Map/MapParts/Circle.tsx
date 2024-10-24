@@ -66,6 +66,7 @@ const Circle = (props: CircleProps) => {
         color={magnitudeColor(data.mag)}
         opacity={0.2}
         radius={1}
+        interactive={false}
       />
     </Fragment>
   );

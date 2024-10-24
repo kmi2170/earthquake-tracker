@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  forwardRef,
-  LegacyRef,
-  RefAttributes,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import { Dispatch, forwardRef, SetStateAction, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { AxiosError } from 'axios';
 import L from 'leaflet';
@@ -36,25 +29,45 @@ const useStyles = makeStyles(() => ({
 
 type MapMainProps = {
   circleRadius: number;
+  reset: boolean;
+  setReset: Dispatch<SetStateAction<boolean>>;
 };
 
 const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
-  const { circleRadius } = params;
+  const { circleRadius, reset, setReset } = params;
 
   const mapRef = useRef<L.Map | null>(null);
-
-  useImperativeHandle(ref, () => mapRef.current as L.Map, []);
 
   const classes = useStyles();
 
   const { minMag, maxMag } = useEqMag();
-  const { center, setCenter, initialZoom, zoom, setZoom, selectedId } =
-    useMapData();
+  const {
+    initialCenter,
+    center,
+    setCenter,
+    initialZoom,
+    zoom,
+    setZoom,
+    selectedId,
+  } = useMapData();
   const { endDate, period, timeZone } = useEqDate();
   const { eqData, isFetching, isError, error } = useCustomQuery(
     period,
     endDate,
   );
+
+  useEffect(() => {
+    if (reset && initialCenter && initialZoom) {
+      const resetMap = () => {
+        if (mapRef.current !== null) {
+          mapRef.current.flyTo(initialCenter, initialZoom, { duration: 1 });
+          setReset(false);
+        }
+      };
+
+      resetMap();
+    }
+  }, [reset]);
 
   useEffect(() => {
     if (selectedId) {
@@ -66,7 +79,7 @@ const MapMain = forwardRef<L.Map, MapMainProps>(function MapMain(params, ref) {
         const lng = normalizeLng(selectedEqData[0]?.coordinates[0]);
 
         if (mapRef?.current !== null) {
-          mapRef.current?.flyTo({ lat, lng }, 5, {
+          mapRef?.current?.flyTo({ lat, lng }, 5, {
             duration: 2,
           });
         }
