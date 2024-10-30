@@ -73,12 +73,12 @@ export const magnitudeMarks = [
 ];
 
 export const legends = [
-  { mag: 3, color: magnitudeColor(3) },
-  { mag: 4, color: magnitudeColor(4) },
-  { mag: 5, color: magnitudeColor(5) },
-  { mag: 6, color: magnitudeColor(6) },
-  { mag: 7, color: magnitudeColor(7) },
-  { mag: 8, color: magnitudeColor(8) },
+  { mag: 3, label: '3', color: magnitudeColor(3) },
+  { mag: 4, label: '4', color: magnitudeColor(4) },
+  { mag: 5, label: '5', color: magnitudeColor(5) },
+  { mag: 6, label: '6', color: magnitudeColor(6) },
+  { mag: 7, label: '7', color: magnitudeColor(7) },
+  { mag: 8, label: '< 8', color: magnitudeColor(8) },
 ];
 
 export const tableHeadItems = [

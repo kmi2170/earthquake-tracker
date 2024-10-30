@@ -17,46 +17,10 @@ const Legend = () => {
         Magnitude
       </Typography>
 
-      <Grid container>
-        {legends.map(({ mag, color }) => {
-          return (
-            <Grid key={mag}>
-              <Box
-                sx={{
-                  width: '30px',
-                  height: '20px',
-                  backgroundColor: color,
-                }}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-      <Grid container>
-        {legends.map(({ mag }) => {
-          return (
-            <Grid key={mag}>
-              <Box
-                sx={{
-                  width: '30px',
-                  height: '20px',
-                }}
-              >
-                <Typography
-                  align="left"
-                  variant="body1"
-                  component="span"
-                  marginLeft="-4px"
-                  sx={{
-                    color: mag === 3 ? 'white' : 'black',
-                    fontSize: '1.25rem',
-                  }}
-                >
-                  {mag}
-                </Typography>
-              </Box>
-            </Grid>
-          );
+      <Grid container justifyContent="center" alignItems="center" gap="0.75rem">
+        {legends.map(({ label, color }) => {
+          console.log({ label, color });
+          return <MagIndex key={label} label={label} color={color} />;
         })}
       </Grid>
     </Box>
@@ -64,3 +28,36 @@ const Legend = () => {
 };
 
 export default Legend;
+
+type MagIndexProps = {
+  label: string;
+  color: string;
+};
+
+const MagIndex = (props: MagIndexProps) => {
+  const { label, color } = props;
+
+  return (
+    <Grid
+      container
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      gap="0.25rem"
+    >
+      <Grid>
+        <Box
+          sx={{
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+            backgroundColor: color,
+          }}
+        ></Box>
+      </Grid>
+      <Typography variant="body1" component="span">
+        {label}
+      </Typography>
+    </Grid>
+  );
+};

@@ -88,7 +88,7 @@ const TableComponent = () => {
   const { endDate, period, timeZone } = useEqDate();
   const { setSelectedId } = useMapData();
 
-  const { eqData } = useCustomQuery(period, endDate);
+  const { eqData, isFetching } = useCustomQuery(period, endDate);
   const filteredRows = eqData
     .filter((data) => data.mag >= minMag)
     .filter((data) => data.mag < (maxMag === 8 ? 100 : maxMag));
@@ -130,6 +130,8 @@ const TableComponent = () => {
   const emptyRows =
     rowsPerPage -
     Math.min(rowsPerPage, filteredRows.length - page * rowsPerPage);
+
+  // if (isFetching) return null;
 
   return (
     <div className={classes.root}>
