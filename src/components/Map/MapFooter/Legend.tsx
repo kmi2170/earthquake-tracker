@@ -19,7 +19,6 @@ const Legend = () => {
 
       <Grid container justifyContent="center" alignItems="center" gap="0.75rem">
         {legends.map(({ label, color }) => {
-          console.log({ label, color });
           return <MagIndex key={label} label={label} color={color} />;
         })}
       </Grid>
@@ -48,8 +47,8 @@ const MagIndex = (props: MagIndexProps) => {
       <Grid>
         <Box
           sx={{
-            width: '20px',
-            height: '20px',
+            width: '25px',
+            height: '25px',
             borderRadius: '50%',
             backgroundColor: color,
           }}
