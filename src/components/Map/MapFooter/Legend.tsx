@@ -54,7 +54,7 @@ const MagIndex = (props: MagIndexProps) => {
           }}
         ></Box>
       </Grid>
-      <Typography variant="body1" component="span">
+      <Typography variant="subtitle1" component="span">
         {label}
       </Typography>
     </Grid>

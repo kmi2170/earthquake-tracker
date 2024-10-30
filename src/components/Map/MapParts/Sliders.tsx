@@ -96,7 +96,7 @@ const Sliders = (props: Sliders) => {
       >
         <Typography
           variant="subtitle2"
-          sx={{ marginLeft: '2rem', marginBottom: '-0.25rem' }}
+          sx={{ marginLeft: '1.5rem', marginBottom: '-0.5rem' }}
         >
           Min. Magnitude
         </Typography>
@@ -111,6 +111,7 @@ const Sliders = (props: Sliders) => {
           onChange={handleMagnitudeChange}
           color="secondary"
           sx={{ width: 200 }}
+          defaultValue={50}
           disableSwap
         />
       </Box>
