@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
@@ -53,37 +54,44 @@ const Sliders = (props: Sliders) => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: '0.5rem',
         marginTop: '1rem',
         marginBottom: '2rem',
       }}
     >
-      <Typography
-        variant="subtitle2"
-        sx={{ marginRight: '0rem', marginBottom: '-0.95rem' }}
-      >
-        Circle Radius
-      </Typography>
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           height: '50px',
         }}
       >
-        <MemoizedDot color={dotColor} fontSize={2} marginBottom={0.25} />
-        <Slider
-          max={1}
-          min={0.1}
-          step={0.1}
-          aria-label="circle-radius"
-          value={circleRadius}
-          onChange={handleCircularRadiusChange}
-          sx={{ width: 200 }}
-        />
-        <MemoizedDot color={dotColor} fontSize={7} marginBottom={0.75} />
+        <Typography variant="subtitle2">Circle Radius</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '30px',
+          }}
+        >
+          <MemoizedDot color={dotColor} fontSize={2} marginBottom={0.25} />
+          <Slider
+            max={1}
+            min={0.1}
+            step={0.1}
+            aria-label="circle-radius"
+            value={circleRadius}
+            onChange={handleCircularRadiusChange}
+            sx={{ width: 200 }}
+          />
+          <MemoizedDot color={dotColor} fontSize={7} marginBottom={0.75} />
+        </Box>
       </Box>
+
       <Box
         sx={{
           display: 'flex',
@@ -94,10 +102,7 @@ const Sliders = (props: Sliders) => {
           marginLeft: '-2rem',
         }}
       >
-        <Typography
-          variant="subtitle2"
-          sx={{ marginLeft: '1.5rem', marginBottom: '-0.5rem' }}
-        >
+        <Typography variant="subtitle2" sx={{ marginLeft: '1.5rem' }}>
           Min. Magnitude
         </Typography>
         <Slider
