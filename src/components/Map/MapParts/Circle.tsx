@@ -57,7 +57,7 @@ const Circle = (props: CircleProps) => {
         )}
 
         <Tooltip offset={[20, 0]} opacity={1} permanent={tooltipOpen}>
-          <PopupComponent data={data} timeZone={timeZone} />
+          <PopupComponent data={data} />
         </Tooltip>
       </CircleMarker>
 

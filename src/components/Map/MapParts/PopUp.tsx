@@ -1,20 +1,18 @@
 import Typography from '@mui/material/Typography';
 
 import { DisplayEqData } from '../../../api/types';
-import { formatDateByTimezone } from '../../../utils/formatDateByTimeZone';
-import { TimeZone } from '../../../context/eqDataContext';
+import { getLocalDtFromUnixTime } from '../../../utils/time';
 
 interface PopupContentProps {
   data: DisplayEqData;
-  timeZone: TimeZone;
 }
 
-const PopupContent = ({ data, timeZone }: PopupContentProps) => {
+const PopupContent = ({ data }: PopupContentProps) => {
   return (
     <>
       <Typography variant="h5">M {data?.mag?.toFixed(1)}</Typography>
       <Typography variant="h6" color="textSecondary">
-        {formatDateByTimezone(data.time, timeZone)}
+        {getLocalDtFromUnixTime(data.time / 1000)}
       </Typography>
       <Typography variant="h6">{data?.place}</Typography>
       <Typography variant="h6">
