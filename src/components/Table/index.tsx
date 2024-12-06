@@ -65,8 +65,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
   },
   container: {
-    minHeight: '70vh',
-    maxHeight: '70vh',
+    [theme.breakpoints.down('md')]: {
+      height: '60vh',
+    },
+    [theme.breakpoints.up('md')]: {
+      height: '60vh',
+    },
+    [theme.breakpoints.up('lg')]: {
+      height: '900px',
+    },
+    [theme.breakpoints.up('xl')]: {
+      height: '1000px',
+    },
   },
   visuallyHidden: {
     border: 0,
@@ -131,8 +141,6 @@ const TableComponent = () => {
     rowsPerPage -
     Math.min(rowsPerPage, filteredRows.length - page * rowsPerPage);
 
-  // if (isFetching) return null;
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper} elevation={6}>
@@ -158,34 +166,26 @@ const TableComponent = () => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(({ id, mag: magRaw, time: timeRaw, place }) => {
                     const time = formatDateByTimezone(timeRaw, timeZone);
-                    const mag = Number(magRaw).toLocaleString('en-US', {
-                      maximumFractionDigits: 1,
-                      minimumFractionDigits: 1,
-                    });
+                    const mag = Number(magRaw).toFixed(1);
 
                     return (
                       <Tooltip key={id} title="Click to View the place on Map">
                         <TableRow hover onClick={() => selectIdHandler(id)}>
-                          <TableCell align="center" size="small" padding="none">
+                          <TableCell align="center">
                             <Typography variant="h6" component="p">
                               {mag}
                             </Typography>
                           </TableCell>
-                          <TableCell
-                            align="right"
-                            size="small"
-                            component="p"
-                            padding="none"
-                          >
-                            <Typography variant="h6" component="p">
+                          <TableCell align="left">
+                            <Typography
+                              variant="h6"
+                              component="p"
+                              noWrap={false}
+                            >
                               {place}
                             </Typography>
                           </TableCell>
-                          <TableCell
-                            align="right"
-                            size="small"
-                            padding="normal"
-                          >
+                          <TableCell align="left">
                             <Typography variant="subtitle1" component="p">
                               {time}
                             </Typography>

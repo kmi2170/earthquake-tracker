@@ -39,14 +39,11 @@ const TableHeadComponent = ({
   return (
     <TableHead>
       <TableRow>
-        {tableHeadItems.map(({ id, label }) => (
+        {tableHeadItems.map(({ id, label }, index) => (
           <TableCell
             key={id}
             align="center"
-            padding="normal"
             sortDirection={orderBy === id ? order : false}
-            colSpan={1}
-            size="small"
           >
             {id === 'place' ? (
               <Typography variant="subtitle1" component="h3">
@@ -57,6 +54,7 @@ const TableHeadComponent = ({
                 active={orderBy === id}
                 direction={orderBy === id ? order : 'asc'}
                 onClick={createSortHandler(id as OrderBy)}
+                sx={{ pl: id === 'mag' ? '1.0rem' : null }}
               >
                 <Typography variant="subtitle1" component="h3">
                   {label}
