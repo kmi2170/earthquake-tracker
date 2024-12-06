@@ -16,7 +16,6 @@ const minMagnitude = 3;
 export const useCustomQuery = (period: number, endDate: Dayjs) => {
   const startTime = getTargetUtcDateFromLocalDayjsObjAndPeriod(period, endDate);
   const endTime = getUtcDateFromLocalDayjsObj(endDate);
-  console.log(startTime, endTime);
   const url = requestUrl(minMagnitude, startTime, endTime);
 
   const { data, isFetching, isError, error } = useQuery<RowEqData, Error>(
