@@ -24,6 +24,7 @@ import { useCustomQuery } from '../../hooks/useCustomQuery';
 import { useMapData } from '../../context/useMapData';
 import { useEqDate } from '../../context/useEqDate';
 import { useEqMag } from '../../context/useEqMag';
+import { getLocalDtFromUnixTime } from '../../utils/time';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) return -1;
@@ -165,7 +166,8 @@ const TableComponent = () => {
                 stableSort(filteredRows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(({ id, mag: magRaw, time: timeRaw, place }) => {
-                    const time = formatDateByTimezone(timeRaw, timeZone);
+                    // const time = formatDateByTimezone(timeRaw, timeZone);
+                    const time = getLocalDtFromUnixTime(timeRaw / 1000);
                     const mag = Number(magRaw).toFixed(1);
 
                     return (

@@ -5,14 +5,22 @@ import { useQuery } from 'react-query';
 import { RowEqData } from '../api/types';
 import { fetcher, requestUrl } from '../lib';
 import { extractEqData } from '../utils/extractEqData';
-import { getEndDate, getStartDate } from '../utils/getStartAndEndDate';
 import { Dayjs } from 'dayjs';
+import {
+  getTargetUtcDateFromLocalDayjsObjAndPeriod,
+  getUtcDateFromLocalDayjsObj,
+} from '../utils/time';
 
 const minMagnitude = 3;
 
 export const useCustomQuery = (period: number, endDate: Dayjs) => {
-  const startTime = getStartDate(period, endDate);
-  const endTime = getEndDate(endDate);
+  const startTime = getTargetUtcDateFromLocalDayjsObjAndPeriod(
+    period - 1,
+    endDate,
+  );
+  const endTime = getUtcDateFromLocalDayjsObj(endDate);
+  console.log(startTime, endTime);
+  // const endTime = getEndDate(endDate);
   const url = requestUrl(minMagnitude, startTime, endTime);
 
   const { data, isFetching, isError, error } = useQuery<RowEqData, Error>(
