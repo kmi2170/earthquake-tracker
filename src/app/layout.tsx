@@ -3,11 +3,12 @@ import { Metadata } from 'next';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import theme from '../utils/theme';
+// import theme from '../utils/theme';
 import { EqMapContextProvider } from '../context/eqMapContext ';
 import ReactQueryProvider from '../context/ReactQueryProvider';
 import { EqDateContextProvider } from '../context/eqDateContext';
 import { EqMagContextProvider } from '../context/eqMagContext';
+import theme from '../styles/theme';
 
 export const metadata: Metadata = {
   title: 'Earthquake Tracker',
