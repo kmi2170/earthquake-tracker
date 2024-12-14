@@ -103,7 +103,7 @@ const Sliders = (props: Sliders) => {
         }}
       >
         <Typography variant="subtitle2" sx={{ marginLeft: '1.5rem' }}>
-          Min. Magnitude
+          Magnitude Range
         </Typography>
         <Slider
           min={initialMinMagnitude}
