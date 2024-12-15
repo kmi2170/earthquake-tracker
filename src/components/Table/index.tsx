@@ -73,10 +73,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: '60vh',
     },
     [theme.breakpoints.up('lg')]: {
-      height: '900px',
+      height: '865px',
     },
     [theme.breakpoints.up('xl')]: {
-      height: '1000px',
+      height: '865px',
     },
   },
   visuallyHidden: {
