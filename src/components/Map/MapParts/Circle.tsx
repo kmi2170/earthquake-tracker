@@ -27,7 +27,7 @@ const markerIcon = new L.Icon({
 });
 
 const Circle = (props: CircleProps) => {
-  const { data, timeZone, zoom, circleRadius, selectedId } = props;
+  const { data, zoom, circleRadius, selectedId } = props;
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
@@ -50,6 +50,7 @@ const Circle = (props: CircleProps) => {
         eventHandlers={{
           mouseover: handleMouseOver,
           mouseout: handleMouseOut,
+          click: () => null,
         }}
       >
         {data.id === selectedId && (
