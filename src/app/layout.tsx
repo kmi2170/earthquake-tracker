@@ -3,9 +3,8 @@ import { Metadata } from 'next';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import theme from '../utils/theme';
 import { EqMapContextProvider } from '../context/eqMapContext ';
-import ReactQueryProvider from '../context/ReactQueryProvider';
+import QueryProvider from '../context/QueryProvider';
 import { EqDateContextProvider } from '../context/eqDateContext';
 import { EqMagContextProvider } from '../context/eqMagContext';
 import theme from '../styles/theme';
@@ -31,13 +30,13 @@ export default function RootLayout({
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <ReactQueryProvider>
+            <QueryProvider>
               <EqMagContextProvider>
                 <EqDateContextProvider>
                   <EqMapContextProvider>{children}</EqMapContextProvider>
                 </EqDateContextProvider>
               </EqMagContextProvider>
-            </ReactQueryProvider>
+            </QueryProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
