@@ -15,7 +15,7 @@ using data from [USGS](https://earthquake.usgs.gov/fdsnws/event/1/)
 
 ## Techs
 
-Built with Next.js, Typescript, React query, React Leaflet (Map), Material UI 
+Built with Next.js, Typescript, Tanstack Query, React Leaflet (Map), Material UI 
 
 ### API Calls
 - [USGS](https://earthquake.usgs.gov/fdsnws/event/1/) (Free. No app-key is required)
