@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MapTable from '../components/MapTable';
 
-const Home = () => {
+const Page = () => {
   return (
     <Box
       sx={{
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;
