@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <Typography variant="h6" component="footer" sx={{ marginTop: '1.5rem' }}>
-      &copy; {year} Kemmei H. | Earthquake date by USGC
+      &copy; {year} Kemmei Hamada | Earthquake data by USGC
     </Typography>
   );
 };
